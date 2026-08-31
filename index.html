@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f6cbd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14171c" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="AI-901">
+<title>AI-901 模擬問題集 100問 | Microsoft Azure AI Fundamentals</title>
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#1b1f24; --muted:#5f6672; --line:#e3e6ea;
+  --accent:#0f6cbd; --accent-soft:#e8f1fb; --ok:#0f7b4f; --ok-soft:#e6f4ed;
+  --ng:#b3261e; --ng-soft:#fdeceb; --warn:#8a5a00; --warn-soft:#fdf3e0;
+  --d1:#6b4fbb; --d1-soft:#efeaf9; --d2:#0b6a63; --d2-soft:#e4f2f1;
+  --radius:12px; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06);
+  --navh:0px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#14171c; --panel:#1c2027; --ink:#e9ecef; --muted:#a2abb8; --line:#2c323b;
+    --accent:#6cb2f0; --accent-soft:#16283a; --ok:#5fcf9a; --ok-soft:#132a20;
+    --ng:#ff9a92; --ng-soft:#331a19; --warn:#e5b45c; --warn-soft:#2e2415;
+    --d1:#b3a0f0; --d1-soft:#241f36; --d2:#66c8bf; --d2-soft:#152b29;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button{touch-action:manipulation}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 80px}
+header.top{margin-bottom:18px}
+h1{font-size:1.35rem;margin:0 0 4px;letter-spacing:.01em}
+.sub{color:var(--muted);font-size:.85rem;margin:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.pad{padding:18px}
+.setup{margin-bottom:16px}
+.setup h2{font-size:.95rem;margin:0 0 10px;letter-spacing:.02em}
+.group{margin-bottom:14px}
+.group-label{font-size:.75rem;color:var(--muted);letter-spacing:.06em;margin-bottom:7px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;
+  padding:8px 14px;font-size:.83rem;cursor:pointer;transition:.14s;font-family:inherit;min-height:38px}
+.chip:hover{border-color:var(--accent)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip .n{opacity:.65;font-size:.75rem;margin-left:4px}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:4px}
+button.btn{border:0;border-radius:9px;padding:11px 18px;font-size:.88rem;font-weight:600;
+  cursor:pointer;font-family:inherit;transition:.14s;min-height:44px}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn.sm{padding:8px 12px;font-size:.8rem;min-height:38px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.toggle{display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--muted);cursor:pointer;user-select:none;
+  min-height:38px;padding:0 2px}
+.toggle input{accent-color:var(--accent);width:18px;height:18px}
+.bar{height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 14px}
+.bar > i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:.78rem;color:var(--muted);flex-wrap:wrap}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.7rem;padding:3px 9px;border-radius:999px;font-weight:600;letter-spacing:.03em}
+.tag.d1{background:var(--d1-soft);color:var(--d1)}
+.tag.d2{background:var(--d2-soft);color:var(--d2)}
+.tag.sub{background:var(--accent-soft);color:var(--accent)}
+.tag.multi{background:var(--warn-soft);color:var(--warn)}
+.qtext{font-size:1.02rem;font-weight:600;margin:2px 0 16px;white-space:pre-wrap;line-height:1.75}
+.choices{display:flex;flex-direction:column;gap:9px}
+.choice{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);background:transparent;
+  border-radius:10px;padding:13px 14px;cursor:pointer;text-align:left;font-size:.92rem;color:var(--ink);
+  font-family:inherit;line-height:1.6;transition:.13s;width:100%;min-height:50px}
+.choice:hover:not(.locked){border-color:var(--accent);background:var(--accent-soft)}
+.choice .k{flex:0 0 24px;height:24px;border-radius:6px;border:1px solid var(--line);display:grid;
+  place-items:center;font-size:.74rem;font-weight:700;color:var(--muted);margin-top:1px}
+.choice.sel{border-color:var(--accent);background:var(--accent-soft)}
+.choice.sel .k{background:var(--accent);color:#fff;border-color:var(--accent)}
+.choice.correct{border-color:var(--ok);background:var(--ok-soft)}
+.choice.correct .k{background:var(--ok);color:#fff;border-color:var(--ok)}
+.choice.wrong{border-color:var(--ng);background:var(--ng-soft)}
+.choice.wrong .k{background:var(--ng);color:#fff;border-color:var(--ng)}
+.choice.locked{cursor:default}
+.exp{scroll-margin-bottom:calc(var(--navh) + 18px);margin-top:14px;border-left:3px solid var(--accent);background:var(--accent-soft);
+  border-radius:0 10px 10px 0;padding:12px 15px;font-size:.88rem;display:none}
+.exp.show{display:block}
+.exp .verdict{font-weight:700;margin-bottom:6px;font-size:.9rem}
+.exp .verdict.ok{color:var(--ok)}
+.exp .verdict.ng{color:var(--ng)}
+.exp p{margin:0 0 8px}
+.exp a{color:var(--accent);font-size:.82rem;text-decoration:none;border-bottom:1px solid currentColor}
+.navbar{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.navbar .grow{flex:1 1 auto}
+.score{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+.result h2{font-size:1.15rem;margin:0 0 4px}
+.big{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.big.pass{color:var(--ok)} .big.fail{color:var(--ng)}
+.verdict-line{font-size:.85rem;color:var(--muted);margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:.85rem;margin:12px 0}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600;font-size:.75rem;letter-spacing:.04em}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.rev{border-top:1px solid var(--line);padding-top:12px;margin-top:6px}
+.rev-item{padding:10px 0;border-bottom:1px solid var(--line);font-size:.87rem}
+.rev-item .qn{font-weight:600}
+.rev-item .ans{color:var(--ok);font-size:.83rem}
+.rev-item .yours{color:var(--ng);font-size:.83rem}
+.hide{display:none !important}
+footer{margin-top:22px;font-size:.75rem;color:var(--muted);text-align:center;line-height:1.9}
+footer a{color:var(--muted)}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;font-size:.72rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* ==== 進捗まわり ==== */
+.resume{background:var(--accent-soft);border:1px solid var(--accent);border-radius:var(--radius);
+  padding:14px 16px;margin-bottom:14px}
+.resume .rt{font-weight:700;font-size:.92rem;margin-bottom:2px}
+.resume .rs{font-size:.82rem;color:var(--muted);margin-bottom:10px}
+.stats{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.8rem;color:var(--muted);
+  border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
+.stats b{color:var(--ink);font-variant-numeric:tabular-nums}
+.saved{font-size:.72rem;color:var(--ok);opacity:0;transition:opacity .3s}
+.saved.on{opacity:1}
+.qhead{padding-top:2px}
+
+/* ==== スマホ最適化 ==== */
+@media (max-width: 700px){
+  :root{--navh:64px}
+  .wrap{padding:16px 13px calc(var(--navh) + 28px + env(safe-area-inset-bottom))}
+  h1{font-size:1.12rem;line-height:1.45}
+  .pad{padding:14px}
+  header.top{margin-bottom:14px}
+  .sub{font-size:.78rem}
+  .qtext{font-size:1.04rem;margin-bottom:14px}
+  .choice{padding:14px 13px;font-size:.95rem;min-height:56px;gap:10px}
+  .choice .k{flex:0 0 26px;height:26px;font-size:.78rem}
+  .exp{font-size:.9rem;padding:13px 14px}
+  .chip{padding:9px 14px;font-size:.85rem;min-height:42px}
+  .chips{gap:8px}
+  .toggle{font-size:.86rem;min-height:42px;width:100%}
+  table{font-size:.8rem}
+  th,td{padding:8px 4px}
+  .big{font-size:2.1rem}
+  .kbdhint{display:none}
+
+  /* 問題ヘッダーを画面上部に固定 */
+  #quiz .qhead{position:sticky;top:0;z-index:15;background:var(--bg);
+    padding:8px 0 2px;margin:0 -13px;padding-left:13px;padding-right:13px}
+  .meta{margin-bottom:8px;font-size:.75rem}
+
+  /* 操作バーを画面下部に固定（片手で届く位置） */
+  #quiz .navbar{position:fixed;left:0;right:0;bottom:0;z-index:20;margin:0;
+    background:var(--panel);border-top:1px solid var(--line);
+    padding:9px 13px calc(9px + env(safe-area-inset-bottom));
+    box-shadow:0 -2px 14px rgba(0,0,0,.07);flex-wrap:nowrap;gap:8px}
+  #quiz .navbar .btn{min-height:48px;font-size:.92rem;padding:12px 16px}
+  #quiz .navbar #checkBtn,#quiz .navbar #nextBtn{flex:1 1 auto}
+  #quiz .navbar #quitBtn{flex:0 0 auto;min-height:48px}
+  #result .row .btn,#setup .row .btn{flex:1 1 100%;justify-content:center}
+  .resume .row .btn{flex:1 1 100%}
+  /* 解答中はヘッダー・注記を畳んで画面を広く使う */
+  body.quiz-on header.top{display:none}
+  body.quiz-on > .wrap > footer{display:none}
+  body.quiz-on .wrap{padding-top:6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>AI-901 模擬問題集 — 全100問</h1>
+  <p class="sub">Microsoft Azure AI Fundamentals（AI-900 の後継）／ 公式スキル配点比率に準拠：AI概念 40–45% ・ Foundry実装 55–60% ／ 合格ライン 700点</p>
+</header>
+
+<!-- ===== SETUP ===== -->
+<section id="setup">
+
+  <div class="resume hide" id="resumeBox">
+    <div class="rt" id="resumeTitle">前回の続きがあります</div>
+    <div class="rs" id="resumeSub"></div>
+    <div class="row">
+      <button class="btn primary" id="resumeBtn">続きから再開</button>
+      <button class="btn ghost" id="discardBtn">やめて最初から選ぶ</button>
+    </div>
+  </div>
+
+  <div class="card pad setup">
+    <h2>出題範囲を選ぶ</h2>
+
+    <div class="group">
+      <div class="group-label">ドメイン</div>
+      <div class="chips" id="domChips"></div>
+    </div>
+
+    <div class="group">
+      <div class="group-label">サブトピック</div>
+      <div class="chips" id="subChips"></div>
+    </div>
+
+    <div class="group">
+      <div class="group-label">出題数</div>
+      <div class="chips" id="countChips"></div>
+    </div>
+
+    <div class="row">
+      <button class="btn primary" id="startBtn">開始する</button>
+      <label class="toggle"><input type="checkbox" id="shuffleQ" checked>問題をシャッフル</label>
+      <label class="toggle"><input type="checkbox" id="shuffleC" checked>選択肢をシャッフル</label>
+      <label class="toggle"><input type="checkbox" id="instant" checked>即時採点（解答後すぐ解説）</label>
+    </div>
+    <p class="sub" style="margin-top:12px">選択中：<span id="poolInfo">—</span></p>
+
+    <div class="stats" id="statsBox">
+      <span>学習記録：<b id="stSeen">0</b> / 100 問に解答済み　／　苦手（最後に不正解）<b id="stWeak">0</b> 問</span>
+      <span class="grow" style="flex:1 1 auto"></span>
+      <button class="btn ghost sm" id="weakBtn">苦手だけ出題</button>
+      <button class="btn ghost sm" id="resetBtn">記録をリセット</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUIZ ===== -->
+<section id="quiz" class="hide">
+  <div class="qhead">
+    <div class="bar"><i id="progFill"></i></div>
+    <div class="meta">
+      <div class="tags" id="qTags"></div>
+      <div><span id="qPos"></span> ／ 正答 <span class="score" id="qScore">0</span></div>
+    </div>
+  </div>
+  <div class="card pad">
+    <div class="qtext" id="qText"></div>
+    <div class="choices" id="qChoices"></div>
+    <div class="exp" id="qExp"></div>
+  </div>
+  <div class="navbar">
+    <button class="btn ghost sm" id="quitBtn">中断</button>
+    <button class="btn ghost" id="checkBtn">採点する</button>
+    <button class="btn primary" id="nextBtn">次へ</button>
+  </div>
+  <footer class="kbdhint"><kbd>1</kbd>–<kbd>9</kbd> 選択　<kbd>Enter</kbd> 採点 / 次へ　／　進捗はこの端末に自動保存されます <span class="saved" id="savedMark">保存しました</span></footer>
+</section>
+
+<!-- ===== RESULT ===== -->
+<section id="result" class="hide">
+  <div class="card pad result">
+    <h2>結果</h2>
+    <div class="big" id="rScore">—</div>
+    <div class="verdict-line" id="rVerdict"></div>
+    <table>
+      <thead><tr><th>サブトピック</th><th class="num">正答</th><th class="num">出題</th><th class="num">正答率</th></tr></thead>
+      <tbody id="rTable"></tbody>
+    </table>
+    <div class="row">
+      <button class="btn primary" id="againBtn">同じ条件でもう一度</button>
+      <button class="btn ghost" id="wrongBtn">間違えた問題だけ復習</button>
+      <button class="btn ghost" id="backBtn">設定に戻る</button>
+    </div>
+    <div class="rev" id="rReview"></div>
+  </div>
+</section>
+
+<footer>
+  出題範囲は Microsoft Learn 公式の Exam AI-901 スキル測定（2026年4月15日版）に基づく独自作成の演習問題です。本番の実問題ではありません。<br>
+  参照：<a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-901">Study guide for Exam AI-901</a>
+</footer>
+
+</div>
+
+<script>
+const QUESTIONS = [{"id": 1, "d": "D1", "s": "責任あるAI", "t": "single", "q": "採用スクリーニング用のAIモデルが、特定の属性グループに対して他より著しく低い合格率を出していることが分かりました。最も直接的に関係する「責任あるAI（Responsible AI）」の原則はどれですか。", "c": ["公平性（Fairness）", "透明性（Transparency）", "説明責任（Accountability）", "プライバシーとセキュリティ（Privacy and security）"], "a": [0], "e": "特定のグループが不利に扱われる＝Fairness（公平性）の問題です。Microsoft は Fairness を「AI システムはすべての人を公平に扱うべき」と定義しており、Foundry の評価機能やデータの偏り是正で対処します。", "r": {"title": "Microsoft Responsible AI の原則", "url": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai"}}, {"id": 2, "d": "D1", "s": "責任あるAI", "t": "single", "q": "医療診断支援AIを本番投入する前に、想定外の入力でも安全に動作するか徹底的にテストし、異常時のフォールバックを用意しました。これはどの原則に該当しますか。", "c": ["信頼性と安全性（Reliability and safety）", "包摂性（Inclusiveness）", "公平性（Fairness）", "透明性（Transparency）"], "a": [0], "e": "Reliability and safety は「AI は一貫して、安全に、想定外の状況でも確実に動作すべき」という原則です。徹底したテスト・監視・フォールバック設計が典型的な実装です。", "r": {"title": "Responsible AI の原則", "url": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai"}}, {"id": 3, "d": "D1", "s": "責任あるAI", "t": "single", "q": "チャットボットが利用者に対して「私は AI アシスタントです」と自己開示し、回答の根拠となった文書を引用として提示します。これはどの原則を最もよく体現していますか。", "c": ["透明性（Transparency）", "信頼性と安全性（Reliability and safety）", "包摂性（Inclusiveness）", "説明責任（Accountability）"], "a": [0], "e": "Transparency は「AI システムは理解可能であるべき」という原則。AI であることの開示、能力と限界の説明、引用（citation/grounding）の提示が代表例です。", "r": {"title": "Responsible AI の原則", "url": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai"}}, {"id": 4, "d": "D1", "s": "責任あるAI", "t": "single", "q": "音声認識アプリを、聴覚障がい・視覚障がいのあるユーザーやさまざまな方言の話者でも使えるように設計しました。該当する原則はどれですか。", "c": ["包摂性（Inclusiveness）", "公平性（Fairness）", "プライバシーとセキュリティ（Privacy and security）", "説明責任（Accountability）"], "a": [0], "e": "Inclusiveness は「AI はあらゆる人に力を与え、誰も排除しない」という原則。アクセシビリティ対応や多様な話者・言語への対応が典型です。Fairness は「同じ扱いをするか」であるのに対し、Inclusiveness は「そもそも使えるか」に着目します。", "r": {"title": "Responsible AI の原則", "url": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai"}}, {"id": 5, "d": "D1", "s": "責任あるAI", "t": "single", "q": "AI システムの設計・運用について、最終的に人間と組織が責任を負い、ガバナンスと内部監査の枠組みを整備しました。該当する原則はどれですか。", "c": ["説明責任（Accountability）", "透明性（Transparency）", "信頼性と安全性（Reliability and safety）", "包摂性（Inclusiveness）"], "a": [0], "e": "Accountability は「AI を設計・運用する人間が最終的な責任を負う」原則です。ガバナンス、監査、人間による監督（human oversight）が実装手段になります。", "r": {"title": "Responsible AI の原則", "url": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai"}}, {"id": 6, "d": "D1", "s": "責任あるAI", "t": "single", "q": "顧客の個人情報を含むデータでモデルをテストする際、データを匿名化し、アクセスをロールベースで制限しました。該当する原則はどれですか。", "c": ["プライバシーとセキュリティ（Privacy and security）", "公平性（Fairness）", "説明責任（Accountability）", "包摂性（Inclusiveness）"], "a": [0], "e": "Privacy and security は、AI が扱うデータの保護とシステムの安全確保を求める原則です。匿名化、暗号化、RBAC、ネットワーク分離などが実装手段です。", "r": {"title": "Responsible AI の原則", "url": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai"}}, {"id": 7, "d": "D1", "s": "責任あるAI", "t": "multi", "q": "生成AIアプリで有害コンテンツのリスクを下げるために取れる対策を2つ選んでください。", "c": ["コンテンツフィルター（content filter）の重大度しきい値を構成する", "システムメッセージ（system prompt）で禁止事項と回答方針を明示する", "temperature を 2.0 に上げる", "モデルのデプロイ種別を Global Batch に変更する"], "a": [0, 1], "e": "Foundry ではモデルデプロイにコンテンツフィルターを適用し、カテゴリ（hate/sexual/violence/self-harm）ごとに重大度しきい値を設定できます。加えてシステムメッセージでガードレールを与えるのが基本です。temperature 上昇はむしろランダム性を増し、デプロイ種別は安全性と無関係です。", "r": {"title": "コンテンツフィルター", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/content-filter"}}, {"id": 8, "d": "D1", "s": "責任あるAI", "t": "single", "q": "生成AIソリューションの責任あるAI実践は、一般に4段階で進めます。正しい順序はどれですか。", "c": ["Map（特定）→ Measure（測定）→ Manage（軽減）→ Operate（運用）", "Measure → Map → Operate → Manage", "Manage → Map → Measure → Operate", "Operate → Measure → Map → Manage"], "a": [0], "e": "Microsoft の生成AI向け責任あるAIプロセスは、潜在的な害を Map（特定）し、その存在を Measure（測定）し、緩和策を Manage（実施）し、最後に Operate（責任ある形で運用・監視）します。", "r": {"title": "生成AIの責任ある運用", "url": "https://learn.microsoft.com/en-us/training/modules/responsible-generative-ai/"}}, {"id": 9, "d": "D1", "s": "責任あるAI", "t": "single", "q": "生成AIが事実と異なる内容を、もっともらしく自信を持って出力する現象を何と呼びますか。", "c": ["ハルシネーション（hallucination）", "グラウンディング（grounding）", "ファインチューニング（fine-tuning）", "トークン化（tokenization）"], "a": [0], "e": "hallucination は、モデルが根拠のない情報を生成する現象です。対策として RAG（検索による grounding）や引用の提示、評価（evaluation）が有効です。", "r": {"title": "生成AIの責任ある運用", "url": "https://learn.microsoft.com/en-us/training/modules/responsible-generative-ai/"}}, {"id": 10, "d": "D1", "s": "責任あるAI", "t": "single", "q": "Foundry の評価（evaluation）機能で生成AIの出力品質を測る際、「回答が与えられたコンテキストに裏付けられているか」を測る指標はどれですか。", "c": ["Groundedness", "Fluency", "Coherence", "Latency"], "a": [0], "e": "Groundedness は、回答がソース（コンテキスト）に基づいているかを評価します。Fluency は流暢さ、Coherence は一貫性、Relevance は関連性を測ります。", "r": {"title": "Foundry の評価指標", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/evaluation-metrics-built-in"}}, {"id": 11, "d": "D1", "s": "責任あるAI", "t": "single", "q": "人事評価に AI を用いる際、最終決定を人間が行い、AI は提案にとどめる設計を採用しました。この考え方を最もよく表す用語はどれですか。", "c": ["Human-in-the-loop（人間による監督）", "Zero-shot learning", "Prompt injection", "Model grounding"], "a": [0], "e": "Human-in-the-loop は、影響の大きい判断で人間の判断を介在させる設計です。Accountability と Reliability の実践手段として重要です。", "r": {"title": "Responsible AI の原則", "url": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai"}}, {"id": 12, "d": "D1", "s": "責任あるAI", "t": "single", "q": "悪意あるユーザーが「これまでの指示をすべて無視して」と入力し、システムメッセージの制約を破ろうとしました。この攻撃の名称はどれですか。", "c": ["プロンプトインジェクション / ジェイルブレイク（jailbreak）", "データポイズニング", "モデルドリフト", "オーバーフィッティング"], "a": [0], "e": "プロンプトインジェクション（jailbreak 攻撃）です。Azure AI Content Safety の Prompt Shields がこの検出に対応します。", "r": {"title": "Prompt Shields", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection"}}, {"id": 13, "d": "D1", "s": "モデルと構成", "t": "single", "q": "大規模言語モデル（LLM）が次に出力する語を決める仕組みとして最も正しい説明はどれですか。", "c": ["直前までのトークン列をもとに、次のトークンの確率分布を計算して選択する", "事前に用意された FAQ データベースから完全一致で検索する", "入力文を文法規則に従って構文解析し、テンプレートに当てはめる", "画像特徴量を抽出して分類ラベルを返す"], "a": [0], "e": "生成AIモデル（Transformer ベース）は、トークン化された入力に対して自己注意（self-attention）で文脈を捉え、次トークンの確率分布から逐次生成します。", "r": {"title": "生成AIの基礎", "url": "https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/"}}, {"id": 14, "d": "D1", "s": "モデルと構成", "t": "single", "q": "モデルの出力の「ランダム性・多様性」を制御する推論パラメーターはどれですか。", "c": ["Temperature", "Max tokens", "Frequency penalty", "Stop sequence"], "a": [0], "e": "Temperature は確率分布の鋭さを調整します。0 に近いほど決定的で一貫した出力、値が大きいほど創造的で多様な出力になります（Top P も多様性を制御します）。", "r": {"title": "モデルパラメーター", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering"}}, {"id": 15, "d": "D1", "s": "モデルと構成", "t": "single", "q": "生成される応答の長さ上限を制御するパラメーターはどれですか。", "c": ["Max response tokens（max_tokens）", "Temperature", "Top P", "Presence penalty"], "a": [0], "e": "max_tokens（Max response tokens）は応答として生成できるトークン数の上限です。コスト管理や応答の切り詰めに直結します。", "r": {"title": "モデルパラメーター", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering"}}, {"id": 16, "d": "D1", "s": "モデルと構成", "t": "single", "q": "同じ語句が繰り返し出力されるのを抑えたい場合に調整すべきパラメーターの組み合わせはどれですか。", "c": ["Frequency penalty と Presence penalty", "Max tokens と Stop sequence", "Temperature と Max tokens", "Top P と Seed"], "a": [0], "e": "Frequency penalty は出現回数に比例して、Presence penalty は一度でも出現したトークンに対してペナルティを与え、繰り返しを抑制します。", "r": {"title": "モデルパラメーター", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering"}}, {"id": 17, "d": "D1", "s": "モデルと構成", "t": "single", "q": "テキストを意味的なベクトルに変換し、類似度検索（ベクトル検索）に使うモデルの種類はどれですか。", "c": ["Embedding モデル（例: text-embedding-3-large）", "チャット補完モデル（例: gpt-4o）", "画像生成モデル（例: DALL·E 3）", "音声合成モデル"], "a": [0], "e": "Embedding モデルはテキストを高次元ベクトルに変換します。RAG のインデックス作成やセマンティック検索の基盤になります。", "r": {"title": "Foundry Models 概要", "url": "https://learn.microsoft.com/en-us/azure/foundry/concepts/foundry-models-overview"}}, {"id": 18, "d": "D1", "s": "モデルと構成", "t": "single", "q": "画像とテキストの両方を入力として受け取り、画像の内容について回答できるモデルを何と呼びますか。", "c": ["マルチモーダルモデル（multimodal model）", "埋め込みモデル（embedding model）", "分類モデル（classification model）", "回帰モデル（regression model）"], "a": [0], "e": "multimodal model は複数モダリティ（テキスト・画像・音声など）を扱えるモデルです。AI-901 では gpt-4o などのマルチモーダルモデルに画像や音声を渡すシナリオが問われます。", "r": {"title": "Foundry Models 概要", "url": "https://learn.microsoft.com/en-us/azure/foundry/concepts/foundry-models-overview"}}, {"id": 19, "d": "D1", "s": "モデルと構成", "t": "single", "q": "コストを最小限に抑えつつ、100万件の問い合わせ履歴を一括で要約したい。応答は24時間以内に得られればよい。最適なデプロイ種別はどれですか。", "c": ["Global Batch", "Global Standard", "Global Provisioned（PTU）", "Developer"], "a": [0], "e": "Global Batch は非同期の大規模ジョブ向けで、約50%割引・24時間ターンアラウンドが目標です。即時応答が不要なバルク処理に最適です。", "r": {"title": "デプロイ種別の理解", "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types"}}, {"id": 20, "d": "D1", "s": "モデルと構成", "t": "single", "q": "EU のデータ境界内でのみプロンプトと応答を処理する必要があり、かつ従量課金で使いたい。適切なデプロイ種別はどれですか。", "c": ["Data Zone Standard", "Global Standard", "Global Batch", "Developer"], "a": [0], "e": "Data Zone デプロイは、指定されたデータゾーン（US / EU / APAC）内のみで推論を処理します。Standard は従量課金（トークン単位）です。", "r": {"title": "デプロイ種別の理解", "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types"}}, {"id": 21, "d": "D1", "s": "モデルと構成", "t": "single", "q": "レイテンシのばらつきを抑え、予測可能な高スループットを保証したい本番システムに適したデプロイ種別はどれですか。", "c": ["Provisioned（PTU：Provisioned Throughput Units）", "Standard（従量課金）", "Global Batch", "Developer"], "a": [0], "e": "Provisioned（Global / Data Zone / Regional）は容量を予約（PTU）することで、安定した低レイテンシとスループットを確保します。", "r": {"title": "Provisioned throughput", "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/provisioned-throughput"}}, {"id": 22, "d": "D1", "s": "モデルと構成", "t": "single", "q": "最も高いクォータと最も広いモデル可用性を得たい汎用ワークロードに、既定で推奨されるデプロイ種別はどれですか。", "c": ["Global Standard", "Standard（単一リージョン）", "Data Zone Batch", "Regional Provisioned"], "a": [0], "e": "Global Standard は Azure のグローバルインフラにトラフィックをルーティングし、最も高い初期クォータと最新モデルの提供を受けられます。データ所在地の要件がない限り既定の選択肢です。", "r": {"title": "デプロイ種別の理解", "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/deployment-types"}}, {"id": 23, "d": "D1", "s": "モデルと構成", "t": "single", "q": "社内の専門用語や独自の回答スタイルをモデルに恒久的に学習させたい。最も適したアプローチはどれですか。", "c": ["ファインチューニング（fine-tuning）", "RAG（検索拡張生成）", "Temperature を下げる", "Global Batch へのデプロイ"], "a": [0], "e": "fine-tuning は追加学習でモデル自体の振る舞いを変えます。一方 RAG は「最新・社内データの事実を参照させたい」場合に適します。頻繁に変わる情報は RAG、スタイル/形式の固定は fine-tuning が定石です。", "r": {"title": "ファインチューニング", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/fine-tuning-overview"}}, {"id": 24, "d": "D1", "s": "モデルと構成", "t": "single", "q": "最新の社内規程 PDF に基づいて回答するチャットボットを作りたい。モデル自体は再学習させたくない。最も適した手法はどれですか。", "c": ["RAG（Retrieval Augmented Generation）でデータをグラウンディングする", "モデルをファインチューニングする", "max_tokens を最大化する", "Provisioned デプロイに変更する"], "a": [0], "e": "RAG は検索で関連文書を取得し、プロンプトに含めて回答を根拠づける手法です。データが頻繁に更新される場合や、引用を示したい場合に最適です。", "r": {"title": "RAG の概要", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/retrieval-augmented-generation"}}, {"id": 25, "d": "D1", "s": "モデルと構成", "t": "single", "q": "プロンプト内に「入力例と期待する出力例」を2〜3組示して、モデルに形式を学ばせる手法を何と呼びますか。", "c": ["Few-shot プロンプティング", "Zero-shot プロンプティング", "ファインチューニング", "蒸留（distillation）"], "a": [0], "e": "例を与えるのが few-shot、例を与えず指示だけなのが zero-shot です。重みは更新されないため fine-tuning とは異なります。", "r": {"title": "プロンプトエンジニアリング", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering"}}, {"id": 26, "d": "D1", "s": "モデルと構成", "t": "single", "q": "モデルが一度に扱えるトークン数の上限（入力＋出力）を指す用語はどれですか。", "c": ["コンテキストウィンドウ（context window）", "クォータ（quota）", "レイテンシ", "PTU"], "a": [0], "e": "context window はモデルが一度に保持できるトークン量です。長文書を扱う際はチャンク分割や要約が必要になります。", "r": {"title": "Foundry Models 概要", "url": "https://learn.microsoft.com/en-us/azure/foundry/concepts/foundry-models-overview"}}, {"id": 27, "d": "D1", "s": "モデルと構成", "t": "multi", "q": "Foundry のモデルカタログでモデルを選ぶ際に考慮すべき観点として適切なものを3つ選んでください。", "c": ["タスク適合性（チャット / 埋め込み / 画像生成など）", "コンテキストウィンドウとコスト（トークン単価）", "モダリティ対応（テキスト / 画像 / 音声）とリージョン可用性", "モデル名のアルファベット順"], "a": [0, 1, 2], "e": "モデル選定は「タスク」「性能・コスト」「モダリティとリージョン/デプロイ可用性」の観点で行います。名前の順序は無関係です。", "r": {"title": "モデル選定", "url": "https://learn.microsoft.com/en-us/azure/foundry/concepts/foundry-models-overview"}}, {"id": 28, "d": "D1", "s": "AIワークロード", "t": "single", "q": "顧客レビューの文章を読み取り「肯定的 / 否定的 / 中立」を判定する処理はどれに分類されますか。", "c": ["センチメント分析（sentiment analysis）", "エンティティ検出（entity recognition）", "要約（summarization）", "キーフレーズ抽出（key phrase extraction）"], "a": [0], "e": "sentiment analysis は文章の感情極性とスコアを返します。Azure AI Language（Foundry Tools）の代表機能です。", "r": {"title": "テキスト分析", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/sentiment-opinion-mining/overview"}}, {"id": 29, "d": "D1", "s": "AIワークロード", "t": "single", "q": "文章から「Microsoft」「東京」「2026年8月13日」といった要素を検出し、組織・場所・日付として分類する技術はどれですか。", "c": ["固有表現認識（NER：Named Entity Recognition）", "キーフレーズ抽出", "言語検出", "要約"], "a": [0], "e": "NER（エンティティ検出）はテキスト中の実体を抽出しカテゴリ分類します。PII 検出も関連機能です。", "r": {"title": "Named Entity Recognition", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/named-entity-recognition/overview"}}, {"id": 30, "d": "D1", "s": "AIワークロード", "t": "single", "q": "長文の議事録から「議論の主題を表す語句のリスト」だけを取り出したい。最も適した技術はどれですか。", "c": ["キーフレーズ抽出（key phrase extraction）", "センチメント分析", "翻訳", "話者認識"], "a": [0], "e": "key phrase extraction は文書の主要な語句を抽出します。要約（summarization）が文章を生成するのに対し、キーフレーズ抽出は語句のリストを返します。", "r": {"title": "キーフレーズ抽出", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/key-phrase-extraction/overview"}}, {"id": 31, "d": "D1", "s": "AIワークロード", "t": "single", "q": "100ページの報告書を3段落程度にまとめたい。適した技術はどれですか。", "c": ["要約（summarization）", "エンティティ検出", "言語検出", "OCR"], "a": [0], "e": "summarization は抽出型（extractive：重要文を抜き出す）と抽象型（abstractive：新しい文を生成する）があります。生成AIモデルでも実現できます。", "r": {"title": "要約", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/summarization/overview"}}, {"id": 32, "d": "D1", "s": "AIワークロード", "t": "single", "q": "会議の録音をリアルタイムで文字起こししたい。該当する機能はどれですか。", "c": ["Speech to text（音声テキスト変換）", "Text to speech（テキスト音声化）", "Speaker recognition", "Pronunciation assessment"], "a": [0], "e": "Speech to text は音声をテキストに変換します。リアルタイム、Fast transcription（録音ファイルの高速処理）、Batch transcription（大量非同期）の3形態があります。", "r": {"title": "Azure Speech 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview"}}, {"id": 33, "d": "D1", "s": "AIワークロード", "t": "single", "q": "IVR（自動音声応答）で、テキストの案内文を自然な声で読み上げたい。該当する機能はどれですか。", "c": ["Text to speech（音声合成）", "Speech to text", "Language identification", "Speech translation"], "a": [0], "e": "Text to speech（音声合成）はテキストを音声に変換します。ニューラルボイス、SSML による発音/速度/ピッチ制御、カスタムボイスが利用できます。", "r": {"title": "Text to speech 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/text-to-speech"}}, {"id": 34, "d": "D1", "s": "AIワークロード", "t": "single", "q": "合成音声の発音・話速・間・ピッチを細かく制御するために使うマークアップ言語はどれですか。", "c": ["SSML（Speech Synthesis Markup Language）", "XAML", "YAML", "JSON Schema"], "a": [0], "e": "SSML は XML ベースのマークアップで、prosody（速度/ピッチ/音量）、break（間）、phoneme（発音）などを指定できます。", "r": {"title": "SSML", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup"}}, {"id": 35, "d": "D1", "s": "AIワークロード", "t": "single", "q": "語学学習アプリで、学習者の発話の正確さや流暢さを採点したい。適した機能はどれですか。", "c": ["Pronunciation assessment（発音評価）", "Speaker verification", "Custom speech", "Batch transcription"], "a": [0], "e": "Pronunciation assessment は発音の精度・流暢さ・完全性などを評価し、学習者にフィードバックを返します。", "r": {"title": "Azure Speech 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview"}}, {"id": 36, "d": "D1", "s": "AIワークロード", "t": "single", "q": "画像に写っている物体の位置を四角形（バウンディングボックス）付きで特定するコンピュータービジョンのタスクはどれですか。", "c": ["物体検出（object detection）", "画像分類（image classification）", "OCR", "セマンティックセグメンテーション"], "a": [0], "e": "object detection は「何が」「どこに」あるかをバウンディングボックスで返します。image classification は画像全体に1つ（または複数）のラベルを付けるだけです。", "r": {"title": "コンピュータービジョン概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/overview"}}, {"id": 37, "d": "D1", "s": "AIワークロード", "t": "single", "q": "紙の請求書をスキャンした画像から、印字・手書きの文字をテキストとして読み取る技術はどれですか。", "c": ["OCR（光学文字認識 / Read API）", "画像分類", "顔検出", "画像生成"], "a": [0], "e": "OCR は画像内の文字をテキスト化します。文書の構造やフィールドまで理解して構造化したい場合は Content Understanding を使います。", "r": {"title": "OCR", "url": "https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/overview-ocr"}}, {"id": 38, "d": "D1", "s": "AIワークロード", "t": "single", "q": "テキストの説明文から新しいイラストを作り出すモデルの種類はどれですか。", "c": ["画像生成モデル（image generation model、例: DALL·E / GPT-image）", "画像分類モデル", "埋め込みモデル", "音声認識モデル"], "a": [0], "e": "画像生成モデルはテキストプロンプト（および参照画像）から新しい画像を生成します。サイズ・品質・枚数などのパラメーターを指定できます。", "r": {"title": "画像生成", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/dall-e"}}, {"id": 39, "d": "D1", "s": "AIワークロード", "t": "single", "q": "目標を与えると、自らツールを呼び出しながら複数ステップのタスクを自律的に遂行する AI の形態を何と呼びますか。", "c": ["エージェント型AI（agentic AI）", "生成AI（単発の応答生成のみ）", "予測モデル", "ルールベースシステム"], "a": [0], "e": "agentic AI は、モデル（推論）＋ instructions（指示）＋ tools（行動手段）＋ memory/knowledge を組み合わせ、自律的にタスクを進めます。Foundry Agent Service がその実装基盤です。", "r": {"title": "Foundry Agent Service", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/overview"}}, {"id": 40, "d": "D1", "s": "AIワークロード", "t": "multi", "q": "Azure Content Understanding が情報抽出の対象にできるモダリティを3つ選んでください。", "c": ["ドキュメント（PDF・帳票）", "画像", "音声・動画", "リレーショナルデータベースのテーブル"], "a": [0, 1, 2], "e": "Content Understanding はドキュメント / 画像 / 音声 / 動画の4モダリティに対応します。構造化済みの RDB テーブルは対象外です。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 41, "d": "D1", "s": "AIワークロード", "t": "single", "q": "カメラ映像から製造ラインの不良品を自動判別したい。最も適した AI ワークロードはどれですか。", "c": ["コンピュータービジョン（画像分類 / 物体検出）", "自然言語処理", "音声認識", "情報抽出（ドキュメント）"], "a": [0], "e": "画像・映像から視覚的な判断を行うのはコンピュータービジョンの領域です。異常検知は分類または物体検出として実装します。", "r": {"title": "コンピュータービジョン概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/overview"}}, {"id": 42, "d": "D1", "s": "AIワークロード", "t": "single", "q": "コールセンターの通話録音から、通話ごとの要約・話題・顧客の感情を JSON で取り出したい。最も適したサービスはどれですか。", "c": ["Content Understanding（音声アナライザー）", "Text to speech", "画像生成モデル", "Embedding モデル"], "a": [0], "e": "Content Understanding は音声/動画から文字起こしに加え、定義したフィールドスキーマに沿って構造化データ（JSON）を抽出できます。ポストコール分析は代表的なユースケースです。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 43, "d": "D1", "s": "AIワークロード", "t": "single", "q": "多言語のユーザーからの問い合わせに対し、まず入力が何語かを自動判定したい。適した機能はどれですか。", "c": ["言語検出（language detection）", "センチメント分析", "キーフレーズ抽出", "要約"], "a": [0], "e": "language detection は入力テキストの言語と信頼度スコアを返します。判定不能な場合は unknown を返します。", "r": {"title": "言語検出", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/language-detection/overview"}}, {"id": 44, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "Microsoft Foundry ポータルでモデルをデプロイした後、コードを書かずに動作を試したい場合に最初に使う機能はどれですか。", "c": ["Playground（チャット プレイグラウンド）", "Azure Portal のメトリックエクスプローラー", "Azure Cloud Shell", "Content Understanding のアナライザー"], "a": [0], "e": "Foundry ポータルの Playground では、システムメッセージ・パラメーター・入力を対話的に変更しながらモデルを試せます。動作確認後にコードへ落とすのが標準の流れです。", "r": {"title": "Foundry ポータル", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/what-is-azure-ai-foundry"}}, {"id": 45, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "モデルの役割・トーン・禁止事項をあらかじめ定義し、ユーザー入力より優先して適用したい。どこに記述しますか。", "c": ["システムメッセージ（system prompt / instructions）", "ユーザーメッセージ", "アシスタントメッセージ", "Stop sequence"], "a": [0], "e": "システムメッセージはモデルの振る舞いの土台を定義します。ユーザーメッセージは個々の要求、アシスタントメッセージはモデルの応答（few-shot の例示にも使う）です。", "r": {"title": "プロンプトエンジニアリング", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering"}}, {"id": 46, "d": "D2", "s": "生成AIとエージェント", "t": "multi", "q": "効果的なプロンプトを書くためのプラクティスとして適切なものを3つ選んでください。", "c": ["出力形式（JSON、表、箇条書き、文字数）を明示する", "期待する入出力の例（few-shot）を示す", "タスクを明確・具体的に記述し、曖昧な指示を避ける", "可能な限り短い単語のみで書き、文脈は与えない"], "a": [0, 1, 2], "e": "明確な指示、出力形式の指定、例示（few-shot）、必要な文脈の提供が基本原則です。文脈を削ることは品質低下につながります。", "r": {"title": "プロンプトエンジニアリング", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering"}}, {"id": 47, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "モデルに段階的な推論をさせて複雑な問題の正答率を上げたいとき、プロンプトに加える定番の指示はどれですか。", "c": ["「順を追って考えてください（think step by step）」と促す", "「できるだけ短く答えてください」と促す", "temperature を 1.5 に設定する", "stop sequence を空文字にする"], "a": [0], "e": "Chain-of-Thought（思考の連鎖）プロンプティングです。推論過程を明示させることで、多段の推論が必要な問題の精度が向上します。", "r": {"title": "プロンプトエンジニアリング", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/concepts/prompt-engineering"}}, {"id": 48, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "Foundry SDK（Python）で軽量なチャットクライアントを作る際、プロジェクトへの接続に使うクライアントクラスはどれですか。", "c": ["AIProjectClient（azure-ai-projects）", "BlobServiceClient", "SearchClient", "ComputerVisionClient"], "a": [0], "e": "azure-ai-projects の AIProjectClient に project endpoint と資格情報（DefaultAzureCredential など）を渡して接続し、そこから OpenAI クライアントやエージェント機能を利用します。", "r": {"title": "Foundry SDK", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/sdk-overview"}}, {"id": 49, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "次のコードの空欄に入る、Foundry プロジェクトへ Entra ID で認証するための最も適切な資格情報クラスはどれですか。\n\nproject = AIProjectClient(endpoint=PROJECT_ENDPOINT, credential=______())", "c": ["DefaultAzureCredential", "AzureKeyCredential(\"\")", "AnonymousCredential", "SasCredential"], "a": [0], "e": "DefaultAzureCredential は Microsoft Entra ID ベースの認証で、環境変数・マネージドID・Azure CLI ログインなどを順に試します。キーのハードコードを避ける推奨手法です。", "r": {"title": "Foundry SDK", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/sdk-overview"}}, {"id": 50, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "Foundry でエージェントを構成する要素として「エージェントが実行できる行動」を与えるものはどれですか。", "c": ["ツール（tools）", "モデル（model）", "インストラクション（instructions）", "スレッド（thread）"], "a": [0], "e": "エージェントは model（推論エンジン）＋ instructions（目的・振る舞いの定義）＋ tools（外部データ取得や行動の手段）で構成されます。会話状態は thread（または conversation）で保持します。", "r": {"title": "Foundry Agent Service", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/overview"}}, {"id": 51, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "エージェントにアップロードした社内ドキュメントを根拠として回答させたい。適したビルトインツールはどれですか。", "c": ["File Search", "Code Interpreter", "Browser Automation", "Computer Use"], "a": [0], "e": "File Search はアップロードしたファイルや独自ドキュメントをナレッジとしてエージェントに与えるツールです。既存の Azure AI Search インデックスを使う場合は Azure AI Search ツールを選びます。", "r": {"title": "Agent ツールカタログ", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/tool-catalog"}}, {"id": 52, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "エージェントに CSV を渡して集計とグラフ作成をさせたい。適したビルトインツールはどれですか。", "c": ["Code Interpreter", "File Search", "Azure AI Search", "OpenAPI ツール"], "a": [0], "e": "Code Interpreter はサンドボックス環境で Python を書いて実行します。データ分析、数値計算、チャート生成などに使われます。", "r": {"title": "Agent ツールカタログ", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/tool-catalog"}}, {"id": 53, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "エージェントに最新のニュースなど公開 Web 上の情報を、引用付きで参照させたい。適したツールはどれですか。", "c": ["Web Search（Grounding with Bing Search）", "Code Interpreter", "File Search", "Azure Functions"], "a": [0], "e": "Web Search（Grounding with Bing Search）は公開 Web からリアルタイム情報を取得し、インライン引用を付けて回答を根拠づけます。", "r": {"title": "Agent ツールカタログ", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/tool-catalog"}}, {"id": 54, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "社内の在庫管理 REST API をエージェントから呼び出したい。API には OpenAPI 3.0 仕様書があります。最も手間が少ない方法はどれですか。", "c": ["OpenAPI ツールとして仕様書を登録する", "Code Interpreter で HTTP リクエストを書く", "File Search に仕様書 PDF をアップロードする", "モデルをファインチューニングする"], "a": [0], "e": "OpenAPI ツールは OpenAPI 3.0/3.1 仕様から自動的にツール定義を生成し、外部 HTTP API を呼び出せます。認証は匿名 / API キー / マネージドID に対応します。", "r": {"title": "Agent ツールカタログ", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/tool-catalog"}}, {"id": 55, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "複数のエージェントで同じツール群を再利用し、資格情報とポリシーを一元管理したい。Foundry で推奨される仕組みはどれですか。", "c": ["Toolbox（複数ツールを1つの MCP エンドポイントに束ねる）", "各エージェントに個別にツールをコピーする", "Code Interpreter に全処理を書く", "Global Batch デプロイを使う"], "a": [0], "e": "Toolbox は複数ツールを束ねて単一の MCP エンドポイントとして公開し、複数エージェントから再利用できます。資格情報とバージョン管理を一元化できます。", "r": {"title": "Agent ツールカタログ", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/tool-catalog"}}, {"id": 56, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "外部ベンダーが公開しているツールサーバーにエージェントを接続する際に使う、業界標準のプロトコルはどれですか。", "c": ["MCP（Model Context Protocol）", "SOAP", "gRPC-Web", "OData"], "a": [0], "e": "MCP は、エージェントがツールを発見・呼び出すための標準プロトコルです。Foundry では MCPTool として server_label / server_url を指定して接続します。", "r": {"title": "Agent ツールカタログ", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/tool-catalog"}}, {"id": 57, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "あるエージェントから別のエージェントに処理を委譲したい。該当する仕組みはどれですか。", "c": ["Agent-to-Agent（A2A）接続", "File Search", "Pronunciation assessment", "Batch transcription"], "a": [0], "e": "A2A（Agent-to-Agent）は、A2A 互換エンドポイントを通じてエージェント同士を接続し、マルチエージェント構成を実現します。", "r": {"title": "Agent ツールカタログ", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/tool-catalog"}}, {"id": 58, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "Foundry ポータルで単一エージェントを作成するとき、必ず指定する必要がある項目の組み合わせはどれですか。", "c": ["デプロイ済みモデルと instructions（指示）", "PTU 数と SLA", "Speech リソースのリージョンとキー", "Content Understanding のアナライザー ID"], "a": [0], "e": "エージェント作成には、推論に使うデプロイ済みモデルと、目的・振る舞いを定める instructions が最低限必要です。ツールやナレッジは任意で追加します。", "r": {"title": "Foundry Agent Service", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/overview"}}, {"id": 59, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "Foundry Agent Service で、ユーザーとエージェントのやり取りの履歴（会話状態）を保持するオブジェクトはどれですか。", "c": ["Thread（スレッド / conversation）", "Deployment", "Analyzer", "Index"], "a": [0], "e": "Thread はメッセージの連なりを保持し、エージェントが文脈を維持できるようにします。実行単位は Run です。", "r": {"title": "Foundry Agent Service", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/overview"}}, {"id": 60, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "エージェントが独自のビジネスロジック（社内割引の計算など）を実行できるようにしたい。SDK で自作の Python 関数を登録する仕組みはどれですか。", "c": ["Function calling（関数呼び出し）", "Prompt flow のみ", "Speech SDK", "SSML"], "a": [0], "e": "Function calling は、開発者が定義した関数のスキーマをモデルに提示し、モデルが必要と判断したときに引数付きで呼び出させる仕組みです。", "r": {"title": "Agent ツールカタログ", "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/tool-catalog"}}, {"id": 61, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "Foundry プロジェクトの SDK 接続に使うエンドポイントの形式として正しいものはどれですか。", "c": ["https://<resource-name>.ai.azure.com/api/projects/<project-name>", "https://<account>.blob.core.windows.net/", "https://<region>.api.cognitive.microsoft.com/sts/v1.0/", "https://portal.azure.com/#home"], "a": [0], "e": "Foundry プロジェクトのエンドポイントは https://<resource>.ai.azure.com/api/projects/<project> 形式です。ポータルの [Overview] から確認できます。", "r": {"title": "Foundry SDK", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/sdk-overview"}}, {"id": 62, "d": "D2", "s": "生成AIとエージェント", "t": "multi", "q": "本番のエージェントを運用する上で Foundry が提供する可観測性・ガバナンス機能を3つ選んでください。", "c": ["トレース（tracing）と監視（monitoring）", "評価（evaluation）ダッシュボード", "Microsoft Entra ID / RBAC とコンテンツフィルター", "PTU の自動ゼロ課金化"], "a": [0, 1, 2], "e": "Foundry はトレース・監視・評価による可観測性と、Entra ID / RBAC・コンテンツフィルター・ネットワーク分離によるガバナンスを提供します。PTU は予約容量であり自動でゼロ課金にはなりません。", "r": {"title": "Microsoft Foundry とは", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/what-is-azure-ai-foundry"}}, {"id": 63, "d": "D2", "s": "生成AIとエージェント", "t": "single", "q": "開発時にはキーではなくマネージドID／Entra ID 認証を使うことが推奨される主な理由はどれですか。", "c": ["キーの漏えいリスクを排除し、RBAC でアクセスを最小権限に制御できるため", "応答レイテンシが必ず半分になるため", "トークン課金が発生しなくなるため", "コンテキストウィンドウが拡張されるため"], "a": [0], "e": "Entra ID 認証（DefaultAzureCredential / マネージドID）はシークレット管理が不要で、RBAC により最小権限を適用できます。性能や課金には影響しません。", "r": {"title": "Foundry の認証", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/sdk-overview"}}, {"id": 64, "d": "D2", "s": "テキストと音声", "t": "single", "q": "Foundry Tools のうち、センチメント分析・キーフレーズ抽出・NER・要約・PII 検出をまとめて提供するサービスはどれですか。", "c": ["Azure AI Language", "Azure Speech", "Azure Content Understanding", "Azure AI Search"], "a": [0], "e": "Azure AI Language（Foundry Tools）が自然言語処理の各機能を提供します。Speech は音声、Content Understanding はマルチモーダルの情報抽出です。", "r": {"title": "Azure AI Language", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/overview"}}, {"id": 65, "d": "D2", "s": "テキストと音声", "t": "single", "q": "問い合わせメールから氏名・電話番号・クレジットカード番号を検出して伏せ字にしたい。Azure AI Language のどの機能を使いますか。", "c": ["PII 検出と墨消し（PII detection and redaction）", "キーフレーズ抽出", "言語検出", "抽出型要約"], "a": [0], "e": "PII detection は個人情報エンティティを検出し、redaction（墨消し）済みテキストも返せます。会話向けの Conversational PII もあります。", "r": {"title": "PII 検出", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/personally-identifiable-information/overview"}}, {"id": 66, "d": "D2", "s": "テキストと音声", "t": "single", "q": "レビュー本文と、その中の「バッテリーの持ちは悪いが画面はきれい」といった観点ごとの評価を取り出したい。適した機能はどれですか。", "c": ["オピニオンマイニング（opinion mining / aspect-based sentiment）", "言語検出", "翻訳", "要約"], "a": [0], "e": "opinion mining（アスペクトベースのセンチメント分析）は、対象（aspect）ごとの評価と評価語を抽出します。文書全体の極性しか返さない通常のセンチメント分析より粒度が細かい結果が得られます。", "r": {"title": "センチメント分析とオピニオンマイニング", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/sentiment-opinion-mining/overview"}}, {"id": 67, "d": "D2", "s": "テキストと音声", "t": "single", "q": "マルチモーダルモデル（例: gpt-4o-audio / gpt-4o-realtime）を使い、ユーザーの音声プロンプトに直接応答させたい。この構成の利点として最も適切なものはどれですか。", "c": ["音声認識・推論・音声応答を1つのモデルで扱えるため、パイプラインが簡素になる", "必ず無料で利用できる", "出力が常に決定的になる", "テキスト入力を受け付けなくなる"], "a": [0], "e": "音声対応のマルチモーダルモデルは、STT → LLM → TTS の別々のサービス連携を1モデルで完結でき、レイテンシと実装の複雑さを下げられます。", "r": {"title": "Foundry Models 概要", "url": "https://learn.microsoft.com/en-us/azure/foundry/concepts/foundry-models-overview"}}, {"id": 68, "d": "D2", "s": "テキストと音声", "t": "single", "q": "数百時間分の録音済み音声ファイルを、コストを抑えて非同期に文字起こししたい。適した方式はどれですか。", "c": ["Batch transcription（バッチ文字起こし）", "リアルタイム文字起こし", "Text to speech", "Speaker verification"], "a": [0], "e": "Batch transcription はストレージ上の大量の音声を非同期にまとめて処理します。リアルタイムはライブ配信向け、Fast transcription は単一ファイルの高速処理向けです。", "r": {"title": "Azure Speech 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview"}}, {"id": 69, "d": "D2", "s": "テキストと音声", "t": "single", "q": "医療現場の専門用語や略語が正しく認識されない。Azure Speech で精度を上げる方法として適切なものはどれですか。", "c": ["Custom speech（カスタム音声モデル）を学習させる", "SSML でピッチを調整する", "Text to speech のニューラルボイスを変更する", "Pronunciation assessment を有効にする"], "a": [0], "e": "Custom speech は業界固有の語彙・話し方・環境ノイズに合わせて音声認識モデルを調整します。SSML や TTS は合成側の機能です。", "r": {"title": "Custom speech", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/custom-speech-ai-foundry-portal"}}, {"id": 70, "d": "D2", "s": "テキストと音声", "t": "single", "q": "自社ブランド専用の一貫した合成音声を作りたい。適した機能はどれですか。", "c": ["Custom voice（カスタムニューラルボイス）", "Custom speech", "Speaker recognition", "Language identification"], "a": [0], "e": "Custom voice はブランド固有の合成音声を作成する機能です（責任あるAIの観点から利用申請・同意が必要）。Custom speech は認識側のカスタマイズです。", "r": {"title": "Text to speech 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/text-to-speech"}}, {"id": 71, "d": "D2", "s": "テキストと音声", "t": "single", "q": "英語の講演をリアルタイムで日本語の音声に変換して届けたい。最も適した Azure Speech の機能はどれですか。", "c": ["Speech translation（音声翻訳）", "Speech to text のみ", "Pronunciation assessment", "Batch transcription"], "a": [0], "e": "Speech translation はリアルタイムに音声を別言語のテキスト／音声へ変換します。音声→音声、音声→テキストの双方に対応します。", "r": {"title": "Azure Speech 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview"}}, {"id": 72, "d": "D2", "s": "テキストと音声", "t": "single", "q": "会議の録音に複数言語の話者が混在しており、どの言語が話されているかを自動で切り替えたい。適した機能はどれですか。", "c": ["Language identification（言語識別）", "Speaker verification", "Custom voice", "OCR"], "a": [0], "e": "Language identification は音声中の言語を自動判定し、多言語シナリオで認識言語を切り替えられます。", "r": {"title": "Azure Speech 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview"}}, {"id": 73, "d": "D2", "s": "テキストと音声", "t": "single", "q": "Speech SDK を使わずにコマンドラインから音声認識を試したい。適したツールはどれですか。", "c": ["Speech CLI", "Azure Cloud Shell の az vm コマンド", "kubectl", "Content Understanding アナライザー"], "a": [0], "e": "Speech CLI はコードを書かずにコマンドラインから Speech サービスを利用できるツールです。ほかにポータルの Speech playground（Speech Studio）も利用できます。", "r": {"title": "Azure Speech 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview"}}, {"id": 74, "d": "D2", "s": "テキストと音声", "t": "single", "q": "テキストから、人物の映像を伴うナレーション動画を生成したい。Azure Speech の機能はどれですか。", "c": ["Text to speech avatar", "Custom speech", "Speech translation", "Pronunciation assessment"], "a": [0], "e": "Text to speech avatar はフォトリアリスティックなアバター動画をリアルタイムまたはバッチで生成します。", "r": {"title": "Azure Speech 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview"}}, {"id": 75, "d": "D2", "s": "テキストと音声", "t": "single", "q": "次のうち、Azure AI Language のカスタム機能（学習データが必要なもの）はどれですか。", "c": ["カスタムテキスト分類（custom text classification）", "言語検出", "キーフレーズ抽出", "抽出型要約"], "a": [0], "e": "custom text classification と custom NER は、ラベル付きデータで学習させるカスタム機能です。言語検出・キーフレーズ抽出・要約は事前構築済み（prebuilt）機能です。", "r": {"title": "Azure AI Language", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/overview"}}, {"id": 76, "d": "D2", "s": "テキストと音声", "t": "single", "q": "よくある質問に対して定型回答を返すボットを、ナレッジベースから素早く構築したい。Azure AI Language のどの機能を使いますか。", "c": ["Question answering（カスタム質問応答）", "Sentiment analysis", "Key phrase extraction", "Speech translation"], "a": [0], "e": "Question answering は FAQ ページや文書からナレッジベースを構築し、質問に対する回答を返します。意図とエンティティを扱う場合は Conversational Language Understanding（CLU）を使います。", "r": {"title": "Question answering", "url": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/question-answering/overview"}}, {"id": 77, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "マルチモーダルモデルに画像を解析させるプロンプトを組む際、画像はどのように渡しますか。", "c": ["ユーザーメッセージの content 配列に image_url（またはBase64データURL）として含める", "システムメッセージに画像のファイルパスを文字列で書く", "Stop sequence に画像を指定する", "temperature に画像 ID を設定する"], "a": [0], "e": "マルチモーダルモデルでは、ユーザーメッセージの content を配列にし、text 要素と image_url 要素（公開URLまたは data:image/...;base64,... 形式）を並べて渡します。", "r": {"title": "マルチモーダルモデルの利用", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/gpt-with-vision"}}, {"id": 78, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "倉庫の棚の写真を渡して「在庫が切れている段はどこか」を自然文で説明させたい。最も適した実装はどれですか。", "c": ["デプロイ済みのマルチモーダルモデルに画像とテキスト指示を同時に渡す", "OCR で文字だけを抽出する", "画像生成モデルで新しい棚の画像を生成する", "埋め込みモデルで画像をベクトル化して保存するだけ"], "a": [0], "e": "視覚的な状況の解釈と自然文での説明は、マルチモーダルモデルへの vision プロンプトが最適です。OCR は文字読み取りのみ、画像生成は新規作成の用途です。", "r": {"title": "マルチモーダルモデルの利用", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/gpt-with-vision"}}, {"id": 79, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "画像生成モデルを Foundry で使う際に指定できるパラメーターとして正しい組み合わせはどれですか。", "c": ["プロンプト、画像サイズ、品質、生成枚数", "temperature、frequency penalty、stop sequence", "PTU 数、SLA、リージョンペア", "話速、ピッチ、音量"], "a": [0], "e": "画像生成では prompt に加えて size（解像度）、quality、n（枚数）などを指定します。temperature 系はテキスト生成のパラメーターです。", "r": {"title": "画像生成", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/dall-e"}}, {"id": 80, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "画像生成で意図した結果を得るために、プロンプトに含めると効果的な要素はどれですか。", "c": ["被写体・スタイル・構図・照明・色調などの具体的な描写", "max_tokens の値", "stop sequence", "デプロイのリージョン名"], "a": [0], "e": "画像生成プロンプトは「何を（被写体）」「どんな画風で（スタイル）」「どの構図・照明・色で」を具体的に記述するほど意図に近づきます。", "r": {"title": "画像生成", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/dall-e"}}, {"id": 81, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "商品画像に写るブランドロゴが自社の登録商標かどうか、独自の分類器で判定したい。最も適したアプローチはどれですか。", "c": ["カスタム画像分類モデル（Custom Vision / カスタムモデル）を自社データで学習させる", "汎用の画像生成モデルを使う", "Text to speech を使う", "キーフレーズ抽出を使う"], "a": [0], "e": "事前構築モデルでは判別できないドメイン固有の視覚判定は、ラベル付き画像でカスタム分類／物体検出モデルを学習させます。", "r": {"title": "カスタムビジョン", "url": "https://learn.microsoft.com/en-us/azure/ai-services/custom-vision-service/overview"}}, {"id": 82, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "アクセシビリティ向上のため、Web サイトの画像に自動で代替テキスト（alt text）を付けたい。適した機能はどれですか。", "c": ["画像キャプション生成（image captioning / dense captions）", "物体検出のバウンディングボックスのみ", "OCR のみ", "話者認識"], "a": [0], "e": "画像キャプションは画像内容を説明する自然文を生成します。マルチモーダルモデルでも同等の処理が可能です。これは責任あるAIの Inclusiveness にも寄与します。", "r": {"title": "画像分析", "url": "https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/overview-image-analysis"}}, {"id": 83, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "ユーザー投稿画像に暴力的・性的なコンテンツが含まれていないかを自動判定したい。適したサービスはどれですか。", "c": ["Azure AI Content Safety（画像モデレーション）", "Azure AI Search", "Text to speech", "Embedding モデル"], "a": [0], "e": "Azure AI Content Safety は、テキストと画像の有害コンテンツを hate / sexual / violence / self-harm の4カテゴリと重大度で判定します。", "r": {"title": "Azure AI Content Safety", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview"}}, {"id": 84, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "生成した画像に、AI 生成であることを示すメタデータ（来歴情報）を付与する取り組みは、責任あるAIのどの原則を主に支えますか。", "c": ["透明性（Transparency）", "包摂性（Inclusiveness）", "信頼性と安全性（Reliability and safety）", "公平性（Fairness）"], "a": [0], "e": "来歴（provenance）メタデータや電子透かしは、コンテンツが AI 生成であることを利用者が判断できるようにするもので、Transparency を支えます。", "r": {"title": "Responsible AI の原則", "url": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai"}}, {"id": 85, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "Foundry SDK で軽量なビジョンアプリを作る際の基本的な流れとして正しいものはどれですか。", "c": ["画像を Base64（またはURL）で用意 → マルチモーダルモデルのデプロイに対して chat/responses 要求を送る → 応答テキストを表示", "画像をベクトルDBに保存 → SQL で検索 → 結果を表示", "画像を SSML に埋め込む → Speech に送る", "画像を PTU に割り当てる → Batch で処理"], "a": [0], "e": "軽量ビジョンアプリの流れは「画像の準備 → マルチモーダルモデルへの要求（text＋image_url）→ 応答の取得」です。SSML は音声合成用のマークアップです。", "r": {"title": "マルチモーダルモデルの利用", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/gpt-with-vision"}}, {"id": 86, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "顔の検出・照合機能を利用する際、Microsoft が制限付きアクセス（Limited Access）ポリシーを設けている主な理由はどれですか。", "c": ["プライバシーと悪用防止など責任あるAIの観点からの利用制限", "GPU が不足しているため", "日本語に未対応のため", "画像サイズの上限があるため"], "a": [0], "e": "顔認識など影響の大きい機能は、プライバシー侵害や誤用を防ぐために利用申請と用途審査が必要な Limited Access 対象です。", "r": {"title": "Limited Access 機能", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/responsible-ai/openai/limited-access"}}, {"id": 87, "d": "D2", "s": "ビジョンと画像生成", "t": "single", "q": "デプロイした画像生成モデルを、コードを書かずにポータル上で試すには何を使いますか。", "c": ["Foundry ポータルの Images playground", "Azure Monitor", "Content Understanding のアナライザー作成画面", "Speech CLI"], "a": [0], "e": "Foundry ポータルには用途別の playground（Chat、Images、Audio、Agents など）が用意されており、コードなしでモデルを試せます。", "r": {"title": "Foundry ポータル", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/what-is-azure-ai-foundry"}}, {"id": 88, "d": "D2", "s": "ビジョンと画像生成", "t": "multi", "q": "マルチモーダルモデルによる画像理解が適するシナリオを3つ選んでください。", "c": ["レシート写真の内容を読み取って要約を返す", "グラフ画像を解釈して傾向を文章で説明する", "建物の写真から損傷箇所を指摘する", "1万件の画像を最安値でベクトル化して類似検索インデックスを作る"], "a": [0, 1, 2], "e": "自然文での解釈・説明はマルチモーダルモデルの得意分野です。一方、大量画像のベクトル化と類似検索は埋め込みモデル＋ベクトル検索の役割です。", "r": {"title": "マルチモーダルモデルの利用", "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/gpt-with-vision"}}, {"id": 89, "d": "D2", "s": "情報抽出", "t": "single", "q": "Azure Content Understanding で「どの情報を、どのような形式で抽出するか」を定義するオブジェクトはどれですか。", "c": ["アナライザー（analyzer）とフィールドスキーマ（field schema）", "デプロイ（deployment）", "スレッド（thread）", "インデックス（index）"], "a": [0], "e": "analyzer が処理構成・抽出設定・フィールドスキーマを保持します。入力を analyzer に渡すと、スキーマに沿った構造化出力が得られます。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 90, "d": "D2", "s": "情報抽出", "t": "single", "q": "Content Understanding の出力形式として提供されるものの組み合わせはどれですか。", "c": ["Markdown（検索・RAG向け）と JSON（自動化・分析向け）", "XML と CSV のみ", "SSML と WAV", "PPTX と DOCX"], "a": [0], "e": "Content Understanding は、検索/RAG 取り込みに適した Markdown と、自動化・分析に適した構造化 JSON を出力できます。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 91, "d": "D2", "s": "情報抽出", "t": "single", "q": "抽出された値がどれだけ信頼できるかを 0〜1 の数値で示す Content Understanding の機能はどれですか。", "c": ["信頼度スコア（confidence score）", "グラウンディング（grounding）", "セグメンテーション（segmentation）", "分類（classification）"], "a": [0], "e": "confidence score は抽出値の信頼度を 0〜1 で返します。しきい値未満の項目のみ人手レビューに回す、といった straight-through processing の設計に使えます。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 92, "d": "D2", "s": "情報抽出", "t": "single", "q": "抽出した値が元の文書のどの位置（領域）から取られたのかを示す Content Understanding の機能はどれですか。", "c": ["グラウンディング（grounding / source region）", "信頼度スコア", "セグメンテーション", "コンテンツフィルター"], "a": [0], "e": "grounding は抽出値の出典となるソース領域を特定し、人手検証や監査を容易にします。透明性（Transparency）の実践にもつながります。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 93, "d": "D2", "s": "情報抽出", "t": "single", "q": "請求書 PDF から「請求番号」「合計金額」「支払期日」を JSON で取り出したい。最も適した実装はどれですか。", "c": ["Content Understanding でカスタムアナライザーを作り、フィールドスキーマを定義して呼び出す", "OCR で全文をテキスト化して正規表現だけで抽出する", "Text to speech で読み上げる", "Embedding モデルでベクトル化する"], "a": [0], "e": "Content Understanding はフィールドスキーマに沿って構造化データを抽出します。請求書・契約書などは prebuilt analyzer も用意されています。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 94, "d": "D2", "s": "情報抽出", "t": "single", "q": "Content Understanding のフィールド抽出で使える生成方法（generation method）に含まれないものはどれですか。", "c": ["Deploy（デプロイ）", "Extract（抽出）", "Classify（分類）", "Generate（生成）"], "a": [0], "e": "フィールド値の生成方法は Extract（原文からそのまま抽出）／Classify（定義したカテゴリに分類）／Generate（内容から新たに生成・要約）の3種類です。Deploy はモデル配置の用語です。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 95, "d": "D2", "s": "情報抽出", "t": "single", "q": "長い動画を意味のあるまとまりに分けてから、各区間ごとに情報を抽出したい。Content Understanding のどの機能が該当しますか。", "c": ["セグメンテーション（segmentation）", "コンテンツフィルター", "信頼度スコア", "Toolbox"], "a": [0], "e": "segmentation は入力を論理的なセクション（動画のシーン、文書の章など）に分割し、区間ごとの抽出を可能にします。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 96, "d": "D2", "s": "情報抽出", "t": "single", "q": "税務書類や調達書類など、一般的な業務文書をゼロから学習させずに素早く処理したい。Content Understanding のどの仕組みを使いますか。", "c": ["Prebuilt analyzer（事前構築アナライザー）", "Custom voice", "Global Batch デプロイ", "MCP サーバー"], "a": [0], "e": "Content Understanding には税務・調達・契約などの業界別 prebuilt analyzer が用意されており、独自スキーマを定義せずに利用開始できます。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 97, "d": "D2", "s": "情報抽出", "t": "single", "q": "受け取った文書をまず種類（請求書 / 契約書 / 領収書）に振り分け、種類ごとに別のアナライザーへ回したい。適した機能はどれですか。", "c": ["分類（classifier）によるワークフロー振り分け", "SSML", "Provisioned デプロイ", "Pronunciation assessment"], "a": [0], "e": "Content Understanding は文書分類（classification）に対応し、種類判定 → 適切なアナライザーへルーティングというワークフローを構成できます。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 98, "d": "D2", "s": "情報抽出", "t": "single", "q": "Content Understanding が RAG の前処理として有用な主な理由はどれですか。", "c": ["図表の説明やレイアウトを含む Markdown に正規化でき、検索インデックスに取り込みやすいため", "埋め込みモデルが不要になるため", "LLM の推論コストがゼロになるため", "文書を自動で暗号化するため"], "a": [0], "e": "Content Understanding は非構造データを正規化された Markdown（図表の説明・レイアウト情報を含む）に変換でき、RAG の取り込み品質を高めます。埋め込みや LLM 推論は依然必要です。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 99, "d": "D2", "s": "情報抽出", "t": "multi", "q": "Content Understanding の代表的なユースケースを3つ選んでください。", "c": ["インテリジェントドキュメント処理（IDP：請求書・契約書処理）", "通話録音からのポストコール分析", "メディア資産管理と動画からのメタデータ抽出", "仮想マシンの自動スケーリング"], "a": [0, 1, 2], "e": "IDP、ポストコール分析、メディア資産管理、RAG 取り込み、RPA などが代表例です。VM のスケーリングは Azure Compute の機能で AI ワークロードではありません。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}, {"id": 100, "d": "D2", "s": "情報抽出", "t": "single", "q": "Content Understanding で抽出したデータを扱う軽量アプリを作る際、人手レビューの要否を判断する基準として最も適切なものはどれですか。", "c": ["フィールドごとの信頼度スコアがしきい値未満なら人手レビューに回す", "応答のトークン数が多ければ人手レビューに回す", "temperature が 0 でなければ人手レビューに回す", "デプロイ種別が Global Standard なら人手レビューに回す"], "a": [0], "e": "confidence score にしきい値を設け、下回る項目のみ人手確認に回すのが straight-through processing の定石です。Accountability（人間による監督）の実装でもあります。", "r": {"title": "Content Understanding 概要", "url": "https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/overview"}}];
+
+const DOMAIN_NAME = {D1:"AIの概念と機能（40–45%）", D2:"Foundry での実装（55–60%）"};
+
+let pool=[], quiz=[], idx=0, picked=[], answered=false, correctCount=0, log=[];
+let filterDom=new Set(["D1","D2"]), filterSub=new Set(), count="all";
+
+const $ = id => document.getElementById(id);
+const SUBS = [...new Set(QUESTIONS.map(q=>q.s))];
+const byId = {}; QUESTIONS.forEach(q=>byId[q.id]=q);
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ===================== 進捗の保存 ===================== */
+const KEY = "ai901_quiz_v1";
+let store = {prefs:{}, session:null, stats:{}};
+let canStore = true;
+
+function loadStore(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw){ const p = JSON.parse(raw); store = Object.assign({prefs:{},session:null,stats:{}}, p); }
+    localStorage.setItem(KEY+"_t","1"); localStorage.removeItem(KEY+"_t");
+  }catch(e){ canStore = false; }
+}
+function saveStore(){
+  if(!canStore) return;
+  try{ localStorage.setItem(KEY, JSON.stringify(store)); }
+  catch(e){ canStore = false; }
+}
+function flashSaved(){
+  const m = $("savedMark"); if(!m) return;
+  m.classList.add("on"); clearTimeout(flashSaved._t);
+  flashSaved._t = setTimeout(()=>m.classList.remove("on"), 900);
+}
+function persist(){
+  if(!quiz.length){ saveStore(); return; }
+  store.session = {
+    ids: quiz.map(q=>q.id), idx, correct: correctCount,
+    log: log.map(l=>({id:l.q.id, p:l.picked, ok:l.ok})),
+    answered, picked: picked.slice(),
+    order: (quiz[idx] && quiz[idx]._order) ? quiz[idx]._order.slice() : null,
+    ts: Date.now()
+  };
+  savePrefs(false);
+  saveStore(); flashSaved();
+}
+function savePrefs(write){
+  store.prefs = {
+    dom:[...filterDom], sub:[...filterSub], count,
+    sq: $("shuffleQ").checked, sc: $("shuffleC").checked, ins: $("instant").checked
+  };
+  if(write!==false) saveStore();
+}
+function applyPrefs(){
+  const p = store.prefs||{};
+  if(Array.isArray(p.dom) && p.dom.length) filterDom = new Set(p.dom);
+  if(Array.isArray(p.sub)) filterSub = new Set(p.sub);
+  if(p.count) count = p.count;
+  if(typeof p.sq === "boolean") $("shuffleQ").checked = p.sq;
+  if(typeof p.sc === "boolean") $("shuffleC").checked = p.sc;
+  if(typeof p.ins === "boolean") $("instant").checked = p.ins;
+}
+function recordStat(id, ok){
+  const s = store.stats[id] || {n:0, w:0, last:null};
+  s.n++; if(!ok) s.w++; s.last = ok?1:0;
+  store.stats[id] = s;
+}
+function weakIds(){
+  return Object.keys(store.stats).filter(id=>store.stats[id].last===0).map(Number).filter(id=>byId[id]);
+}
+function renderStats(){
+  const seen = Object.keys(store.stats).filter(id=>byId[id]).length;
+  const weak = weakIds().length;
+  $("stSeen").textContent = seen;
+  $("stWeak").textContent = weak;
+  $("weakBtn").disabled = weak===0;
+  $("resetBtn").disabled = seen===0 && !store.session;
+  if(!canStore && !renderStats._warned){
+    renderStats._warned = true;
+    const p = document.createElement("span");
+    p.style.cssText = "flex:1 1 100%;color:var(--warn)";
+    p.textContent = "※ この開き方ではブラウザに進捗を保存できません。ファイルをブラウザで開き直すか、プライベートモードを解除してください。";
+    $("statsBox").appendChild(p);
+  }
+}
+function renderResume(){
+  const s = store.session;
+  const box = $("resumeBox");
+  if(!s || !s.ids || s.idx >= s.ids.length){ box.classList.add("hide"); return; }
+  box.classList.remove("hide");
+  const d = new Date(s.ts||Date.now());
+  const stamp = `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+  $("resumeSub").textContent = `第 ${s.idx+1} 問 / 全 ${s.ids.length} 問（正答 ${s.correct}）・ 最終更新 ${stamp}`;
+}
+
+/* ===================== セットアップ画面 ===================== */
+function renderChips(){
+  $("domChips").innerHTML = ["D1","D2"].map(d=>
+    `<button class="chip ${filterDom.has(d)?'on':''}" data-dom="${d}">${DOMAIN_NAME[d]}<span class="n">${QUESTIONS.filter(q=>q.d===d).length}</span></button>`).join("");
+  $("subChips").innerHTML = SUBS.map(s=>
+    `<button class="chip ${filterSub.has(s)?'on':''}" data-sub="${s}">${s}<span class="n">${QUESTIONS.filter(q=>q.s===s).length}</span></button>`).join("");
+  $("countChips").innerHTML = [["all","全部"],["60","60問（本番相当）"],["30","30問"],["15","15問"]].map(([v,l])=>
+    `<button class="chip ${count===v?'on':''}" data-count="${v}">${l}</button>`).join("");
+  document.querySelectorAll("[data-dom]").forEach(b=>b.onclick=()=>{
+    const d=b.dataset.dom; filterDom.has(d)?filterDom.delete(d):filterDom.add(d);
+    if(!filterDom.size) filterDom.add(d);
+    filterSub.clear(); renderChips();});
+  document.querySelectorAll("[data-sub]").forEach(b=>b.onclick=()=>{
+    const s=b.dataset.sub; filterSub.has(s)?filterSub.delete(s):filterSub.add(s); renderChips();});
+  document.querySelectorAll("[data-count]").forEach(b=>b.onclick=()=>{count=b.dataset.count;renderChips();});
+  updatePool();
+  savePrefs();
+}
+function updatePool(){
+  pool = QUESTIONS.filter(q=> filterDom.has(q.d) && (filterSub.size===0 || filterSub.has(q.s)) );
+  const n = count==="all" ? pool.length : Math.min(+count, pool.length);
+  $("poolInfo").textContent = `${pool.length} 問の候補から ${n} 問を出題`;
+  $("startBtn").disabled = pool.length===0;
+}
+
+/* ===================== 出題 ===================== */
+function showQuiz(){
+  document.body.classList.add("quiz-on");
+  $("setup").classList.add("hide"); $("result").classList.add("hide"); $("quiz").classList.remove("hide");
+}
+function backToSetup(){
+  document.body.classList.remove("quiz-on");
+  $("quiz").classList.add("hide"); $("result").classList.add("hide"); $("setup").classList.remove("hide");
+  renderResume(); renderStats(); window.scrollTo({top:0});
+}
+
+function start(list){
+  quiz = list || (()=>{ let p = $("shuffleQ").checked ? shuffle(pool) : pool.slice();
+    return count==="all" ? p : p.slice(0, Math.min(+count, p.length)); })();
+  idx=0; correctCount=0; log=[];
+  showQuiz();
+  render();
+  persist();
+}
+
+function render(fixedOrder){
+  const q = quiz[idx]; picked=[]; answered=false;
+  $("qTags").innerHTML =
+    `<span class="tag ${q.d==='D1'?'d1':'d2'}">${q.d==='D1'?'AI概念':'Foundry実装'}</span>`+
+    `<span class="tag sub">${q.s}</span>`+
+    (q.t==="multi"?`<span class="tag multi">複数選択（${q.a.length}つ）</span>`:"");
+  $("qPos").textContent = `第 ${idx+1} 問 / ${quiz.length}`;
+  $("qScore").textContent = correctCount;
+  $("qText").textContent = q.q;
+  $("progFill").style.width = (idx/quiz.length*100)+"%";
+
+  let order;
+  if(Array.isArray(fixedOrder) && fixedOrder.length===q.c.length) order = fixedOrder.slice();
+  else { order = q.c.map((_,i)=>i); if($("shuffleC").checked) order = shuffle(order); }
+  q._order = order;
+  $("qChoices").innerHTML = order.map((oi,vi)=>
+    `<button class="choice" data-i="${oi}"><span class="k">${String.fromCharCode(65+vi)}</span><span>${q.c[oi]}</span></button>`).join("");
+  document.querySelectorAll(".choice").forEach(b=>b.onclick=()=>toggle(+b.dataset.i));
+  $("qExp").className="exp"; $("qExp").innerHTML="";
+  $("checkBtn").disabled=true; $("checkBtn").classList.remove("hide");
+  $("nextBtn").classList.add("hide");
+}
+
+function toggle(i){
+  if(answered) return;
+  const q=quiz[idx];
+  if(q.t==="single") picked=[i];
+  else picked.includes(i)? picked=picked.filter(x=>x!==i) : picked.push(i);
+  document.querySelectorAll(".choice").forEach(b=>b.classList.toggle("sel", picked.includes(+b.dataset.i)));
+  $("checkBtn").disabled = picked.length===0;
+  if(q.t==="single" && $("instant").checked) check();
+}
+
+function paint(ok){
+  const q=quiz[idx];
+  document.querySelectorAll(".choice").forEach(b=>{
+    const i=+b.dataset.i; b.classList.add("locked"); b.classList.remove("sel");
+    if(q.a.includes(i)) b.classList.add("correct");
+    else if(picked.includes(i)) b.classList.add("wrong");
+  });
+  $("qScore").textContent = correctCount;
+  $("qExp").className="exp show";
+  $("qExp").innerHTML =
+    `<div class="verdict ${ok?'ok':'ng'}">${ok?'正解':'不正解'}　正答：${q.a.map(i=>q.c[i]).join(' ／ ')}</div>`+
+    `<p>${q.e}</p>`+
+    (q.r?`<a href="${q.r.url}" target="_blank" rel="noopener">参考：${q.r.title} →</a>`:"");
+  $("checkBtn").classList.add("hide"); $("nextBtn").classList.remove("hide");
+  $("nextBtn").textContent = idx===quiz.length-1 ? "結果を見る" : "次へ";
+  const e=$("qExp");
+  if(e.getBoundingClientRect().bottom > window.innerHeight - 60)
+    setTimeout(()=>e.scrollIntoView({behavior:"smooth",block:"end"}),90);
+}
+function isCorrect(){
+  const q=quiz[idx];
+  return picked.length===q.a.length && picked.every(i=>q.a.includes(i));
+}
+
+function check(){
+  if(answered||!picked.length) return;
+  answered=true;
+  const q=quiz[idx];
+  const ok = isCorrect();
+  if(ok) correctCount++;
+  log.push({q, picked:picked.slice(), ok});
+  recordStat(q.id, ok);
+  paint(ok);
+  persist();
+}
+
+function next(){
+  if(!answered) return;
+  if(idx===quiz.length-1) finish();
+  else { idx++; render(); persist(); window.scrollTo({top:0,behavior:"smooth"}); }
+}
+
+function finish(){
+  document.body.classList.remove("quiz-on");
+  $("quiz").classList.add("hide"); $("result").classList.remove("hide");
+  const pct = Math.round(correctCount/quiz.length*100);
+  const scaled = Math.round(correctCount/quiz.length*1000);
+  const pass = scaled>=700;
+  $("rScore").className = "big "+(pass?"pass":"fail");
+  $("rScore").textContent = `${correctCount} / ${quiz.length}　(${pct}%)`;
+  $("rVerdict").textContent = `1000点換算 ${scaled} 点 — 合格ライン700点に${pass?'到達（この調子で仕上げましょう）':'未達（下の弱点分野を重点復習）'}`;
+
+  const by={};
+  log.forEach(l=>{ by[l.q.s]=by[l.q.s]||{o:0,n:0}; by[l.q.s].n++; if(l.ok) by[l.q.s].o++; });
+  $("rTable").innerHTML = Object.entries(by).sort((a,b)=>a[1].o/a[1].n-b[1].o/b[1].n).map(([s,v])=>
+    `<tr><td>${s}</td><td class="num">${v.o}</td><td class="num">${v.n}</td><td class="num">${Math.round(v.o/v.n*100)}%</td></tr>`).join("");
+
+  const wrong = log.filter(l=>!l.ok);
+  $("wrongBtn").disabled = wrong.length===0;
+  $("rReview").innerHTML = wrong.length===0 ? `<p class="sub" style="padding-top:8px">全問正解です。</p>` :
+    `<div class="group-label" style="margin-top:6px">間違えた問題（${wrong.length}）</div>`+
+    wrong.map(l=>`<div class="rev-item"><div class="qn">Q${l.q.id}｜${l.q.s}</div><div>${l.q.q}</div>
+      <div class="yours">あなたの解答：${l.picked.map(i=>l.q.c[i]).join(' ／ ')}</div>
+      <div class="ans">正答：${l.q.a.map(i=>l.q.c[i]).join(' ／ ')}</div>
+      <div class="sub" style="margin-top:4px">${l.q.e}</div></div>`).join("");
+  $("progFill").style.width="100%";
+  store.session = null; saveStore();
+  renderStats();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function resumeSession(){
+  const s = store.session;
+  if(!s || !s.ids) return;
+  const qs = s.ids.map(id=>byId[id]);
+  if(qs.some(q=>!q)){ store.session=null; saveStore(); renderResume(); return; }
+  quiz = qs;
+  idx = Math.min(s.idx||0, quiz.length-1);
+  correctCount = s.correct||0;
+  log = (s.log||[]).map(l=>({q:byId[l.id], picked:l.p, ok:l.ok})).filter(l=>l.q);
+  showQuiz();
+  render(s.order);
+  if(s.answered && Array.isArray(s.picked) && s.picked.length){
+    picked = s.picked.slice(); answered = true;
+    paint(isCorrect());
+  }
+  window.scrollTo({top:0});
+}
+
+/* ===================== イベント ===================== */
+$("startBtn").onclick=()=>start();
+$("checkBtn").onclick=check;
+$("nextBtn").onclick=next;
+$("quitBtn").onclick=()=>{ persist(); backToSetup(); };
+$("backBtn").onclick=backToSetup;
+$("againBtn").onclick=()=>start();
+$("wrongBtn").onclick=()=>{const w=log.filter(l=>!l.ok).map(l=>l.q); if(w.length) start(shuffle(w));};
+$("resumeBtn").onclick=resumeSession;
+$("discardBtn").onclick=()=>{ store.session=null; saveStore(); renderResume(); };
+$("weakBtn").onclick=()=>{ const w=weakIds().map(id=>byId[id]); if(w.length) start(shuffle(w)); };
+$("resetBtn").onclick=()=>{
+  if(!confirm("解答履歴と途中経過をすべて消去します。よろしいですか？")) return;
+  store = {prefs:store.prefs, session:null, stats:{}};
+  saveStore(); renderResume(); renderStats();
+};
+["shuffleQ","shuffleC","instant"].forEach(id=>$(id).addEventListener("change",()=>savePrefs()));
+
+document.addEventListener("keydown",e=>{
+  if($("quiz").classList.contains("hide")) return;
+  if(e.key>="1"&&e.key<="9"){const b=document.querySelectorAll(".choice")[+e.key-1]; if(b&&!answered) b.click();}
+  if(e.key==="Enter"){ e.preventDefault(); answered? next() : check(); }
+});
+document.addEventListener("visibilitychange",()=>{ if(document.hidden && !$("quiz").classList.contains("hide")) persist(); });
+window.addEventListener("pagehide",()=>{ if(!$("quiz").classList.contains("hide")) persist(); });
+
+loadStore();
+applyPrefs();
+renderChips();
+renderStats();
+renderResume();
+
+</script>
+</body>
+</html>
