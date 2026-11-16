@@ -1,5 +1,42 @@
 [
   {
+    "id": "accelerock",
+    "name": "アクセルロック",
+    "nameEn": "Accelerock",
+    "type": "rock",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "priority": 1,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "acidarmor",
+    "name": "とける",
+    "nameEn": "Acid Armor",
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "acidspray",
+    "name": "アシッドボム",
+    "nameEn": "Acid Spray",
+    "type": "poison",
+    "category": "special",
+    "power": 40,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bullet", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "acrobatics",
     "name": "アクロバット",
     "nameEn": "Acrobatics",
@@ -13,6 +50,18 @@
     "variablePower": true
   },
   {
+    "id": "acupressure",
+    "name": "つぼをつく",
+    "nameEn": "Acupressure",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "adjacentAllyOrSelf",
+    "flags": ["metronome"]
+  },
+  {
     "id": "aerialace",
     "name": "つばめがえし",
     "nameEn": "Aerial Ace",
@@ -23,6 +72,18 @@
     "priority": 0,
     "target": "any",
     "flags": ["contact", "distance", "metronome", "mirror", "protect", "slicing"]
+  },
+  {
+    "id": "afteryou",
+    "name": "おさきにどうぞ",
+    "nameEn": "After You",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "bypasssub"]
   },
   {
     "id": "agility",
@@ -75,6 +136,18 @@
     "hasSecondary": true
   },
   {
+    "id": "allyswitch",
+    "name": "サイドチェンジ",
+    "nameEn": "Ally Switch",
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 2,
+    "target": "self",
+    "flags": ["metronome"]
+  },
+  {
     "id": "amnesia",
     "name": "ドわすれ",
     "nameEn": "Amnesia",
@@ -98,6 +171,31 @@
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"],
     "hasSecondary": true
+  },
+  {
+    "id": "appleacid",
+    "name": "りんごさん",
+    "nameEn": "Apple Acid",
+    "type": "grass",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "aquacutter",
+    "name": "アクアカッター",
+    "nameEn": "Aqua Cutter",
+    "type": "water",
+    "category": "physical",
+    "power": 70,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect", "slicing"]
   },
   {
     "id": "aquajet",
@@ -124,6 +222,19 @@
     "flags": ["metronome", "snatch"]
   },
   {
+    "id": "aquastep",
+    "name": "アクアステップ",
+    "nameEn": "Aqua Step",
+    "type": "water",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "dance", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "aquatail",
     "name": "アクアテール",
     "nameEn": "Aqua Tail",
@@ -134,6 +245,30 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "armorcannon",
+    "name": "アーマーキャノン",
+    "nameEn": "Armor Cannon",
+    "type": "fire",
+    "category": "special",
+    "power": 120,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect"]
+  },
+  {
+    "id": "aromaticmist",
+    "name": "アロマミスト",
+    "nameEn": "Aromatic Mist",
+    "type": "fairy",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "adjacentAlly",
+    "flags": ["bypasssub", "metronome"]
   },
   {
     "id": "assurance",
@@ -173,6 +308,31 @@
     "flags": ["bullet", "distance", "metronome", "mirror", "protect", "pulse"]
   },
   {
+    "id": "aurawheel",
+    "name": "オーラぐるま",
+    "nameEn": "Aura Wheel",
+    "type": "electric",
+    "category": "physical",
+    "power": 110,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "auroraveil",
+    "name": "オーロラベール",
+    "nameEn": "Aurora Veil",
+    "type": "ice",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "allySide",
+    "flags": ["metronome", "snatch"]
+  },
+  {
     "id": "avalanche",
     "name": "ゆきなだれ",
     "nameEn": "Avalanche",
@@ -186,6 +346,57 @@
     "variablePower": true
   },
   {
+    "id": "axekick",
+    "name": "かかとおとし",
+    "nameEn": "Axe Kick",
+    "type": "fighting",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasRecoil": true,
+    "hasSecondary": true
+  },
+  {
+    "id": "babydolleyes",
+    "name": "つぶらなひとみ",
+    "nameEn": "Baby-Doll Eyes",
+    "type": "fairy",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 1,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "banefulbunker",
+    "name": "トーチカ",
+    "nameEn": "Baneful Bunker",
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 4,
+    "target": "self",
+    "flags": ["failcopycat", "noassist"]
+  },
+  {
+    "id": "barbbarrage",
+    "name": "どくばりセンボン",
+    "nameEn": "Barb Barrage",
+    "type": "poison",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "batonpass",
     "name": "バトンタッチ",
     "nameEn": "Baton Pass",
@@ -196,6 +407,18 @@
     "priority": 0,
     "target": "self",
     "flags": ["metronome"]
+  },
+  {
+    "id": "beakblast",
+    "name": "くちばしキャノン",
+    "nameEn": "Beak Blast",
+    "type": "flying",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "priority": -3,
+    "target": "normal",
+    "flags": ["bullet", "failcopycat", "failinstruct", "failmefirst", "noassist", "nosleeptalk", "protect"]
   },
   {
     "id": "beatup",
@@ -211,6 +434,18 @@
     "variablePower": true
   },
   {
+    "id": "belch",
+    "name": "ゲップ",
+    "nameEn": "Belch",
+    "type": "poison",
+    "category": "special",
+    "power": 120,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["failcopycat", "failinstruct", "failmefirst", "failmimic", "noassist", "nosleeptalk", "protect"]
+  },
+  {
     "id": "bellydrum",
     "name": "はらだいこ",
     "nameEn": "Belly Drum",
@@ -223,6 +458,18 @@
     "flags": ["metronome", "snatch"]
   },
   {
+    "id": "bind",
+    "name": "しめつける",
+    "nameEn": "Bind",
+    "type": "normal",
+    "category": "physical",
+    "power": 15,
+    "accuracy": 85,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
     "id": "bite",
     "name": "かみつく",
     "nameEn": "Bite",
@@ -233,6 +480,31 @@
     "priority": 0,
     "target": "normal",
     "flags": ["bite", "contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "bitterblade",
+    "name": "むねんのつるぎ",
+    "nameEn": "Bitter Blade",
+    "type": "fire",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "heal", "metronome", "mirror", "protect", "slicing"]
+  },
+  {
+    "id": "bittermalice",
+    "name": "うらみつらみ",
+    "nameEn": "Bitter Malice",
+    "type": "ghost",
+    "category": "special",
+    "power": 75,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
     "hasSecondary": true
   },
   {
@@ -274,6 +546,18 @@
     "hasSecondary": true
   },
   {
+    "id": "block",
+    "name": "とおせんぼう",
+    "nameEn": "Block",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "reflectable"]
+  },
+  {
     "id": "bodypress",
     "name": "ボディプレス",
     "nameEn": "Body Press",
@@ -300,6 +584,31 @@
     "hasSecondary": true
   },
   {
+    "id": "bonerush",
+    "name": "ボーンラッシュ",
+    "nameEn": "Bone Rush",
+    "type": "ground",
+    "category": "physical",
+    "power": 30,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "multihit": [2, 5]
+  },
+  {
+    "id": "boomburst",
+    "name": "ばくおんぱ",
+    "nameEn": "Boomburst",
+    "type": "normal",
+    "category": "special",
+    "power": 140,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacent",
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"]
+  },
+  {
     "id": "bounce",
     "name": "とびはねる",
     "nameEn": "Bounce",
@@ -314,6 +623,19 @@
       "nosleeptalk", "protect"
     ],
     "hasSecondary": true
+  },
+  {
+    "id": "bravebird",
+    "name": "ブレイブバード",
+    "nameEn": "Brave Bird",
+    "type": "flying",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "any",
+    "flags": ["contact", "distance", "metronome", "mirror", "protect"],
+    "hasRecoil": true
   },
   {
     "id": "breakingswipe",
@@ -353,6 +675,31 @@
     "flags": ["contact", "metronome", "mirror", "protect"]
   },
   {
+    "id": "bugbite",
+    "name": "むしくい",
+    "nameEn": "Bug Bite",
+    "type": "bug",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "bugbuzz",
+    "name": "むしのさざめき",
+    "nameEn": "Bug Buzz",
+    "type": "bug",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"],
+    "hasSecondary": true
+  },
+  {
     "id": "bulkup",
     "name": "ビルドアップ",
     "nameEn": "Bulk Up",
@@ -390,6 +737,19 @@
     "flags": ["contact", "metronome", "mirror", "protect", "punch"]
   },
   {
+    "id": "bulletseed",
+    "name": "タネマシンガン",
+    "nameEn": "Bullet Seed",
+    "type": "grass",
+    "category": "physical",
+    "power": 25,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bullet", "metronome", "mirror", "protect"],
+    "multihit": [2, 5]
+  },
+  {
     "id": "burningjealousy",
     "name": "しっとのほのお",
     "nameEn": "Burning Jealousy",
@@ -403,6 +763,18 @@
     "hasSecondary": true
   },
   {
+    "id": "burnup",
+    "name": "もえつきる",
+    "nameEn": "Burn Up",
+    "type": "fire",
+    "category": "special",
+    "power": 130,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["defrost", "metronome", "mirror", "protect"]
+  },
+  {
     "id": "calmmind",
     "name": "めいそう",
     "nameEn": "Calm Mind",
@@ -413,6 +785,19 @@
     "priority": 0,
     "target": "self",
     "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "ceaselessedge",
+    "name": "ひけん・ちえなみ",
+    "nameEn": "Ceaseless Edge",
+    "type": "dark",
+    "category": "physical",
+    "power": 65,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"],
+    "hasSecondary": true
   },
   {
     "id": "charge",
@@ -465,6 +850,66 @@
     "hasSecondary": true
   },
   {
+    "id": "chillyreception",
+    "name": "さむいギャグ",
+    "nameEn": "Chilly Reception",
+    "type": "ice",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "all",
+    "flags": []
+  },
+  {
+    "id": "circlethrow",
+    "name": "ともえなげ",
+    "nameEn": "Circle Throw",
+    "type": "fighting",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 90,
+    "priority": -6,
+    "target": "normal",
+    "flags": ["contact", "failcopycat", "metronome", "mirror", "noassist", "protect"]
+  },
+  {
+    "id": "clangingscales",
+    "name": "スケイルノイズ",
+    "nameEn": "Clanging Scales",
+    "type": "dragon",
+    "category": "special",
+    "power": 110,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"]
+  },
+  {
+    "id": "clangoroussoul",
+    "name": "ソウルビート",
+    "nameEn": "Clangorous Soul",
+    "type": "dragon",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["dance", "snatch", "sound"]
+  },
+  {
+    "id": "clearsmog",
+    "name": "クリアスモッグ",
+    "nameEn": "Clear Smog",
+    "type": "poison",
+    "category": "special",
+    "power": 50,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"]
+  },
+  {
     "id": "closecombat",
     "name": "インファイト",
     "nameEn": "Close Combat",
@@ -475,6 +920,42 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "coaching",
+    "name": "コーチング",
+    "nameEn": "Coaching",
+    "type": "fighting",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "adjacentAlly",
+    "flags": ["allyanim", "bypasssub", "metronome"]
+  },
+  {
+    "id": "coil",
+    "name": "とぐろをまく",
+    "nameEn": "Coil",
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "comeuppance",
+    "name": "ほうふく",
+    "nameEn": "Comeuppance",
+    "type": "dark",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "scripted",
+    "flags": ["contact", "failmefirst", "mirror", "protect"]
   },
   {
     "id": "confuseray",
@@ -501,6 +982,18 @@
     "flags": ["failcopycat", "failencore", "failinstruct", "failmimic", "noassist", "nosleeptalk"]
   },
   {
+    "id": "corrosivegas",
+    "name": "ふしょくガス",
+    "nameEn": "Corrosive Gas",
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacent",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "cosmicpower",
     "name": "コスモパワー",
     "nameEn": "Cosmic Power",
@@ -511,6 +1004,30 @@
     "priority": 0,
     "target": "self",
     "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "cottonguard",
+    "name": "コットンガード",
+    "nameEn": "Cotton Guard",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "cottonspore",
+    "name": "わたほうし",
+    "nameEn": "Cotton Spore",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["metronome", "mirror", "powder", "protect", "reflectable"]
   },
   {
     "id": "counter",
@@ -525,6 +1042,42 @@
     "flags": ["contact", "failcopycat", "failmefirst", "noassist", "protect"]
   },
   {
+    "id": "courtchange",
+    "name": "コートチェンジ",
+    "nameEn": "Court Change",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "all",
+    "flags": ["metronome", "mirror"]
+  },
+  {
+    "id": "covet",
+    "name": "ほしがる",
+    "nameEn": "Covet",
+    "type": "normal",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "failcopycat", "failmefirst", "mirror", "noassist", "protect"]
+  },
+  {
+    "id": "crabhammer",
+    "name": "クラブハンマー",
+    "nameEn": "Crabhammer",
+    "type": "water",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
     "id": "crosschop",
     "name": "クロスチョップ",
     "nameEn": "Cross Chop",
@@ -537,6 +1090,19 @@
     "flags": ["contact", "metronome", "mirror", "protect"]
   },
   {
+    "id": "crosspoison",
+    "name": "クロスポイズン",
+    "nameEn": "Cross Poison",
+    "type": "poison",
+    "category": "physical",
+    "power": 70,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"],
+    "hasSecondary": true
+  },
+  {
     "id": "crunch",
     "name": "かみくだく",
     "nameEn": "Crunch",
@@ -547,6 +1113,19 @@
     "priority": 0,
     "target": "normal",
     "flags": ["bite", "contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "crushclaw",
+    "name": "ブレイククロー",
+    "nameEn": "Crush Claw",
+    "type": "normal",
+    "category": "physical",
+    "power": 75,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"],
     "hasSecondary": true
   },
   {
@@ -600,6 +1179,30 @@
     "flags": ["metronome", "mirror", "protect"]
   },
   {
+    "id": "decorate",
+    "name": "デコレーション",
+    "nameEn": "Decorate",
+    "type": "fairy",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim"]
+  },
+  {
+    "id": "defog",
+    "name": "きりばらい",
+    "nameEn": "Defog",
+    "type": "flying",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "destinybond",
     "name": "みちづれ",
     "nameEn": "Destiny Bond",
@@ -612,6 +1215,18 @@
     "flags": ["bypasssub", "failcopycat", "noassist"]
   },
   {
+    "id": "detect",
+    "name": "みきり",
+    "nameEn": "Detect",
+    "type": "fighting",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 4,
+    "target": "self",
+    "flags": ["failcopycat", "noassist"]
+  },
+  {
     "id": "dig",
     "name": "あなをほる",
     "nameEn": "Dig",
@@ -622,6 +1237,19 @@
     "priority": 0,
     "target": "normal",
     "flags": ["charge", "contact", "failinstruct", "metronome", "mirror", "noassist", "nonsky", "nosleeptalk", "protect"]
+  },
+  {
+    "id": "direclaw",
+    "name": "フェイタルクロー",
+    "nameEn": "Dire Claw",
+    "type": "poison",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"],
+    "hasSecondary": true
   },
   {
     "id": "disable",
@@ -675,6 +1303,31 @@
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"],
     "hasRecoil": true
+  },
+  {
+    "id": "doublehit",
+    "name": "ダブルアタック",
+    "nameEn": "Double Hit",
+    "type": "normal",
+    "category": "physical",
+    "power": 35,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "multihit": 2
+  },
+  {
+    "id": "doubleshock",
+    "name": "でんこうそうげき",
+    "nameEn": "Double Shock",
+    "type": "electric",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "mirror", "protect", "punch"]
   },
   {
     "id": "doubleteam",
@@ -735,6 +1388,19 @@
     "priority": 0,
     "target": "self",
     "flags": ["dance", "metronome", "snatch"]
+  },
+  {
+    "id": "dragondarts",
+    "name": "ドラゴンアロー",
+    "nameEn": "Dragon Darts",
+    "type": "dragon",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "noparentalbond", "protect"],
+    "multihit": 2
   },
   {
     "id": "dragonpulse",
@@ -798,6 +1464,69 @@
     "flags": ["contact", "heal", "metronome", "mirror", "protect", "punch"]
   },
   {
+    "id": "drillpeck",
+    "name": "ドリルくちばし",
+    "nameEn": "Drill Peck",
+    "type": "flying",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "any",
+    "flags": ["contact", "distance", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "drillrun",
+    "name": "ドリルライナー",
+    "nameEn": "Drill Run",
+    "type": "ground",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "drumbeating",
+    "name": "ドラムアタック",
+    "nameEn": "Drum Beating",
+    "type": "grass",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "dualwingbeat",
+    "name": "ダブルウイング",
+    "nameEn": "Dual Wingbeat",
+    "type": "flying",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "multihit": 2
+  },
+  {
+    "id": "dynamicpunch",
+    "name": "ばくれつパンチ",
+    "nameEn": "Dynamic Punch",
+    "type": "fighting",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 50,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "punch"],
+    "hasSecondary": true
+  },
+  {
     "id": "earthpower",
     "name": "だいちのちから",
     "nameEn": "Earth Power",
@@ -835,6 +1564,19 @@
     "flags": ["metronome", "mirror", "protect", "reflectable"]
   },
   {
+    "id": "eeriespell",
+    "name": "ぶきみなじゅもん",
+    "nameEn": "Eerie Spell",
+    "type": "psychic",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"],
+    "hasSecondary": true
+  },
+  {
     "id": "electricterrain",
     "name": "エレキフィールド",
     "nameEn": "Electric Terrain",
@@ -845,6 +1587,18 @@
     "priority": 0,
     "target": "all",
     "flags": ["metronome", "nonsky"]
+  },
+  {
+    "id": "electrify",
+    "name": "そうでん",
+    "nameEn": "Electrify",
+    "type": "electric",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect"]
   },
   {
     "id": "electroball",
@@ -858,6 +1612,18 @@
     "target": "normal",
     "flags": ["bullet", "metronome", "mirror", "protect"],
     "variablePower": true
+  },
+  {
+    "id": "electroshot",
+    "name": "エレクトロビーム",
+    "nameEn": "Electro Shot",
+    "type": "electric",
+    "category": "special",
+    "power": 130,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["charge", "metronome", "mirror", "protect"]
   },
   {
     "id": "electroweb",
@@ -922,6 +1688,31 @@
     "hasSecondary": true
   },
   {
+    "id": "entrainment",
+    "name": "なかまづくり",
+    "nameEn": "Entrainment",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "eruption",
+    "name": "ふんか",
+    "nameEn": "Eruption",
+    "type": "fire",
+    "category": "special",
+    "power": 150,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["metronome", "mirror", "protect"],
+    "variablePower": true
+  },
+  {
     "id": "expandingforce",
     "name": "ワイドフォース",
     "nameEn": "Expanding Force",
@@ -946,6 +1737,19 @@
     "flags": ["metronome", "mirror", "noparentalbond", "protect"]
   },
   {
+    "id": "extrasensory",
+    "name": "じんつうりき",
+    "nameEn": "Extrasensory",
+    "type": "psychic",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "extremespeed",
     "name": "しんそく",
     "nameEn": "Extreme Speed",
@@ -968,6 +1772,18 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "fairylock",
+    "name": "フェアリーロック",
+    "nameEn": "Fairy Lock",
+    "type": "fairy",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "all",
+    "flags": ["bypasssub", "metronome", "mirror"]
   },
   {
     "id": "fakeout",
@@ -995,6 +1811,18 @@
     "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
   },
   {
+    "id": "featherdance",
+    "name": "フェザーダンス",
+    "nameEn": "Feather Dance",
+    "type": "flying",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "dance", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "feint",
     "name": "フェイント",
     "nameEn": "Feint",
@@ -1005,6 +1833,55 @@
     "priority": 2,
     "target": "normal",
     "flags": ["failcopycat", "mirror", "noassist"]
+  },
+  {
+    "id": "fellstinger",
+    "name": "とどめばり",
+    "nameEn": "Fell Stinger",
+    "type": "bug",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "ficklebeam",
+    "name": "きまぐレーザー",
+    "nameEn": "Fickle Beam",
+    "type": "dragon",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"]
+  },
+  {
+    "id": "fierydance",
+    "name": "ほのおのまい",
+    "nameEn": "Fiery Dance",
+    "type": "fire",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["dance", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "finalgambit",
+    "name": "いのちがけ",
+    "nameEn": "Final Gambit",
+    "type": "fighting",
+    "category": "special",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "noparentalbond", "protect"]
   },
   {
     "id": "fireblast",
@@ -1033,6 +1910,19 @@
     "hasSecondary": true
   },
   {
+    "id": "firelash",
+    "name": "ほのおのムチ",
+    "nameEn": "Fire Lash",
+    "type": "fire",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "firepunch",
     "name": "ほのおのパンチ",
     "nameEn": "Fire Punch",
@@ -1056,6 +1946,30 @@
     "priority": 0,
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"]
+  },
+  {
+    "id": "firstimpression",
+    "name": "であいがしら",
+    "nameEn": "First Impression",
+    "type": "bug",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 100,
+    "priority": 2,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "fissure",
+    "name": "じわれ",
+    "nameEn": "Fissure",
+    "type": "ground",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 30,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "nonsky", "protect"]
   },
   {
     "id": "flail",
@@ -1124,6 +2038,18 @@
     "hasSecondary": true
   },
   {
+    "id": "flatter",
+    "name": "おだてる",
+    "nameEn": "Flatter",
+    "type": "dark",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "fling",
     "name": "なげつける",
     "nameEn": "Fling",
@@ -1134,6 +2060,31 @@
     "priority": 0,
     "target": "normal",
     "flags": ["allyanim", "metronome", "mirror", "noparentalbond", "protect"]
+  },
+  {
+    "id": "flipturn",
+    "name": "クイックターン",
+    "nameEn": "Flip Turn",
+    "type": "water",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "flowertrick",
+    "name": "トリックフラワー",
+    "nameEn": "Flower Trick",
+    "type": "grass",
+    "category": "physical",
+    "power": 70,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "alwaysCritical": true
   },
   {
     "id": "fly",
@@ -1149,6 +2100,18 @@
       "charge", "contact", "distance", "failinstruct", "gravity", "metronome", "mirror", "noassist",
       "nosleeptalk", "protect"
     ]
+  },
+  {
+    "id": "flyingpress",
+    "name": "フライングプレス",
+    "nameEn": "Flying Press",
+    "type": "fighting",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "any",
+    "flags": ["contact", "distance", "gravity", "metronome", "minimize", "mirror", "nonsky", "protect"]
   },
   {
     "id": "focusblast",
@@ -1188,6 +2151,30 @@
     "flags": ["contact", "failcopycat", "failinstruct", "failmefirst", "noassist", "nosleeptalk", "protect", "punch"]
   },
   {
+    "id": "followme",
+    "name": "このゆびとまれ",
+    "nameEn": "Follow Me",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 2,
+    "target": "self",
+    "flags": ["failcopycat", "noassist"]
+  },
+  {
+    "id": "forestscurse",
+    "name": "もりののろい",
+    "nameEn": "Forest's Curse",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "foulplay",
     "name": "イカサマ",
     "nameEn": "Foul Play",
@@ -1199,6 +2186,44 @@
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"],
     "overrideOffensivePokemon": "target"
+  },
+  {
+    "id": "freezedry",
+    "name": "フリーズドライ",
+    "nameEn": "Freeze-Dry",
+    "type": "ice",
+    "category": "special",
+    "power": 70,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "frenzyplant",
+    "name": "ハードプラント",
+    "nameEn": "Frenzy Plant",
+    "type": "grass",
+    "category": "special",
+    "power": 150,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "nonsky", "protect", "recharge"]
+  },
+  {
+    "id": "frostbreath",
+    "name": "こおりのいぶき",
+    "nameEn": "Frost Breath",
+    "type": "ice",
+    "category": "special",
+    "power": 60,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "alwaysCritical": true
   },
   {
     "id": "futuresight",
@@ -1213,6 +2238,30 @@
     "flags": ["allyanim", "futuremove", "metronome"]
   },
   {
+    "id": "gastroacid",
+    "name": "いえき",
+    "nameEn": "Gastro Acid",
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "gigadrain",
+    "name": "ギガドレイン",
+    "nameEn": "Giga Drain",
+    "type": "grass",
+    "category": "special",
+    "power": 75,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["heal", "metronome", "mirror", "protect"]
+  },
+  {
     "id": "gigaimpact",
     "name": "ギガインパクト",
     "nameEn": "Giga Impact",
@@ -1223,6 +2272,42 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect", "recharge"]
+  },
+  {
+    "id": "gigatonhammer",
+    "name": "デカハンマー",
+    "nameEn": "Gigaton Hammer",
+    "type": "steel",
+    "category": "physical",
+    "power": 160,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["cantusetwice", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "glaiverush",
+    "name": "きょけんとつげき",
+    "nameEn": "Glaive Rush",
+    "type": "dragon",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "glare",
+    "name": "へびにらみ",
+    "nameEn": "Glare",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect", "reflectable"]
   },
   {
     "id": "grassknot",
@@ -1238,6 +2323,43 @@
     "variablePower": true
   },
   {
+    "id": "grassyglide",
+    "name": "グラススライダー",
+    "nameEn": "Grassy Glide",
+    "type": "grass",
+    "category": "physical",
+    "power": 55,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "grassyterrain",
+    "name": "グラスフィールド",
+    "nameEn": "Grassy Terrain",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "all",
+    "flags": ["metronome", "nonsky"]
+  },
+  {
+    "id": "gravapple",
+    "name": "Ｇのちから",
+    "nameEn": "Grav Apple",
+    "type": "grass",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "gravity",
     "name": "じゅうりょく",
     "nameEn": "Gravity",
@@ -1250,6 +2372,30 @@
     "flags": ["metronome", "nonsky"]
   },
   {
+    "id": "growth",
+    "name": "せいちょう",
+    "nameEn": "Growth",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "guardsplit",
+    "name": "ガードシェア",
+    "nameEn": "Guard Split",
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "protect"]
+  },
+  {
     "id": "guardswap",
     "name": "ガードスワップ",
     "nameEn": "Guard Swap",
@@ -1260,6 +2406,31 @@
     "priority": 0,
     "target": "normal",
     "flags": ["allyanim", "bypasssub", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "guillotine",
+    "name": "ハサミギロチン",
+    "nameEn": "Guillotine",
+    "type": "normal",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 30,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "gunkshot",
+    "name": "ダストシュート",
+    "nameEn": "Gunk Shot",
+    "type": "poison",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 80,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "gyroball",
@@ -1310,6 +2481,43 @@
     "priority": 0,
     "target": "all",
     "flags": ["bypasssub", "metronome"]
+  },
+  {
+    "id": "headlongrush",
+    "name": "ぶちかまし",
+    "nameEn": "Headlong Rush",
+    "type": "ground",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "punch"]
+  },
+  {
+    "id": "headsmash",
+    "name": "もろはのずつき",
+    "nameEn": "Head Smash",
+    "type": "rock",
+    "category": "physical",
+    "power": 150,
+    "accuracy": 80,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasRecoil": true
+  },
+  {
+    "id": "healbell",
+    "name": "いやしのすず",
+    "nameEn": "Heal Bell",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "allyTeam",
+    "flags": ["bypasssub", "distance", "metronome", "snatch", "sound"]
   },
   {
     "id": "healingwish",
@@ -1412,6 +2620,55 @@
     "flags": ["contact", "metronome", "mirror", "protect"]
   },
   {
+    "id": "highjumpkick",
+    "name": "とびひざげり",
+    "nameEn": "High Jump Kick",
+    "type": "fighting",
+    "category": "physical",
+    "power": 130,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "gravity", "metronome", "mirror", "protect"],
+    "hasRecoil": true
+  },
+  {
+    "id": "horndrill",
+    "name": "つのドリル",
+    "nameEn": "Horn Drill",
+    "type": "normal",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 30,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "hornleech",
+    "name": "ウッドホーン",
+    "nameEn": "Horn Leech",
+    "type": "grass",
+    "category": "physical",
+    "power": 75,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "heal", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "howl",
+    "name": "とおぼえ",
+    "nameEn": "Howl",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "allies",
+    "flags": ["bypasssub", "metronome", "snatch", "sound"]
+  },
+  {
     "id": "hurricane",
     "name": "ぼうふう",
     "nameEn": "Hurricane",
@@ -1423,6 +2680,18 @@
     "target": "any",
     "flags": ["distance", "metronome", "mirror", "protect", "wind"],
     "hasSecondary": true
+  },
+  {
+    "id": "hydrocannon",
+    "name": "ハイドロカノン",
+    "nameEn": "Hydro Cannon",
+    "type": "water",
+    "category": "special",
+    "power": 150,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect", "recharge"]
   },
   {
     "id": "hydropump",
@@ -1499,6 +2768,18 @@
     "hasSecondary": true
   },
   {
+    "id": "icehammer",
+    "name": "アイスハンマー",
+    "nameEn": "Ice Hammer",
+    "type": "ice",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "punch"]
+  },
+  {
     "id": "icepunch",
     "name": "れいとうパンチ",
     "nameEn": "Ice Punch",
@@ -1512,6 +2793,18 @@
     "hasSecondary": true
   },
   {
+    "id": "iceshard",
+    "name": "こおりのつぶて",
+    "nameEn": "Ice Shard",
+    "type": "ice",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "priority": 1,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"]
+  },
+  {
     "id": "icespinner",
     "name": "アイススピナー",
     "nameEn": "Ice Spinner",
@@ -1522,6 +2815,32 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "iciclecrash",
+    "name": "つららおとし",
+    "nameEn": "Icicle Crash",
+    "type": "ice",
+    "category": "physical",
+    "power": 85,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "iciclespear",
+    "name": "つららばり",
+    "nameEn": "Icicle Spear",
+    "type": "ice",
+    "category": "physical",
+    "power": 25,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "multihit": [2, 5]
   },
   {
     "id": "icywind",
@@ -1549,6 +2868,20 @@
     "flags": ["bypasssub", "metronome", "mustpressure", "snatch"]
   },
   {
+    "id": "infernalparade",
+    "name": "ひゃっきやこう",
+    "nameEn": "Infernal Parade",
+    "type": "ghost",
+    "category": "special",
+    "power": 65,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true,
+    "variablePower": true
+  },
+  {
     "id": "inferno",
     "name": "れんごく",
     "nameEn": "Inferno",
@@ -1560,6 +2893,42 @@
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"],
     "hasSecondary": true
+  },
+  {
+    "id": "infestation",
+    "name": "まとわりつく",
+    "nameEn": "Infestation",
+    "type": "bug",
+    "category": "special",
+    "power": 20,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "ingrain",
+    "name": "ねをはる",
+    "nameEn": "Ingrain",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "nonsky", "snatch"]
+  },
+  {
+    "id": "instruct",
+    "name": "さいはい",
+    "nameEn": "Instruct",
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "bypasssub", "failinstruct", "protect"]
   },
   {
     "id": "irondefense",
@@ -1600,6 +2969,42 @@
     "hasSecondary": true
   },
   {
+    "id": "jawlock",
+    "name": "くらいつく",
+    "nameEn": "Jaw Lock",
+    "type": "dark",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bite", "contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "jetpunch",
+    "name": "ジェットパンチ",
+    "nameEn": "Jet Punch",
+    "type": "water",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "priority": 1,
+    "target": "normal",
+    "flags": ["contact", "mirror", "protect", "punch"]
+  },
+  {
+    "id": "kingsshield",
+    "name": "キングシールド",
+    "nameEn": "King's Shield",
+    "type": "steel",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 4,
+    "target": "self",
+    "flags": ["failcopycat", "failinstruct", "noassist"]
+  },
+  {
     "id": "knockoff",
     "name": "はたきおとす",
     "nameEn": "Knock Off",
@@ -1610,6 +3015,18 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "kowtowcleave",
+    "name": "ドゲザン",
+    "nameEn": "Kowtow Cleave",
+    "type": "dark",
+    "category": "physical",
+    "power": 85,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"]
   },
   {
     "id": "lashout",
@@ -1624,6 +3041,68 @@
     "flags": ["contact", "metronome", "mirror", "protect"]
   },
   {
+    "id": "lastresort",
+    "name": "とっておき",
+    "nameEn": "Last Resort",
+    "type": "normal",
+    "category": "physical",
+    "power": 140,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "lastrespects",
+    "name": "おはかまいり",
+    "nameEn": "Last Respects",
+    "type": "ghost",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "variablePower": true
+  },
+  {
+    "id": "lavaplume",
+    "name": "ふんえん",
+    "nameEn": "Lava Plume",
+    "type": "fire",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacent",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "leafblade",
+    "name": "リーフブレード",
+    "nameEn": "Leaf Blade",
+    "type": "grass",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"]
+  },
+  {
+    "id": "leafstorm",
+    "name": "リーフストーム",
+    "nameEn": "Leaf Storm",
+    "type": "grass",
+    "category": "special",
+    "power": 130,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"]
+  },
+  {
     "id": "leechlife",
     "name": "きゅうけつ",
     "nameEn": "Leech Life",
@@ -1636,6 +3115,18 @@
     "flags": ["contact", "heal", "metronome", "mirror", "protect"]
   },
   {
+    "id": "leechseed",
+    "name": "やどりぎのタネ",
+    "nameEn": "Leech Seed",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "lifedew",
     "name": "いのちのしずく",
     "nameEn": "Life Dew",
@@ -1646,6 +3137,19 @@
     "priority": 0,
     "target": "allies",
     "flags": ["bypasssub", "heal", "snatch"]
+  },
+  {
+    "id": "lightofruin",
+    "name": "はめつのひかり",
+    "nameEn": "Light of Ruin",
+    "type": "fairy",
+    "category": "special",
+    "power": 140,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect"],
+    "hasRecoil": true
   },
   {
     "id": "lightscreen",
@@ -1671,6 +3175,18 @@
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"],
     "hasSecondary": true
+  },
+  {
+    "id": "lockon",
+    "name": "ロックオン",
+    "nameEn": "Lock-On",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"]
   },
   {
     "id": "lowkick",
@@ -1699,6 +3215,56 @@
     "hasSecondary": true
   },
   {
+    "id": "luminacrash",
+    "name": "ルミナコリジョン",
+    "nameEn": "Lumina Crash",
+    "type": "psychic",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "lunge",
+    "name": "とびかかる",
+    "nameEn": "Lunge",
+    "type": "bug",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "machpunch",
+    "name": "マッハパンチ",
+    "nameEn": "Mach Punch",
+    "type": "fighting",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "priority": 1,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "punch"]
+  },
+  {
+    "id": "magicpowder",
+    "name": "まほうのこな",
+    "nameEn": "Magic Powder",
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "powder", "protect", "reflectable"]
+  },
+  {
     "id": "magicroom",
     "name": "マジックルーム",
     "nameEn": "Magic Room",
@@ -1709,6 +3275,18 @@
     "priority": 0,
     "target": "all",
     "flags": ["metronome", "mirror"]
+  },
+  {
+    "id": "magneticflux",
+    "name": "じばそうさ",
+    "nameEn": "Magnetic Flux",
+    "type": "electric",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "allySide",
+    "flags": ["bypasssub", "distance", "metronome", "snatch"]
   },
   {
     "id": "magnetrise",
@@ -1723,6 +3301,31 @@
     "flags": ["gravity", "metronome", "snatch"]
   },
   {
+    "id": "makeitrain",
+    "name": "ゴールドラッシュ",
+    "nameEn": "Make It Rain",
+    "type": "steel",
+    "category": "special",
+    "power": 120,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["mirror", "protect"]
+  },
+  {
+    "id": "matchagotcha",
+    "name": "シャカシャカほう",
+    "nameEn": "Matcha Gotcha",
+    "type": "grass",
+    "category": "special",
+    "power": 80,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["defrost", "heal", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "meanlook",
     "name": "くろいまなざし",
     "nameEn": "Mean Look",
@@ -1733,6 +3336,18 @@
     "priority": 0,
     "target": "normal",
     "flags": ["metronome", "mirror", "reflectable"]
+  },
+  {
+    "id": "megahorn",
+    "name": "メガホーン",
+    "nameEn": "Megahorn",
+    "type": "bug",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 85,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
   },
   {
     "id": "megakick",
@@ -1759,6 +3374,42 @@
     "flags": ["metronome", "mirror", "protect"]
   },
   {
+    "id": "metalburst",
+    "name": "メタルバースト",
+    "nameEn": "Metal Burst",
+    "type": "steel",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "scripted",
+    "flags": ["failmefirst", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "metalsound",
+    "name": "きんぞくおん",
+    "nameEn": "Metal Sound",
+    "type": "steel",
+    "category": "status",
+    "power": 0,
+    "accuracy": 85,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "bypasssub", "metronome", "mirror", "protect", "reflectable", "sound"]
+  },
+  {
+    "id": "meteorassault",
+    "name": "スターアサルト",
+    "nameEn": "Meteor Assault",
+    "type": "fighting",
+    "category": "physical",
+    "power": 170,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["failinstruct", "mirror", "protect", "recharge"]
+  },
+  {
     "id": "meteorbeam",
     "name": "メテオビーム",
     "nameEn": "Meteor Beam",
@@ -1782,6 +3433,42 @@
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect", "punch"],
     "hasSecondary": true
+  },
+  {
+    "id": "milkdrink",
+    "name": "ミルクのみ",
+    "nameEn": "Milk Drink",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "adjacentAllyOrSelf",
+    "flags": ["heal", "metronome", "snatch"]
+  },
+  {
+    "id": "minimize",
+    "name": "ちいさくなる",
+    "nameEn": "Minimize",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "mirrorcoat",
+    "name": "ミラーコート",
+    "nameEn": "Mirror Coat",
+    "type": "psychic",
+    "category": "special",
+    "power": 0,
+    "accuracy": 100,
+    "priority": -5,
+    "target": "scripted",
+    "flags": ["failmefirst", "noassist", "protect"]
   },
   {
     "id": "mistyexplosion",
@@ -1815,6 +3502,56 @@
     "category": "special",
     "power": 95,
     "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "moonlight",
+    "name": "つきのひかり",
+    "nameEn": "Moonlight",
+    "type": "fairy",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["heal", "metronome", "snatch"]
+  },
+  {
+    "id": "morningsun",
+    "name": "あさのひざし",
+    "nameEn": "Morning Sun",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["heal", "metronome", "snatch"]
+  },
+  {
+    "id": "mortalspin",
+    "name": "キラースピン",
+    "nameEn": "Mortal Spin",
+    "type": "poison",
+    "category": "physical",
+    "power": 30,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "mountaingale",
+    "name": "ひょうざんおろし",
+    "nameEn": "Mountain Gale",
+    "type": "ice",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 85,
     "priority": 0,
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"],
@@ -1885,6 +3622,19 @@
     "flags": ["metronome", "snatch"]
   },
   {
+    "id": "nightdaze",
+    "name": "ナイトバースト",
+    "nameEn": "Night Daze",
+    "type": "dark",
+    "category": "special",
+    "power": 90,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "nightshade",
     "name": "ナイトヘッド",
     "nameEn": "Night Shade",
@@ -1895,6 +3645,42 @@
     "priority": 0,
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"]
+  },
+  {
+    "id": "nightslash",
+    "name": "つじぎり",
+    "nameEn": "Night Slash",
+    "type": "dark",
+    "category": "physical",
+    "power": 70,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"]
+  },
+  {
+    "id": "nobleroar",
+    "name": "おたけび",
+    "nameEn": "Noble Roar",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "reflectable", "sound"]
+  },
+  {
+    "id": "noretreat",
+    "name": "はいすいのじん",
+    "nameEn": "No Retreat",
+    "type": "fighting",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
   },
   {
     "id": "nuzzle",
@@ -1910,6 +3696,18 @@
     "hasSecondary": true
   },
   {
+    "id": "octolock",
+    "name": "たこがため",
+    "nameEn": "Octolock",
+    "type": "fighting",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"]
+  },
+  {
     "id": "outrage",
     "name": "げきりん",
     "nameEn": "Outrage",
@@ -1920,6 +3718,18 @@
     "priority": 0,
     "target": "randomNormal",
     "flags": ["contact", "failinstruct", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "overdrive",
+    "name": "オーバードライブ",
+    "nameEn": "Overdrive",
+    "type": "electric",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["bypasssub", "mirror", "protect", "sound"]
   },
   {
     "id": "overheat",
@@ -1944,6 +3754,18 @@
     "priority": 0,
     "target": "normal",
     "flags": ["allyanim", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "paraboliccharge",
+    "name": "パラボラチャージ",
+    "nameEn": "Parabolic Charge",
+    "type": "electric",
+    "category": "special",
+    "power": 65,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacent",
+    "flags": ["heal", "metronome", "mirror", "protect"]
   },
   {
     "id": "partingshot",
@@ -1983,6 +3805,55 @@
     "flags": ["bypasssub", "distance", "metronome", "sound"]
   },
   {
+    "id": "petalblizzard",
+    "name": "はなふぶき",
+    "nameEn": "Petal Blizzard",
+    "type": "grass",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacent",
+    "flags": ["metronome", "mirror", "protect", "wind"]
+  },
+  {
+    "id": "petaldance",
+    "name": "はなびらのまい",
+    "nameEn": "Petal Dance",
+    "type": "grass",
+    "category": "special",
+    "power": 120,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "randomNormal",
+    "flags": ["contact", "dance", "failinstruct", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "phantomforce",
+    "name": "ゴーストダイブ",
+    "nameEn": "Phantom Force",
+    "type": "ghost",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["charge", "contact", "failinstruct", "metronome", "mirror", "noassist", "nosleeptalk"]
+  },
+  {
+    "id": "pinmissile",
+    "name": "ミサイルばり",
+    "nameEn": "Pin Missile",
+    "type": "bug",
+    "category": "physical",
+    "power": 25,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "multihit": [2, 5]
+  },
+  {
     "id": "playrough",
     "name": "じゃれつく",
     "nameEn": "Play Rough",
@@ -1993,6 +3864,31 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "pluck",
+    "name": "ついばむ",
+    "nameEn": "Pluck",
+    "type": "flying",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "any",
+    "flags": ["contact", "distance", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "poisonfang",
+    "name": "どくどくのキバ",
+    "nameEn": "Poison Fang",
+    "type": "poison",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bite", "contact", "metronome", "mirror", "protect"],
     "hasSecondary": true
   },
   {
@@ -2009,6 +3905,30 @@
     "hasSecondary": true
   },
   {
+    "id": "poisonpowder",
+    "name": "どくのこな",
+    "nameEn": "Poison Powder",
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": 75,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "powder", "protect", "reflectable"]
+  },
+  {
+    "id": "pollenpuff",
+    "name": "かふんだんご",
+    "nameEn": "Pollen Puff",
+    "type": "bug",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "bullet", "metronome", "mirror", "protect"]
+  },
+  {
     "id": "poltergeist",
     "name": "ポルターガイスト",
     "nameEn": "Poltergeist",
@@ -2019,6 +3939,32 @@
     "priority": 0,
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"]
+  },
+  {
+    "id": "populationbomb",
+    "name": "ネズミざん",
+    "nameEn": "Population Bomb",
+    "type": "normal",
+    "category": "physical",
+    "power": 20,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "mirror", "protect", "slicing"],
+    "multihit": 10
+  },
+  {
+    "id": "pounce",
+    "name": "とびつく",
+    "nameEn": "Pounce",
+    "type": "bug",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "powergem",
@@ -2033,6 +3979,18 @@
     "flags": ["metronome", "mirror", "protect"]
   },
   {
+    "id": "powersplit",
+    "name": "パワーシェア",
+    "nameEn": "Power Split",
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "protect"]
+  },
+  {
     "id": "powerswap",
     "name": "パワースワップ",
     "nameEn": "Power Swap",
@@ -2043,6 +4001,18 @@
     "priority": 0,
     "target": "normal",
     "flags": ["allyanim", "bypasssub", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "powertrick",
+    "name": "パワートリック",
+    "nameEn": "Power Trick",
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
   },
   {
     "id": "powertrip",
@@ -2056,6 +4026,18 @@
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"],
     "variablePower": true
+  },
+  {
+    "id": "powerwhip",
+    "name": "パワーウィップ",
+    "nameEn": "Power Whip",
+    "type": "grass",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 85,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
   },
   {
     "id": "protect",
@@ -2144,6 +4126,19 @@
     "flags": ["allyanim", "bypasssub", "metronome"]
   },
   {
+    "id": "psyshieldbash",
+    "name": "バリアーラッシュ",
+    "nameEn": "Psyshield Bash",
+    "type": "psychic",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "psyshock",
     "name": "サイコショック",
     "nameEn": "Psyshock",
@@ -2155,6 +4150,31 @@
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"],
     "overrideDefensiveStat": "def"
+  },
+  {
+    "id": "pyroball",
+    "name": "かえんボール",
+    "nameEn": "Pyro Ball",
+    "type": "fire",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bullet", "defrost", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "quash",
+    "name": "さきおくり",
+    "nameEn": "Quash",
+    "type": "dark",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect"]
   },
   {
     "id": "quickattack",
@@ -2169,6 +4189,79 @@
     "flags": ["contact", "metronome", "mirror", "protect"]
   },
   {
+    "id": "quickguard",
+    "name": "ファストガード",
+    "nameEn": "Quick Guard",
+    "type": "fighting",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 3,
+    "target": "allySide",
+    "flags": ["snatch"]
+  },
+  {
+    "id": "quiverdance",
+    "name": "ちょうのまい",
+    "nameEn": "Quiver Dance",
+    "type": "bug",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["dance", "metronome", "snatch"]
+  },
+  {
+    "id": "ragefist",
+    "name": "ふんどのこぶし",
+    "nameEn": "Rage Fist",
+    "type": "ghost",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "mirror", "protect", "punch"],
+    "variablePower": true
+  },
+  {
+    "id": "ragepowder",
+    "name": "いかりのこな",
+    "nameEn": "Rage Powder",
+    "type": "bug",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 2,
+    "target": "self",
+    "flags": ["failcopycat", "noassist", "powder"]
+  },
+  {
+    "id": "ragingbull",
+    "name": "レイジングブル",
+    "nameEn": "Raging Bull",
+    "type": "normal",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "mirror", "protect"]
+  },
+  {
+    "id": "ragingfury",
+    "name": "だいふんげき",
+    "nameEn": "Raging Fury",
+    "type": "fire",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "randomNormal",
+    "flags": ["mirror", "protect"]
+  },
+  {
     "id": "raindance",
     "name": "あまごい",
     "nameEn": "Rain Dance",
@@ -2181,6 +4274,56 @@
     "flags": ["metronome"]
   },
   {
+    "id": "rapidspin",
+    "name": "こうそくスピン",
+    "nameEn": "Rapid Spin",
+    "type": "normal",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "razorshell",
+    "name": "シェルブレード",
+    "nameEn": "Razor Shell",
+    "type": "water",
+    "category": "physical",
+    "power": 75,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"],
+    "hasSecondary": true
+  },
+  {
+    "id": "recover",
+    "name": "じこさいせい",
+    "nameEn": "Recover",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["heal", "metronome", "snatch"]
+  },
+  {
+    "id": "recycle",
+    "name": "リサイクル",
+    "nameEn": "Recycle",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
     "id": "reflect",
     "name": "リフレクター",
     "nameEn": "Reflect",
@@ -2191,6 +4334,18 @@
     "priority": 0,
     "target": "allySide",
     "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "reflecttype",
+    "name": "ミラータイプ",
+    "nameEn": "Reflect Type",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "bypasssub", "metronome", "protect"]
   },
   {
     "id": "rest",
@@ -2216,6 +4371,18 @@
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"],
     "variablePower": true
+  },
+  {
+    "id": "revivalblessing",
+    "name": "さいきのいのり",
+    "nameEn": "Revival Blessing",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["heal", "nosketch"]
   },
   {
     "id": "risingvoltage",
@@ -2256,6 +4423,18 @@
     "multihit": [2, 5]
   },
   {
+    "id": "rockpolish",
+    "name": "ロックカット",
+    "nameEn": "Rock Polish",
+    "type": "rock",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
     "id": "rockslide",
     "name": "いわなだれ",
     "nameEn": "Rock Slide",
@@ -2280,6 +4459,30 @@
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"],
     "hasSecondary": true
+  },
+  {
+    "id": "rockwrecker",
+    "name": "がんせきほう",
+    "nameEn": "Rock Wrecker",
+    "type": "rock",
+    "category": "physical",
+    "power": 150,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bullet", "metronome", "mirror", "protect", "recharge"]
+  },
+  {
+    "id": "roleplay",
+    "name": "なりきり",
+    "nameEn": "Role Play",
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "bypasssub", "metronome"]
   },
   {
     "id": "roost",
@@ -2307,6 +4510,19 @@
     "variablePower": true
   },
   {
+    "id": "sacredsword",
+    "name": "せいなるつるぎ",
+    "nameEn": "Sacred Sword",
+    "type": "fighting",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"],
+    "ignoreDefensive": true
+  },
+  {
     "id": "safeguard",
     "name": "しんぴのまもり",
     "nameEn": "Safeguard",
@@ -2317,6 +4533,19 @@
     "priority": 0,
     "target": "allySide",
     "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "saltcure",
+    "name": "しおづけ",
+    "nameEn": "Salt Cure",
+    "type": "rock",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "sandstorm",
@@ -2341,6 +4570,19 @@
     "priority": 0,
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"]
+  },
+  {
+    "id": "scald",
+    "name": "ねっとう",
+    "nameEn": "Scald",
+    "type": "water",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["defrost", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "scaleshot",
@@ -2391,6 +4633,30 @@
     "priority": 0,
     "target": "normal",
     "flags": ["allyanim", "bypasssub", "metronome", "mirror", "protect", "reflectable", "sound"]
+  },
+  {
+    "id": "seedbomb",
+    "name": "タネばくだん",
+    "nameEn": "Seed Bomb",
+    "type": "grass",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bullet", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "seismictoss",
+    "name": "ちきゅうなげ",
+    "nameEn": "Seismic Toss",
+    "type": "fighting",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "nonsky", "protect"]
   },
   {
     "id": "selfdestruct",
@@ -2454,6 +4720,91 @@
     "flags": ["contact", "metronome", "mirror", "protect"]
   },
   {
+    "id": "shedtail",
+    "name": "しっぽきり",
+    "nameEn": "Shed Tail",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": []
+  },
+  {
+    "id": "sheercold",
+    "name": "ぜったいれいど",
+    "nameEn": "Sheer Cold",
+    "type": "ice",
+    "category": "special",
+    "power": 0,
+    "accuracy": 30,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"]
+  },
+  {
+    "id": "shellsidearm",
+    "name": "シェルアームズ",
+    "nameEn": "Shell Side Arm",
+    "type": "poison",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "shellsmash",
+    "name": "からをやぶる",
+    "nameEn": "Shell Smash",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "shelter",
+    "name": "たてこもる",
+    "nameEn": "Shelter",
+    "type": "steel",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "shiftgear",
+    "name": "ギアチェンジ",
+    "nameEn": "Shift Gear",
+    "type": "steel",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "simplebeam",
+    "name": "シンプルビーム",
+    "nameEn": "Simple Beam",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "sing",
     "name": "うたう",
     "nameEn": "Sing",
@@ -2478,6 +4829,44 @@
     "flags": ["allyanim", "bypasssub", "metronome", "mirror", "protect"]
   },
   {
+    "id": "skittersmack",
+    "name": "はいよるいちげき",
+    "nameEn": "Skitter Smack",
+    "type": "bug",
+    "category": "physical",
+    "power": 70,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "skyattack",
+    "name": "ゴッドバード",
+    "nameEn": "Sky Attack",
+    "type": "flying",
+    "category": "physical",
+    "power": 140,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "any",
+    "flags": ["charge", "distance", "failinstruct", "metronome", "mirror", "nosleeptalk", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "slackoff",
+    "name": "なまける",
+    "nameEn": "Slack Off",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["heal", "metronome", "snatch"]
+  },
+  {
     "id": "slash",
     "name": "きりさく",
     "nameEn": "Slash",
@@ -2488,6 +4877,18 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect", "slicing"]
+  },
+  {
+    "id": "sleeppowder",
+    "name": "ねむりごな",
+    "nameEn": "Sleep Powder",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": 75,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "powder", "protect", "reflectable"]
   },
   {
     "id": "sleeptalk",
@@ -2515,6 +4916,19 @@
     "hasSecondary": true
   },
   {
+    "id": "sludgewave",
+    "name": "ヘドロウェーブ",
+    "nameEn": "Sludge Wave",
+    "type": "poison",
+    "category": "special",
+    "power": 95,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacent",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "smackdown",
     "name": "うちおとす",
     "nameEn": "Smack Down",
@@ -2525,6 +4939,30 @@
     "priority": 0,
     "target": "normal",
     "flags": ["metronome", "mirror", "nonsky", "protect"]
+  },
+  {
+    "id": "smartstrike",
+    "name": "スマートホーン",
+    "nameEn": "Smart Strike",
+    "type": "steel",
+    "category": "physical",
+    "power": 70,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "snaptrap",
+    "name": "トラバサミ",
+    "nameEn": "Snap Trap",
+    "type": "steel",
+    "category": "physical",
+    "power": 35,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "mirror", "protect"]
   },
   {
     "id": "snarl",
@@ -2538,6 +4976,18 @@
     "target": "allAdjacentFoes",
     "flags": ["bypasssub", "mirror", "protect", "sound"],
     "hasSecondary": true
+  },
+  {
+    "id": "snipeshot",
+    "name": "ねらいうち",
+    "nameEn": "Snipe Shot",
+    "type": "water",
+    "category": "special",
+    "power": 85,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"]
   },
   {
     "id": "snore",
@@ -2589,6 +5039,55 @@
     "flags": ["charge", "failinstruct", "metronome", "mirror", "nosleeptalk", "protect"]
   },
   {
+    "id": "solarblade",
+    "name": "ソーラーブレード",
+    "nameEn": "Solar Blade",
+    "type": "grass",
+    "category": "physical",
+    "power": 125,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["charge", "contact", "failinstruct", "metronome", "mirror", "nosleeptalk", "protect", "slicing"]
+  },
+  {
+    "id": "sparklingaria",
+    "name": "うたかたのアリア",
+    "nameEn": "Sparkling Aria",
+    "type": "water",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacent",
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"],
+    "hasSecondary": true
+  },
+  {
+    "id": "speedswap",
+    "name": "スピードスワップ",
+    "nameEn": "Speed Swap",
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "bypasssub", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "spicyextract",
+    "name": "ハバネロエキス",
+    "nameEn": "Spicy Extract",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect", "reflectable"]
+  },
+  {
     "id": "spikes",
     "name": "まきびし",
     "nameEn": "Spikes",
@@ -2601,6 +5100,44 @@
     "flags": ["metronome", "mustpressure", "nonsky", "reflectable"]
   },
   {
+    "id": "spikyshield",
+    "name": "ニードルガード",
+    "nameEn": "Spiky Shield",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 4,
+    "target": "self",
+    "flags": ["failcopycat", "noassist"]
+  },
+  {
+    "id": "spiritbreak",
+    "name": "ソウルクラッシュ",
+    "nameEn": "Spirit Break",
+    "type": "fairy",
+    "category": "physical",
+    "power": 75,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "spiritshackle",
+    "name": "かげぬい",
+    "nameEn": "Spirit Shackle",
+    "type": "ghost",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
     "id": "spite",
     "name": "うらみ",
     "nameEn": "Spite",
@@ -2611,6 +5148,19 @@
     "priority": 0,
     "target": "normal",
     "flags": ["bypasssub", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "spitup",
+    "name": "はきだす",
+    "nameEn": "Spit Up",
+    "type": "normal",
+    "category": "special",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "protect"],
+    "variablePower": true
   },
   {
     "id": "stealthrock",
@@ -2663,6 +5213,30 @@
     "hasSecondary": true
   },
   {
+    "id": "stickyweb",
+    "name": "ねばねばネット",
+    "nameEn": "Sticky Web",
+    "type": "bug",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "foeSide",
+    "flags": ["metronome", "reflectable"]
+  },
+  {
+    "id": "stockpile",
+    "name": "たくわえる",
+    "nameEn": "Stockpile",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
     "id": "stompingtantrum",
     "name": "じだんだ",
     "nameEn": "Stomping Tantrum",
@@ -2674,6 +5248,19 @@
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"],
     "variablePower": true
+  },
+  {
+    "id": "stoneaxe",
+    "name": "がんせきアックス",
+    "nameEn": "Stone Axe",
+    "type": "rock",
+    "category": "physical",
+    "power": 65,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"],
+    "hasSecondary": true
   },
   {
     "id": "stoneedge",
@@ -2701,6 +5288,80 @@
     "variablePower": true
   },
   {
+    "id": "stormthrow",
+    "name": "やまあらし",
+    "nameEn": "Storm Throw",
+    "type": "fighting",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "alwaysCritical": true
+  },
+  {
+    "id": "strengthsap",
+    "name": "ちからをすいとる",
+    "nameEn": "Strength Sap",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["heal", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "stringshot",
+    "name": "いとをはく",
+    "nameEn": "String Shot",
+    "type": "bug",
+    "category": "status",
+    "power": 0,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "strugglebug",
+    "name": "むしのていこう",
+    "nameEn": "Struggle Bug",
+    "type": "bug",
+    "category": "special",
+    "power": 50,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "stuffcheeks",
+    "name": "ほおばる",
+    "nameEn": "Stuff Cheeks",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["metronome", "snatch"]
+  },
+  {
+    "id": "stunspore",
+    "name": "しびれごな",
+    "nameEn": "Stun Spore",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": 75,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "powder", "protect", "reflectable"]
+  },
+  {
     "id": "substitute",
     "name": "みがわり",
     "nameEn": "Substitute",
@@ -2713,6 +5374,18 @@
     "flags": ["metronome", "nonsky", "snatch"]
   },
   {
+    "id": "suckerpunch",
+    "name": "ふいうち",
+    "nameEn": "Sucker Punch",
+    "type": "dark",
+    "category": "physical",
+    "power": 70,
+    "accuracy": 100,
+    "priority": 1,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
     "id": "sunnyday",
     "name": "にほんばれ",
     "nameEn": "Sunny Day",
@@ -2723,6 +5396,31 @@
     "priority": 0,
     "target": "all",
     "flags": ["metronome"]
+  },
+  {
+    "id": "supercellslam",
+    "name": "サンダーダイブ",
+    "nameEn": "Supercell Slam",
+    "type": "electric",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 95,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "minimize", "mirror", "protect"],
+    "hasRecoil": true
+  },
+  {
+    "id": "superfang",
+    "name": "いかりのまえば",
+    "nameEn": "Super Fang",
+    "type": "normal",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
   },
   {
     "id": "superpower",
@@ -2761,6 +5459,18 @@
     "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
   },
   {
+    "id": "swallow",
+    "name": "のみこむ",
+    "nameEn": "Swallow",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["heal", "metronome", "snatch"]
+  },
+  {
     "id": "sweetkiss",
     "name": "てんしのキッス",
     "nameEn": "Sweet Kiss",
@@ -2773,6 +5483,30 @@
     "flags": ["metronome", "mirror", "protect", "reflectable"]
   },
   {
+    "id": "sweetscent",
+    "name": "あまいかおり",
+    "nameEn": "Sweet Scent",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "switcheroo",
+    "name": "すりかえ",
+    "nameEn": "Switcheroo",
+    "type": "dark",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "failcopycat", "mirror", "noassist", "protect"]
+  },
+  {
     "id": "swordsdance",
     "name": "つるぎのまい",
     "nameEn": "Swords Dance",
@@ -2783,6 +5517,44 @@
     "priority": 0,
     "target": "self",
     "flags": ["dance", "metronome", "snatch"]
+  },
+  {
+    "id": "synthesis",
+    "name": "こうごうせい",
+    "nameEn": "Synthesis",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": ["heal", "metronome", "snatch"]
+  },
+  {
+    "id": "syrupbomb",
+    "name": "みずあめボム",
+    "nameEn": "Syrup Bomb",
+    "type": "grass",
+    "category": "special",
+    "power": 60,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bullet", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "tailslap",
+    "name": "スイープビンタ",
+    "nameEn": "Tail Slap",
+    "type": "normal",
+    "category": "physical",
+    "power": 25,
+    "accuracy": 85,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "multihit": [2, 5]
   },
   {
     "id": "tailwind",
@@ -2809,6 +5581,42 @@
     "flags": ["bypasssub", "metronome", "mirror", "protect", "reflectable"]
   },
   {
+    "id": "tearfullook",
+    "name": "なみだめ",
+    "nameEn": "Tearful Look",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "reflectable"]
+  },
+  {
+    "id": "teatime",
+    "name": "おちゃかい",
+    "nameEn": "Teatime",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "all",
+    "flags": ["bypasssub", "metronome"]
+  },
+  {
+    "id": "teeterdance",
+    "name": "フラフラダンス",
+    "nameEn": "Teeter Dance",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacent",
+    "flags": ["dance", "metronome", "mirror", "protect"]
+  },
+  {
     "id": "temperflare",
     "name": "やけっぱち",
     "nameEn": "Temper Flare",
@@ -2820,6 +5628,18 @@
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"],
     "variablePower": true
+  },
+  {
+    "id": "terrainpulse",
+    "name": "だいちのはどう",
+    "nameEn": "Terrain Pulse",
+    "type": "normal",
+    "category": "special",
+    "power": 50,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect", "pulse"]
   },
   {
     "id": "thief",
@@ -2935,6 +5755,91 @@
     "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
   },
   {
+    "id": "tidyup",
+    "name": "おかたづけ",
+    "nameEn": "Tidy Up",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "self",
+    "flags": []
+  },
+  {
+    "id": "topsyturvy",
+    "name": "ひっくりかえす",
+    "nameEn": "Topsy-Turvy",
+    "type": "dark",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "torchsong",
+    "name": "フレアソング",
+    "nameEn": "Torch Song",
+    "type": "fire",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"],
+    "hasSecondary": true
+  },
+  {
+    "id": "torment",
+    "name": "いちゃもん",
+    "nameEn": "Torment",
+    "type": "dark",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "toxic",
+    "name": "どくどく",
+    "nameEn": "Toxic",
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect", "reflectable"]
+  },
+  {
+    "id": "toxicspikes",
+    "name": "どくびし",
+    "nameEn": "Toxic Spikes",
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "foeSide",
+    "flags": ["metronome", "mustpressure", "nonsky", "reflectable"]
+  },
+  {
+    "id": "toxicthread",
+    "name": "どくのいと",
+    "nameEn": "Toxic Thread",
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "trailblaze",
     "name": "くさわけ",
     "nameEn": "Trailblaze",
@@ -2945,6 +5850,31 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "transform",
+    "name": "へんしん",
+    "nameEn": "Transform",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "failcopycat", "failencore", "failinstruct", "failmimic", "noassist"]
+  },
+  {
+    "id": "triattack",
+    "name": "トライアタック",
+    "nameEn": "Tri Attack",
+    "type": "normal",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
     "hasSecondary": true
   },
   {
@@ -2960,6 +5890,18 @@
     "flags": ["allyanim", "failcopycat", "mirror", "noassist", "protect"]
   },
   {
+    "id": "trickortreat",
+    "name": "ハロウィン",
+    "nameEn": "Trick-or-Treat",
+    "type": "ghost",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "trickroom",
     "name": "トリックルーム",
     "nameEn": "Trick Room",
@@ -2970,6 +5912,19 @@
     "priority": -7,
     "target": "all",
     "flags": ["metronome", "mirror"]
+  },
+  {
+    "id": "triplearrows",
+    "name": "３ぼんのや",
+    "nameEn": "Triple Arrows",
+    "type": "fighting",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "tripleaxel",
@@ -2984,6 +5939,32 @@
     "flags": ["contact", "metronome", "mirror", "protect"],
     "multihit": 3,
     "variablePower": true
+  },
+  {
+    "id": "tropkick",
+    "name": "トロピカルキック",
+    "nameEn": "Trop Kick",
+    "type": "grass",
+    "category": "physical",
+    "power": 85,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "twinbeam",
+    "name": "ツインビーム",
+    "nameEn": "Twin Beam",
+    "type": "psychic",
+    "category": "special",
+    "power": 40,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["mirror", "protect"],
+    "multihit": 2
   },
   {
     "id": "upperhand",
@@ -3011,6 +5992,18 @@
     "flags": ["bypasssub", "failinstruct", "metronome", "mirror", "nosleeptalk", "protect", "sound"]
   },
   {
+    "id": "uturn",
+    "name": "とんぼがえり",
+    "nameEn": "U-turn",
+    "type": "bug",
+    "category": "physical",
+    "power": 70,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
     "id": "vacuumwave",
     "name": "しんくうは",
     "nameEn": "Vacuum Wave",
@@ -3019,6 +6012,18 @@
     "power": 40,
     "accuracy": 100,
     "priority": 1,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"]
+  },
+  {
+    "id": "venoshock",
+    "name": "ベノムショック",
+    "nameEn": "Venoshock",
+    "type": "poison",
+    "category": "special",
+    "power": 65,
+    "accuracy": 100,
+    "priority": 0,
     "target": "normal",
     "flags": ["metronome", "mirror", "protect"]
   },
@@ -3075,6 +6080,46 @@
     "hasSecondary": true
   },
   {
+    "id": "watershuriken",
+    "name": "みずしゅりけん",
+    "nameEn": "Water Shuriken",
+    "type": "water",
+    "category": "special",
+    "power": 15,
+    "accuracy": 100,
+    "priority": 1,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect"],
+    "multihit": [2, 5],
+    "variablePower": true
+  },
+  {
+    "id": "waterspout",
+    "name": "しおふき",
+    "nameEn": "Water Spout",
+    "type": "water",
+    "category": "special",
+    "power": 150,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "allAdjacentFoes",
+    "flags": ["metronome", "mirror", "protect"],
+    "variablePower": true
+  },
+  {
+    "id": "wavecrash",
+    "name": "ウェーブタックル",
+    "nameEn": "Wave Crash",
+    "type": "water",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasRecoil": true
+  },
+  {
     "id": "weatherball",
     "name": "ウェザーボール",
     "nameEn": "Weather Ball",
@@ -3109,6 +6154,18 @@
     "priority": -6,
     "target": "normal",
     "flags": ["allyanim", "bypasssub", "failcopycat", "metronome", "mirror", "noassist", "reflectable", "wind"]
+  },
+  {
+    "id": "wideguard",
+    "name": "ワイドガード",
+    "nameEn": "Wide Guard",
+    "type": "rock",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 3,
+    "target": "allySide",
+    "flags": ["snatch"]
   },
   {
     "id": "wildcharge",
@@ -3160,6 +6217,31 @@
     "flags": ["metronome", "mirror"]
   },
   {
+    "id": "woodhammer",
+    "name": "ウッドハンマー",
+    "nameEn": "Wood Hammer",
+    "type": "grass",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasRecoil": true
+  },
+  {
+    "id": "worryseed",
+    "name": "なやみのタネ",
+    "nameEn": "Worry Seed",
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["allyanim", "metronome", "mirror", "protect", "reflectable"]
+  },
+  {
     "id": "wrap",
     "name": "まきつく",
     "nameEn": "Wrap",
@@ -3170,6 +6252,30 @@
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"]
+  },
+  {
+    "id": "xscissor",
+    "name": "シザークロス",
+    "nameEn": "X-Scissor",
+    "type": "bug",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect", "slicing"]
+  },
+  {
+    "id": "yawn",
+    "name": "あくび",
+    "nameEn": "Yawn",
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": null,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["metronome", "mirror", "protect", "reflectable"]
   },
   {
     "id": "zapcannon",
@@ -3192,6 +6298,19 @@
     "category": "physical",
     "power": 80,
     "accuracy": 90,
+    "priority": 0,
+    "target": "normal",
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
+  },
+  {
+    "id": "zingzap",
+    "name": "びりびりちくちく",
+    "nameEn": "Zing Zap",
+    "type": "electric",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
     "priority": 0,
     "target": "normal",
     "flags": ["contact", "metronome", "mirror", "protect"],

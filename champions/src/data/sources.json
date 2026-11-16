@@ -21,6 +21,13 @@
       "usedFor": "日本語名(ポケモン・技・特性・持ち物・タイプ・性格)"
     }
   ],
-  "counts": { "pokemon": 10, "megaForms": 8, "moves": 257, "abilities": 24, "items": 93 },
-  "warnings": []
+  "counts": { "pokemon": 263, "megaForms": 82, "moves": 510, "abilities": 215, "items": 166 },
+  "warnings": [
+    "greninja: 特別な特性 \"Battle Bond\" は入れていません(使える場合は確認のうえ追加してください)",
+    "フォルムの日本語名が取得元にありません: pokemon \"squawkabillywhite\" (Squawkabilly-White)。英語名のまま入れました",
+    "フォルムの日本語名が取得元にありません: pokemon \"squawkabillyyellow\" (Squawkabilly-Yellow)。英語名のまま入れました",
+    "日本語名が取得元にありません: abilities \"auraguard\" (Aura Guard)。英語名のまま入れました",
+    "日本語名が取得元にありません: abilities \"eelevate\" (Eelevate)。英語名のまま入れました",
+    "日本語名が取得元にありません: abilities \"firemane\" (Fire Mane)。英語名のまま入れました"
+  ]
 }

@@ -25,6 +25,7 @@ import {
   type WeatherId,
 } from './context.ts';
 import { calcDamage } from './pipeline.ts';
+import { UNSUPPORTED_ABILITY_IDS } from './rules/index.ts';
 
 const gen = Generations.get(0); // 手本の中での「チャンピオンズ」の番号
 
@@ -185,6 +186,31 @@ function toRolls(damage: unknown): number[] {
 /** このアプリが「計算できません」と答える技。手本と比べない */
 const NOT_CALCULATED = new Set(['counter', 'endeavor', 'beatup']);
 
+/**
+ * 条件ごとに、試す「攻撃側と防御側の組み合わせ」を選ぶ。
+ * 全部の組み合わせは数十万通りあるので、決まった手順で散らばるように選ぶ(毎回同じ組み合わせになる)。
+ *   ふだん(npm test)                … 条件ごとに 120 組
+ *   VITE_CROSS_CHECK=full npm test   … 1つ目の条件は「全員が攻撃側として4回ずつ」、ほかの条件は 800 組
+ */
+function pickPairs(scenarioIndex: number): [Setup, Setup][] {
+  const full = import.meta.env.VITE_CROSS_CHECK === 'full';
+  // 計算に入れていない特性(UNSUPPORTED_ABILITY_IDS)を持つ姿は、比べる対象から外す
+  const usable = SETUPS.filter((setup) => !UNSUPPORTED_ABILITY_IDS.has(effectiveAbilityId(setup)));
+  let seed = 12345 + scenarioIndex * 7919;
+  const next = (limit: number) => {
+    seed = (seed * 1103515245 + 12345) % 2147483648; // かんたんな疑似乱数(同じ種からは、いつも同じ並びが出る)
+    return seed % limit;
+  };
+  if (full && scenarioIndex === 0) {
+    return usable.flatMap((attacker) => Array.from({ length: 4 }, () => [attacker, usable[next(usable.length)]] as [Setup, Setup]));
+  }
+  return Array.from({ length: full ? 800 : 120 }, () => [usable[next(usable.length)], usable[next(usable.length)]]);
+}
+
+function effectiveAbilityId(setup: Setup): string {
+  return setup.species.megaForms.find((form) => form.requiredItem === setup.megaItemId)?.ability ?? setup.abilityId;
+}
+
 describe('手本(@smogon/calc)と、16通りのダメージがすべて一致する', () => {
   SCENARIOS.forEach((scenario, scenarioIndex) => {
     it(scenario.name, () => {
@@ -192,13 +218,8 @@ describe('手本(@smogon/calc)と、16通りのダメージがすべて一致す
       const mismatches: string[] = [];
       let compared = 0;
 
-      SETUPS.forEach((attackerSetup, attackerIndex) => {
-        SETUPS.forEach((defenderSetup, defenderIndex) => {
-          // 時間を抑えるため、組み合わせの一部だけを試す(条件ごとに、試す組み合わせをずらす)。
-          // VITE_CROSS_CHECK=full npm test とすると、すべての組み合わせを試す(1分ほどかかる)
-          const every = import.meta.env.VITE_CROSS_CHECK === 'full' ? 1 : scenarioIndex === 0 ? 4 : 16;
-          if ((attackerIndex * 7 + defenderIndex * 3 + scenarioIndex) % every !== 0) return;
-
+      for (const [attackerSetup, defenderSetup] of pickPairs(scenarioIndex)) {
+        {
           const attacker = buildOurs(attackerSetup, scenario.attacker ?? {});
           const defender = buildOurs(defenderSetup, scenario.defender ?? {});
 
@@ -235,13 +256,13 @@ describe('手本(@smogon/calc)と、16通りのダメージがすべて一致す
               );
             }
           }
-        });
-      });
+        }
+      }
 
       // 合わなかったものを、技ごとに1件ずつ見せる(全部並べると読めないため)
       const firstPerMove = [...new Map(mismatches.map((line) => [line.match(/\(([a-z0-9]+)\)/)?.[1], line])).values()];
       expect(firstPerMove, `${mismatches.length} 件が手本と合いません`).toEqual([]);
-      expect(compared).toBeGreaterThan(300); // 比べた件数が十分あること
+      expect(compared).toBeGreaterThan(1000); // 比べた件数が十分あること
     }, 300_000); // 全部の組み合わせを試すときは時間がかかるので、制限時間を長くしておく
   });
 });

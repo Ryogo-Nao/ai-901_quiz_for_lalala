@@ -337,8 +337,30 @@ function buildItem(id) {
 console.log('アプリ用のデータを組み立てます');
 
 // --- ポケモン ---
+// data-config.json の pokemon が "all" なら、チャンピオンズで使えるポケモンをすべて入れる。
+// (メガシンカ後の姿や、戦闘中だけの姿は、元のポケモンのデータの中に入るので、ここでは除く)
+const megaIds = new Set([...megaStonesBySpeciesName.values()].flat().map((entry) => entry.megaId));
+const targetIds =
+  config.pokemon === 'all'
+    ? Object.keys(basePokedex)
+        .filter((id) => {
+          const species = basePokedex[id];
+          if (species.battleOnly || megaIds.has(id) || !isSpeciesAvailable(id)) return false;
+          if (!species.abilities || !species.baseStats || !species.types) return false; // 見た目だけの姿(中身のデータを持たない)
+          // 見た目だけが違う姿(専用の技一覧を持たず、能力も元の姿と同じもの)は入れない
+          const base = species.baseSpecies ? basePokedex[toId(species.baseSpecies)] : null;
+          const sameAsBase =
+            base &&
+            JSON.stringify(base.baseStats) === JSON.stringify(species.baseStats) &&
+            JSON.stringify(base.types) === JSON.stringify(species.types) &&
+            JSON.stringify(base.abilities) === JSON.stringify(species.abilities);
+          return !(sameAsBase && !modLearnsets[id]?.learnset);
+        })
+        .sort((a, b) => basePokedex[a].num - basePokedex[b].num || a.localeCompare(b))
+    : config.pokemon;
+
 const pokemon = [];
-for (const id of config.pokemon) {
+for (const id of targetIds) {
   const species = basePokedex[id];
   if (!species) throw new Error(`data-config.json の "${id}" は取得元に存在しない ID です`);
   if (species.battleOnly || megaStonesIncludes(id)) {

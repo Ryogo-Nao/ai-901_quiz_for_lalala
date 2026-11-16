@@ -174,10 +174,27 @@ function resolveMoveType(
   return { type: move.type, typeChangedByAbility: false };
 }
 
+const isOneOfAbility = (ability: string, ...candidates: string[]) => candidates.includes(ability);
+
+/** てんきや: ポワルンは、はれ で ほのお、あめ で みず、ゆき で こおり、それ以外は ノーマル タイプになる */
+function applyForecast(combatant: Combatant, weather: string | null): Combatant {
+  const { form } = combatant.battler;
+  if (form.abilityId !== 'forecast' || !combatant.individual.speciesId.startsWith('castform')) return combatant;
+  const type = weather === 'sun' ? 'fire' : weather === 'rain' ? 'water' : weather === 'snow' ? 'ice' : 'normal';
+  return { ...combatant, battler: { ...combatant.battler, form: { ...form, types: [type], stabTypes: [type] } } };
+}
+
 /** 状況を整理する */
-export function resolveSituation(context: DamageContext): Situation {
-  const { attacker, defender, conditions, data } = context;
+export function resolveSituation(input: DamageContext): Situation {
+  const { conditions, data } = input;
   const notes: string[] = [];
+  // てんきや(ポワルン): 天気に合わせてタイプが変わる。ここから先は、変わったあとの姿を使う
+  const weatherInEffect = [input.attacker, input.defender].some((c) => isOneOfAbility(c.battler.form.abilityId, 'airlock', 'cloudnine'))
+    ? null
+    : conditions.weather;
+  const attacker = applyForecast(input.attacker, weatherInEffect);
+  const defender = applyForecast(input.defender, weatherInEffect);
+  let context: DamageContext = { ...input, attacker, defender };
 
   // ----- 特性: 「かたやぶり」は、防御側の一部の特性を無視する -----
   const attackerAbility = attacker.battler.form.abilityId;
@@ -208,6 +225,16 @@ export function resolveSituation(context: DamageContext): Situation {
 
   const attackerGrounded = isGrounded(attacker.battler.form.types, attackerAbility, attackerItem);
   const defenderGrounded = isGrounded(defender.battler.form.types, defenderAbility, defenderItem);
+
+  // シェルアームズ: 「こうげき ÷ 相手のぼうぎょ」と「とくこう ÷ 相手のとくぼう」を比べて、大きいほうの分類になる
+  if (context.move.id === 'shellsidearm') {
+    const physical = applyRank(attacker.battler.stats.atk, attackerRanks.atk) / applyRank(defender.battler.stats.def, defenderRanks.def);
+    const special = applyRank(attacker.battler.stats.spa, attackerRanks.spa) / applyRank(defender.battler.stats.spd, defenderRanks.spd);
+    if (physical > special) {
+      const flags = context.move.flags.includes('contact') ? context.move.flags : [...context.move.flags, 'contact'];
+      context = { ...context, move: { ...context.move, category: 'physical', flags } };
+    }
+  }
 
   // ----- 技のタイプ -----
   const { type, typeChangedByAbility } = resolveMoveType(
@@ -285,6 +312,8 @@ export function resolveSituation(context: DamageContext): Situation {
   if (!stop) {
     if (move.id === 'nightshade' || move.id === 'seismictoss') {
       fixedDamage = 50; // レベルと同じダメージ(レベルは50固定)
+    } else if (move.id === 'finalgambit') {
+      fixedDamage = attacker.currentHp; // いのちがけ: 自分のいまのHPと同じダメージ
     } else {
       const resolved = resolveBasePower(base);
       basePower = resolved.power;

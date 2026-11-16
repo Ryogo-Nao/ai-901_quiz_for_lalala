@@ -1,25 +1,14 @@
 {
   "_readme": [
     "npm run data:build が読む設定ファイルです。",
-    "pokemon: アプリに入れるポケモンの ID の一覧。ここに足して npm run data:build を実行すると、",
-    "         そのポケモンが覚える技・特性・メガストーンも一緒に JSON へ追加されます。",
+    "pokemon: アプリに入れるポケモン。\"all\" と書くと、チャンピオンズで使えるポケモンをすべて入れます。",
+    "         一部だけにしたいときは、ID の一覧を書きます(例: [\"garchomp\", \"rotomwash\"])。",
     "         ID は英語名から記号と空白を除いて小文字にしたもの(例: Rotom-Wash → rotomwash)。",
     "sources: データの取得元。commit は「どの時点のデータか」を固定するための番号です。",
     "         新しいデータに更新したいときは commit を新しいものに書き換えます。",
     "formAliases: フォルム違いで、取得元どうしの ID が合わないときの対応表(左: この一覧の ID、右: PokéAPI の ID)。"
   ],
-  "pokemon": [
-    "garchomp",
-    "charizard",
-    "gardevoir",
-    "metagross",
-    "dragonite",
-    "tyranitar",
-    "incineroar",
-    "rotomwash",
-    "azumarill",
-    "pikachu"
-  ],
+  "pokemon": "all",
   "sources": {
     "showdown": {
       "name": "Pokémon Showdown",
