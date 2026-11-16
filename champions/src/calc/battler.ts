@@ -39,6 +39,7 @@ function baseForm(individual: Individual, species: PokemonData): BattleForm {
     types: species.types,
     stabTypes: species.types,
     abilityId: individual.abilityId,
+    weightKg: species.weightKg,
   };
 }
 

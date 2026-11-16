@@ -308,6 +308,14 @@ function buildMove(id) {
     flags: Object.keys(move.flags ?? {}).sort(),
   };
   if (move.multihit !== undefined) result.multihit = move.multihit;
+  // ここから下は、ふつうと違う計算をする技の目印(取得元の表記のまま)
+  if (move.overrideOffensiveStat) result.overrideOffensiveStat = move.overrideOffensiveStat; // 攻撃に使う能力(ボディプレス)
+  if (move.overrideOffensivePokemon) result.overrideOffensivePokemon = move.overrideOffensivePokemon; // 誰の能力で攻撃するか(イカサマ)
+  if (move.overrideDefensiveStat) result.overrideDefensiveStat = move.overrideDefensiveStat; // 受けるときの能力(サイコショック)
+  if (move.ignoreDefensive) result.ignoreDefensive = true; // 相手の防御ランクを無視する(DDラリアット)
+  if (move.willCrit) result.alwaysCritical = true; // 必ず急所に当たる
+  if (move.recoil || move.hasCrashDamage || move.mindBlownRecoil) result.hasRecoil = true; // 反動がある(すてみ)
+  if (move.secondary || (Array.isArray(move.secondaries) && move.secondaries.length > 0)) result.hasSecondary = true; // 追加効果がある(ちからずく)
   // 威力が状況で変わる技(けたぐり など)。表の数値だけでは威力が決まらないという目印
   if (functions.includes('basePowerCallback')) result.variablePower = true;
   return result;
@@ -322,6 +330,7 @@ function buildItem(id) {
   const item = items[id];
   const result = { id, name: japaneseName('items', jaItems, id, item.name), nameEn: item.name };
   if (item.megaStone) result.isMegaStone = true;
+  if (item.fling?.basePower) result.flingPower = item.fling.basePower; // 「なげつける」で投げたときの威力
   return result;
 }
 

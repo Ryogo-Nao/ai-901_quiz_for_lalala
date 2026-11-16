@@ -70,6 +70,20 @@ export interface MoveData {
   multihit?: number | number[];
   /** 威力が状況で変わる技の目印 */
   variablePower?: boolean;
+  /** 攻撃に使う能力を変える(ボディプレスは 'def') */
+  overrideOffensiveStat?: StatKey;
+  /** 誰の能力で攻撃するか(イカサマは 'target' = 相手) */
+  overrideOffensivePokemon?: string;
+  /** 受けるときに使う能力を変える(サイコショックは 'def') */
+  overrideDefensiveStat?: StatKey;
+  /** 相手の防御側のランク補正を無視する */
+  ignoreDefensive?: boolean;
+  /** 必ず急所に当たる */
+  alwaysCritical?: boolean;
+  /** 反動がある */
+  hasRecoil?: boolean;
+  /** 追加効果がある */
+  hasSecondary?: boolean;
 }
 
 /** 特性 */
@@ -86,6 +100,8 @@ export interface ItemData {
   nameEn: string;
   /** メガストーンの目印 */
   isMegaStone?: boolean;
+  /** 「なげつける」で投げたときの威力 */
+  flingPower?: number;
 }
 
 /** 性格 */

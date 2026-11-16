@@ -6,7 +6,9 @@
 //
 //   1 威力   = 技の威力 × 威力補正                          [五捨五超入、最低1]
 //   2 攻撃   = 実数値 × ランク補正 [切り捨て] × 攻撃補正     [五捨五超入、最低1]
+//              (急所のとき、攻撃側の下がったランクは無視する)
 //   3 防御   = 実数値 × ランク補正 [切り捨て] × 防御補正     [五捨五超入、最低1]
+//              (急所のとき、防御側の上がったランクは無視する)
 //   4 基礎ダメージ = floor( floor( floor(2 × レベル ÷ 5 + 2) × 威力 × 攻撃 ÷ 防御 ) ÷ 50 ) + 2
 //                    レベル50では floor(2 × 50 ÷ 5 + 2) = 22
 //   5 範囲補正   × 0.75                                    [五捨五超入]
@@ -23,16 +25,15 @@
 // 小数部分が 0 か 0.5 にしかならず、五捨五超入と同じ結果になる。
 
 import type { MoveData } from '../../data/index.ts';
+import type { GimmickId } from '../../domain/individual.ts';
 import { LEVEL } from '../../domain/limits.ts';
 import { gimmickRegistry } from '../../gimmicks/registry.ts';
-import type { GimmickId } from '../../domain/individual.ts';
-import { MOD_BASE, applyMod, applyRank, chainMods } from '../rounding.ts';
-import { typeEffectiveness } from '../typeChart.ts';
+import { MOD_BASE, applyMod, chainMods } from '../rounding.ts';
 import type { Combatant, DamageContext } from './context.ts';
-import { CORE_RULES, type ModifierRule } from './coreRules.ts';
 import { calcKo, type KoResult } from './ko.ts';
-import { isUnsupportedMove } from './unsupportedMoves.ts';
 import { STAGES, modifiersOf, type Modifier, type StageId } from './modifier.ts';
+import { ALL_RULES, type ModifierRule } from './rules/index.ts';
+import { resolveSituation, type StopReason } from './situation.ts';
 
 /** 乱数の16通り(85, 86, …, 100) */
 export const RANDOM_FACTORS = Array.from({ length: 16 }, (_, index) => 85 + index);
@@ -51,13 +52,10 @@ export interface DamageResult {
   /** 確定数。ダメージを与えない技などでは null */
   ko: KoResult | null;
   /** ダメージを与えない理由。ダメージを与える技なら null */
-  /**
-   * ダメージを与えない(計算しない)理由。ダメージを与える技なら null
-   *   status      … 変化技
-   *   immune      … タイプ相性が「こうかなし」
-   *   unsupported … 特別な決まりを持つ技で、まだ正しく計算できない
-   */
-  noDamageReason: 'status' | 'immune' | 'unsupported' | null;
+  /** ダメージを与えない(計算しない)理由と説明。ダメージを与える技なら null */
+  stop: StopReason | null;
+  /** 利用者に伝えたい注意(「条件つきで威力が上がる技です」など) */
+  notes: string[];
   /** 計算の途中の値(検算や、画面での内訳表示に使う) */
   detail: {
     /** 実際に計算に使った技(ギミックで変わったあとのもの) */
@@ -121,59 +119,45 @@ function modifiersBy<K extends GimmickId>(
 
 /**
  * ダメージを計算する。
- * @param input 攻撃側・防御側・技・条件
- * @param rules 補正のルール。省略すると基本のルール(タイプ一致・急所・やけど・範囲技)
+ * @param input 攻撃側・防御側・技・場の状態
+ * @param rules 補正のルール。省略すると、このアプリが持っているすべてのルール
  */
-export function calcDamage(input: DamageContext, rules: readonly ModifierRule[] = CORE_RULES): DamageResult {
+export function calcDamage(input: DamageContext, rules: readonly ModifierRule[] = ALL_RULES): DamageResult {
   // A. 技を確定する(ギミックが技を変えることがある)
-  const move = resolveMove(input);
-  const context: DamageContext = { ...input, move };
-  const { attacker, defender, conditions, data } = context;
+  const context: DamageContext = { ...input, move: resolveMove(input) };
 
-  // B. 補正を集める
-  const modifiers = [...rules.flatMap((rule) => rule(context)), ...gimmickModifiers(context)];
-
-  const effectiveness = typeEffectiveness(data.typeEffectiveness, move.type, defender.battler.form.types);
+  // B. 状況を整理する(効いている特性・持ち物、技のタイプ、使う能力値、相性、威力)
+  const situation = resolveSituation(context);
+  const { move, defender, effectiveness } = situation;
   const defenderMaxHp = defender.battler.stats.hp;
 
-  const noDamage = (reason: DamageResult['noDamageReason']): DamageResult => ({
-    rolls: RANDOM_FACTORS.map(() => 0),
-    min: 0,
-    max: 0,
-    minPercent: 0,
-    maxPercent: 0,
+  /** 16通りすべてが同じダメージの結果を作る(ダメージなし、決まったダメージ) */
+  const flat = (damage: number, modifiers: Modifier[] = []): DamageResult => ({
+    rolls: RANDOM_FACTORS.map(() => damage),
+    min: damage,
+    max: damage,
+    minPercent: (damage / defenderMaxHp) * 100,
+    maxPercent: (damage / defenderMaxHp) * 100,
     effectiveness,
-    ko: null,
-    noDamageReason: reason,
-    detail: { move, power: 0, attack: 0, defense: 0, baseDamage: 0, modifiers: [] },
+    ko: calcKo(RANDOM_FACTORS.map(() => damage), defender.currentHp),
+    stop: situation.stop,
+    notes: situation.notes,
+    detail: { move, power: 0, attack: 0, defense: 0, baseDamage: 0, modifiers },
   });
 
-  if (move.category === 'status') return noDamage('status');
-  // 特別な決まりを持つ技は、間違った数字を出さないよう、計算せずに「未対応」と知らせる
-  if (move.power === 0 || isUnsupportedMove(move)) return noDamage('unsupported');
-  if (effectiveness === 0) return noDamage('immune');
+  if (situation.stop) return flat(0);
+  if (situation.fixedDamage !== null) return flat(situation.fixedDamage);
 
-  // C. 段階の順番どおりに適用する
-  const isPhysical = move.category === 'physical';
+  // C. 補正を集める
+  const modifiers = [...rules.flatMap((rule) => rule(situation)), ...gimmickModifiers(situation)];
 
+  // D. 段階の順番どおりに適用する
   // 1 威力
-  const power = Math.max(1, applyStage(move.power, modifiers, 'power'));
-
-  // 2 攻撃。急所のとき、攻撃側の「下がっている」ランクは無視する
-  const attackKey = isPhysical ? 'atk' : 'spa';
-  const attackRank = conditions.isCritical ? Math.max(0, attacker.ranks[attackKey]) : attacker.ranks[attackKey];
-  const attack = Math.max(
-    1,
-    applyStage(applyRank(attacker.battler.stats[attackKey], attackRank), modifiers, 'attack'),
-  );
-
-  // 3 防御。急所のとき、防御側の「上がっている」ランクは無視する
-  const defenseKey = isPhysical ? 'def' : 'spd';
-  const defenseRank = conditions.isCritical ? Math.min(0, defender.ranks[defenseKey]) : defender.ranks[defenseKey];
-  const defense = Math.max(
-    1,
-    applyStage(applyRank(defender.battler.stats[defenseKey], defenseRank), modifiers, 'defense'),
-  );
+  const power = Math.max(1, applyStage(situation.basePower, modifiers, 'power'));
+  // 2 攻撃(ランク補正は、状況の整理の中で掛けてある)
+  const attack = Math.max(1, applyStage(applyStage(situation.attackStat, modifiers, 'attackStat'), modifiers, 'attack'));
+  // 3 防御
+  const defense = Math.max(1, applyStage(applyStage(situation.defenseStat, modifiers, 'defenseStat'), modifiers, 'defense'));
 
   // 4 基礎ダメージ
   const levelFactor = Math.floor((2 * LEVEL) / 5 + 2);
@@ -204,8 +188,9 @@ export function calcDamage(input: DamageContext, rules: readonly ModifierRule[] 
     minPercent: (min / defenderMaxHp) * 100,
     maxPercent: (max / defenderMaxHp) * 100,
     effectiveness,
-    ko: calcKo(rolls, defenderMaxHp),
-    noDamageReason: null,
+    ko: calcKo(rolls, defender.currentHp),
+    stop: null,
+    notes: situation.notes,
     detail: { move, power, attack, defense, baseDamage, modifiers },
   };
 }

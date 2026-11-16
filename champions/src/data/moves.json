@@ -58,7 +58,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "any",
-    "flags": ["distance", "metronome", "mirror", "protect", "slicing"]
+    "flags": ["distance", "metronome", "mirror", "protect", "slicing"],
+    "hasSecondary": true
   },
   {
     "id": "alluringvoice",
@@ -70,7 +71,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"]
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"],
+    "hasSecondary": true
   },
   {
     "id": "amnesia",
@@ -94,7 +96,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "aquajet",
@@ -229,7 +232,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["bite", "contact", "metronome", "mirror", "protect"]
+    "flags": ["bite", "contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "blastburn",
@@ -253,7 +257,8 @@
     "accuracy": 90,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "blizzard",
@@ -265,7 +270,8 @@
     "accuracy": 70,
     "priority": 0,
     "target": "allAdjacentFoes",
-    "flags": ["metronome", "mirror", "protect", "wind"]
+    "flags": ["metronome", "mirror", "protect", "wind"],
+    "hasSecondary": true
   },
   {
     "id": "bodypress",
@@ -277,7 +283,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "mirror", "protect"]
+    "flags": ["contact", "mirror", "protect"],
+    "overrideOffensiveStat": "def"
   },
   {
     "id": "bodyslam",
@@ -289,7 +296,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "minimize", "mirror", "nonsky", "protect"]
+    "flags": ["contact", "metronome", "minimize", "mirror", "nonsky", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "bounce",
@@ -304,7 +312,8 @@
     "flags": [
       "charge", "contact", "distance", "failinstruct", "gravity", "metronome", "mirror", "noassist",
       "nosleeptalk", "protect"
-    ]
+    ],
+    "hasSecondary": true
   },
   {
     "id": "breakingswipe",
@@ -316,7 +325,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "allAdjacentFoes",
-    "flags": ["contact", "mirror", "protect"]
+    "flags": ["contact", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "brickbreak",
@@ -364,7 +374,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "allAdjacent",
-    "flags": ["metronome", "mirror", "nonsky", "protect"]
+    "flags": ["metronome", "mirror", "nonsky", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "bulletpunch",
@@ -388,7 +399,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "allAdjacentFoes",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "calmmind",
@@ -424,7 +436,8 @@
     "accuracy": 90,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "charm",
@@ -448,7 +461,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["mirror", "protect"]
+    "flags": ["mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "closecombat",
@@ -532,7 +546,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["bite", "contact", "metronome", "mirror", "protect"]
+    "flags": ["bite", "contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "curse",
@@ -556,7 +571,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "ignoreDefensive": true
   },
   {
     "id": "darkpulse",
@@ -568,7 +584,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "any",
-    "flags": ["distance", "metronome", "mirror", "protect", "pulse"]
+    "flags": ["distance", "metronome", "mirror", "protect", "pulse"],
+    "hasSecondary": true
   },
   {
     "id": "dazzlinggleam",
@@ -628,7 +645,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "allAdjacent",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "dive",
@@ -655,7 +673,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasRecoil": true
   },
   {
     "id": "doubleteam",
@@ -739,7 +758,8 @@
     "accuracy": 75,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "minimize", "mirror", "protect"]
+    "flags": ["contact", "metronome", "minimize", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "dragontail",
@@ -787,7 +807,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "nonsky", "protect"]
+    "flags": ["metronome", "mirror", "nonsky", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "earthquake",
@@ -848,7 +869,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "allAdjacentFoes",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "encore",
@@ -896,7 +918,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["bullet", "metronome", "mirror", "protect"]
+    "flags": ["bullet", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "expandingforce",
@@ -956,7 +979,8 @@
     "accuracy": 100,
     "priority": 3,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "faketears",
@@ -992,7 +1016,8 @@
     "accuracy": 85,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "firefang",
@@ -1004,7 +1029,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "normal",
-    "flags": ["bite", "contact", "metronome", "mirror", "protect"]
+    "flags": ["bite", "contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "firepunch",
@@ -1016,7 +1042,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect", "punch"]
+    "flags": ["contact", "metronome", "mirror", "protect", "punch"],
+    "hasSecondary": true
   },
   {
     "id": "firespin",
@@ -1053,7 +1080,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "flamethrower",
@@ -1065,7 +1093,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "flareblitz",
@@ -1077,7 +1106,9 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "defrost", "metronome", "mirror", "protect"]
+    "flags": ["contact", "defrost", "metronome", "mirror", "protect"],
+    "hasRecoil": true,
+    "hasSecondary": true
   },
   {
     "id": "flashcannon",
@@ -1089,7 +1120,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "fling",
@@ -1128,7 +1160,8 @@
     "accuracy": 70,
     "priority": 0,
     "target": "normal",
-    "flags": ["bullet", "metronome", "mirror", "protect"]
+    "flags": ["bullet", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "focusenergy",
@@ -1164,7 +1197,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "overrideOffensivePokemon": "target"
   },
   {
     "id": "futuresight",
@@ -1324,7 +1358,8 @@
     "accuracy": 90,
     "priority": 0,
     "target": "allAdjacentFoes",
-    "flags": ["metronome", "mirror", "protect", "wind"]
+    "flags": ["metronome", "mirror", "protect", "wind"],
+    "hasSecondary": true
   },
   {
     "id": "heavyslam",
@@ -1386,7 +1421,8 @@
     "accuracy": 70,
     "priority": 0,
     "target": "any",
-    "flags": ["distance", "metronome", "mirror", "protect", "wind"]
+    "flags": ["distance", "metronome", "mirror", "protect", "wind"],
+    "hasSecondary": true
   },
   {
     "id": "hydropump",
@@ -1446,7 +1482,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "icefang",
@@ -1458,7 +1495,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "normal",
-    "flags": ["bite", "contact", "metronome", "mirror", "protect"]
+    "flags": ["bite", "contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "icepunch",
@@ -1470,7 +1508,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect", "punch"]
+    "flags": ["contact", "metronome", "mirror", "protect", "punch"],
+    "hasSecondary": true
   },
   {
     "id": "icespinner",
@@ -1494,7 +1533,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "allAdjacentFoes",
-    "flags": ["metronome", "mirror", "protect", "wind"]
+    "flags": ["metronome", "mirror", "protect", "wind"],
+    "hasSecondary": true
   },
   {
     "id": "imprison",
@@ -1518,7 +1558,8 @@
     "accuracy": 50,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "irondefense",
@@ -1542,7 +1583,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "irontail",
@@ -1554,7 +1596,8 @@
     "accuracy": 75,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "knockoff",
@@ -1626,7 +1669,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "lowkick",
@@ -1651,7 +1695,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "magicroom",
@@ -1735,7 +1780,8 @@
     "accuracy": 90,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect", "punch"]
+    "flags": ["contact", "metronome", "mirror", "protect", "punch"],
+    "hasSecondary": true
   },
   {
     "id": "mistyexplosion",
@@ -1771,7 +1817,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "muddywater",
@@ -1783,7 +1830,8 @@
     "accuracy": 85,
     "priority": 0,
     "target": "allAdjacentFoes",
-    "flags": ["metronome", "mirror", "nonsky", "protect"]
+    "flags": ["metronome", "mirror", "nonsky", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "mudshot",
@@ -1795,7 +1843,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "mudslap",
@@ -1807,7 +1856,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "mysticalfire",
@@ -1819,7 +1869,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "nastyplot",
@@ -1855,7 +1906,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "outrage",
@@ -1940,7 +1992,8 @@
     "accuracy": 90,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "poisonjab",
@@ -1952,7 +2005,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "poltergeist",
@@ -2025,7 +2079,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "psychicfangs",
@@ -2049,7 +2104,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"]
+    "flags": ["bypasssub", "metronome", "mirror", "protect", "sound"],
+    "hasSecondary": true
   },
   {
     "id": "psychicterrain",
@@ -2097,7 +2153,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "overrideDefensiveStat": "def"
   },
   {
     "id": "quickattack",
@@ -2208,7 +2265,8 @@
     "accuracy": 90,
     "priority": 0,
     "target": "allAdjacentFoes",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "rocktomb",
@@ -2220,7 +2278,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "roost",
@@ -2318,7 +2377,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["defrost", "metronome", "mirror", "protect"]
+    "flags": ["defrost", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "screech",
@@ -2354,7 +2414,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["bullet", "metronome", "mirror", "protect"]
+    "flags": ["bullet", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "shadowclaw",
@@ -2450,7 +2511,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["bullet", "metronome", "mirror", "protect"]
+    "flags": ["bullet", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "smackdown",
@@ -2474,7 +2536,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "allAdjacentFoes",
-    "flags": ["bypasssub", "mirror", "protect", "sound"]
+    "flags": ["bypasssub", "mirror", "protect", "sound"],
+    "hasSecondary": true
   },
   {
     "id": "snore",
@@ -2486,7 +2549,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["bypasssub", "mirror", "protect", "sound"]
+    "flags": ["bypasssub", "mirror", "protect", "sound"],
+    "hasSecondary": true
   },
   {
     "id": "snowscape",
@@ -2570,7 +2634,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "normal",
-    "flags": ["mirror", "protect"]
+    "flags": ["mirror", "protect"],
+    "hasRecoil": true
   },
   {
     "id": "steelroller",
@@ -2594,7 +2659,8 @@
     "accuracy": 90,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "stompingtantrum",
@@ -2789,7 +2855,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "thunder",
@@ -2801,7 +2868,8 @@
     "accuracy": 70,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "thunderbolt",
@@ -2813,7 +2881,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["metronome", "mirror", "protect"]
+    "flags": ["metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "thunderfang",
@@ -2825,7 +2894,8 @@
     "accuracy": 95,
     "priority": 0,
     "target": "normal",
-    "flags": ["bite", "contact", "metronome", "mirror", "protect"]
+    "flags": ["bite", "contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "thunderpunch",
@@ -2837,7 +2907,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect", "punch"]
+    "flags": ["contact", "metronome", "mirror", "protect", "punch"],
+    "hasSecondary": true
   },
   {
     "id": "thunderwave",
@@ -2873,7 +2944,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "mirror", "protect"]
+    "flags": ["contact", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "trick",
@@ -2923,7 +2995,8 @@
     "accuracy": 100,
     "priority": 3,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "uproar",
@@ -2971,7 +3044,9 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasRecoil": true,
+    "hasSecondary": true
   },
   {
     "id": "waterfall",
@@ -2983,7 +3058,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "waterpulse",
@@ -2995,7 +3071,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "any",
-    "flags": ["distance", "metronome", "mirror", "protect", "pulse"]
+    "flags": ["distance", "metronome", "mirror", "protect", "pulse"],
+    "hasSecondary": true
   },
   {
     "id": "weatherball",
@@ -3043,7 +3120,8 @@
     "accuracy": 100,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasRecoil": true
   },
   {
     "id": "willowisp",
@@ -3103,7 +3181,8 @@
     "accuracy": 50,
     "priority": 0,
     "target": "normal",
-    "flags": ["bullet", "metronome", "mirror", "protect"]
+    "flags": ["bullet", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   },
   {
     "id": "zenheadbutt",
@@ -3115,6 +3194,7 @@
     "accuracy": 90,
     "priority": 0,
     "target": "normal",
-    "flags": ["contact", "metronome", "mirror", "protect"]
+    "flags": ["contact", "metronome", "mirror", "protect"],
+    "hasSecondary": true
   }
 ]

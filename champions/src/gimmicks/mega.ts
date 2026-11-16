@@ -39,6 +39,7 @@ export const mega: Gimmick<MegaConfig> = {
       types: megaForm.types, // タイプを差し替える
       stabTypes: megaForm.types,
       abilityId: megaForm.ability, // 特性を差し替える
+      weightKg: megaForm.weightKg,
     };
   },
 };

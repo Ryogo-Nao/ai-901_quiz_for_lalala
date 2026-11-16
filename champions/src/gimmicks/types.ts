@@ -25,6 +25,8 @@ export interface BattleForm {
   stabTypes: string[];
   /** 特性の ID */
   abilityId: string;
+  /** 重さ(kg)。重さで威力が決まる技に使う */
+  weightKg: number;
 }
 
 /** フックに渡す、まわりの情報 */

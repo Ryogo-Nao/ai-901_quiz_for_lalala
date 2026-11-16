@@ -13,7 +13,9 @@
  */
 export const STAGES = [
   { id: 'power', label: '威力', combine: 'chain' },
+  { id: 'attackStat', label: '攻撃(能力値)', combine: 'each' },
   { id: 'attack', label: '攻撃', combine: 'chain' },
+  { id: 'defenseStat', label: '防御(能力値)', combine: 'each' },
   { id: 'defense', label: '防御', combine: 'chain' },
   // ここで基礎ダメージを計算する
   { id: 'spread', label: '範囲', combine: 'each' },
