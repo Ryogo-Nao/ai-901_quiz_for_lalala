@@ -4,6 +4,7 @@
 // (保存の関数を呼ばないかぎり、IndexedDB は書き換わらない)
 
 import { DEFAULT_CONDITIONS, NO_RANKS, type DamageConditions, type Ranks, type StatusId } from '../../calc/damage/context.ts';
+import { NO_HAZARDS, type Hazards } from '../../calc/hazards.ts';
 import type { MasterData } from '../../data/index.ts';
 import { createIndividual, type Individual } from '../../domain/individual.ts';
 
@@ -32,6 +33,8 @@ export interface DamageState {
   spreadEnabled: boolean;
   /** 連続技の回数(2〜5回の技で使う) */
   multiHitCount: number;
+  /** 防御側の場にまかれているもの(ステルスロック、まきびし) */
+  hazards: Hazards;
 }
 
 /** 個体から、1体ぶんの一時データを作る */
@@ -60,5 +63,6 @@ export function createInitialDamageState(data: MasterData): DamageState {
     conditions: { ...DEFAULT_CONDITIONS },
     spreadEnabled: true,
     multiHitCount: 2,
+    hazards: { ...NO_HAZARDS },
   };
 }

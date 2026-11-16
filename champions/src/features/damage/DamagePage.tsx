@@ -12,10 +12,12 @@ import {
   type WeatherId,
 } from '../../calc/damage/context.ts';
 import { calcKoMultiHit, formatKo } from '../../calc/damage/ko.ts';
+import { calcHazardDamage } from '../../calc/hazards.ts';
 import { calcDamage, type DamageResult } from '../../calc/damage/pipeline.ts';
 import { UNSUPPORTED_ABILITY_IDS } from '../../calc/damage/rules/index.ts';
 import Segmented from '../../components/Segmented.tsx';
 import SelectField from '../../components/SelectField.tsx';
+import Stepper from '../../components/Stepper.tsx';
 import TypeChips from '../../components/TypeChips.tsx';
 import type { MasterData, MoveData, RegulationData } from '../../data/index.ts';
 import { requireSpecies } from '../../domain/editIndividual.ts';
@@ -80,7 +82,22 @@ export default function DamagePage({ data, regulation, state, onChange }: Props)
     return { ...combatant, currentHp: Math.max(1, Math.floor((combatant.battler.stats.hp * side.hpPercent) / 100)) };
   };
   const attackerCombatant = toCombatant(attacker);
-  const defenderCombatant = toCombatant(defender);
+  const defenderBeforeHazards = toCombatant(defender);
+
+  // 場に出たときのダメージ(ステルスロック、まきびし)。受けたあとのHPで、ダメージと確定数を計算する
+  const hazardDamage = calcHazardDamage(
+    {
+      maxHp: defenderBeforeHazards.battler.stats.hp,
+      types: defenderBeforeHazards.battler.form.types,
+      abilityId: defenderBeforeHazards.battler.form.abilityId,
+      itemId: defender.individual.itemId,
+    },
+    state.hazards,
+    data.typeEffectiveness,
+  );
+  const hpAfterHazards = Math.max(0, defenderBeforeHazards.currentHp - hazardDamage.total);
+  const faintsOnEntry = hazardDamage.total > 0 && hpAfterHazards === 0;
+  const defenderCombatant = { ...defenderBeforeHazards, currentHp: Math.max(1, hpAfterHazards) };
 
   // ----- 技の候補: 個体に覚えさせている技を先に、そのほかの覚える技をあとに並べる -----
   const attackerSpecies = requireSpecies(data, attacker.individual.speciesId);
@@ -212,6 +229,30 @@ export default function DamagePage({ data, regulation, state, onChange }: Props)
           {check('リフレクター', conditions.reflect, (value) => setConditions({ reflect: value }))}
           {check('ひかりのかべ', conditions.lightScreen, (value) => setConditions({ lightScreen: value }))}
           {check('オーロラベール', conditions.auroraVeil, (value) => setConditions({ auroraVeil: value }))}
+          {check('ステルスロック', state.hazards.stealthRock, (value) => onChange({ ...state, hazards: { ...state.hazards, stealthRock: value } }))}
+          <div className="hazard-spikes">
+            <span>まきびし</span>
+            <Stepper
+              label="まきびしをまいた回数"
+              value={state.hazards.spikes}
+              min={0}
+              max={3}
+              format={(count) => `${count}回`}
+              onChange={(value) => onChange({ ...state, hazards: { ...state.hazards, spikes: value } })}
+            />
+          </div>
+          {(state.hazards.stealthRock || state.hazards.spikes > 0) && (
+            <p className="hazard-result" aria-live="polite">
+              登場時のダメージ: <strong>{hazardDamage.total}</strong>({percent((hazardDamage.total / maxHp) * 100)})
+              <br />
+              <span className="summary-sub">
+                {state.hazards.stealthRock && `ステルスロック ${hazardDamage.stealthRock}`}
+                {state.hazards.stealthRock && state.hazards.spikes > 0 && ' + '}
+                {state.hazards.spikes > 0 && `まきびし ${hazardDamage.spikes}${hazardDamage.spikes === 0 ? '(浮いているので受けない)' : ''}`}
+                {' → '}残りHP {hpAfterHazards} / {maxHp}
+              </span>
+            </p>
+          )}
         </CombatantPanel>
 
         <section className="card combatant" data-role="field">
@@ -263,6 +304,8 @@ export default function DamagePage({ data, regulation, state, onChange }: Props)
           <p className="result-stop">{errorMessage}</p>
         ) : !move || !first ? (
           <p className="result-stop">技を選んでください</p>
+        ) : faintsOnEntry ? (
+          <p className="result-stop">登場時のダメージ({hazardDamage.total})で、ひんしになります</p>
         ) : first.stop ? (
           <p className="result-stop">{first.stop.label}</p>
         ) : (
@@ -274,7 +317,10 @@ export default function DamagePage({ data, regulation, state, onChange }: Props)
               <span className="result-percent">
                 {percent((totalMin / maxHp) * 100)} 〜 {percent((totalMax / maxHp) * 100)}
               </span>
-              <span className="result-ko">{formatKo(ko)}</span>
+              <span className="result-ko">
+                {formatKo(ko)}
+                {hazardDamage.total > 0 ? '(登場時ダメージ込み)' : ''}
+              </span>
             </p>
             <details className="result-details">
               <summary>
@@ -296,7 +342,9 @@ export default function DamagePage({ data, regulation, state, onChange }: Props)
                   </div>
                 ))}
                 <p>
-                  相手のHP: {defenderCombatant.currentHp} / {maxHp}(割合は最大HPに対する値、確定数はいまのHPで計算)
+                  相手のHP: {defenderCombatant.currentHp} / {maxHp}
+                  {hazardDamage.total > 0 ? `(登場時のダメージ ${hazardDamage.total} を受けたあと)` : ''}
+                  。割合は最大HPに対する値、確定数はこのHPで計算
                 </p>
               </div>
             </details>
