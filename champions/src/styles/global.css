@@ -23,16 +23,19 @@
   --tap: 40px; /* 指で押す部品の最小の高さ */
   --nav-height: 56px;
 
-  color-scheme: light dark;
+  color-scheme: light;
   font-family:
     system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic UI', 'Meiryo', sans-serif;
   font-size: 16px;
   line-height: 1.6;
 }
 
-/* 端末が「暗い画面」の設定のとき */
+/* 暗い画面の色。
+   (1) 端末が「暗い画面」の設定のとき。ただし表示側で「明るい」が選ばれていたら使わない
+   (2) 表示側で「暗い」が選ばれたとき(data-theme="dark")
+   の2か所に、同じ値を書く。 */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --bg: #12141c;
     --panel: #1c1f2b;
     --ink: #e8eaf2;
@@ -46,7 +49,25 @@
     --ok: #62d39a;
     --warn: #f0b860;
     --warn-soft: #33290f;
+    color-scheme: dark;
   }
+}
+
+:root[data-theme='dark'] {
+  --bg: #12141c;
+  --panel: #1c1f2b;
+  --ink: #e8eaf2;
+  --muted: #a3aabd;
+  --line: #303546;
+  --accent: #8f9cff;
+  --accent-ink: #10121a;
+  --accent-soft: #252a45;
+  --up: #ff8a7a;
+  --down: #7fb2ff;
+  --ok: #62d39a;
+  --warn: #f0b860;
+  --warn-soft: #33290f;
+  color-scheme: dark;
 }
 
 *,
