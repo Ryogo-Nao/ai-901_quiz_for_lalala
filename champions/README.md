@@ -45,13 +45,15 @@ npm run dev       # 開発用のサーバーを起動する
 | `npm run data:build` | 公開データから `src/data/*.json` を作り直す | ポケモンを足すとき |
 | `VITE_CROSS_CHECK=full npm test` | ダメージ計算を、手本とすべての組み合わせで突き合わせる(3分ほど) | 計算のルールを変えたあと、ポケモンを足したあと |
 
-## ポケモンを足す
+## データを更新する
 
-1. `scripts/data-config.json` の `pokemon` に、ID を足す
-   (英語名から記号と空白を除いて小文字にしたもの。例: Rotom-Wash → `rotomwash`)
+いまは、チャンピオンズで使えるポケモンがすべて入っています(`scripts/data-config.json` の `pokemon` が `"all"`)。
+ゲームの更新でポケモンや技が増えたときは、次の手順で作り直します。
+
+1. `scripts/data-config.json` の `sources` の `commit` を、取得元の新しい番号に書き換える
 2. `npm run data:build` を実行する
 3. 最後に出る「確認が必要なこと」を読む
-4. `npm test` を実行する
+4. `npm test` を実行する(計算が手本と合うかも、ここで確かめられる)
 5. ゲーム内の表示と見比べる
 
 くわしくは [docs/DESIGN.md](docs/DESIGN.md) の 9 章を見てください。

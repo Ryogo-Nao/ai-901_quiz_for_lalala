@@ -170,3 +170,101 @@
   font-size: 0.8rem;
   color: var(--bar-warn);
 }
+
+/* ----- 攻撃側・防御側・その他の箱。上の線の色で見分ける ----- */
+
+.combatant {
+  border-top: 4px solid var(--role-color, var(--line));
+}
+
+.combatant[data-role='attacker'] {
+  --role-color: var(--up);
+}
+
+.combatant[data-role='defender'] {
+  --role-color: var(--down);
+}
+
+.combatant[data-role='field'] {
+  --role-color: var(--ok);
+}
+
+.combatant-load {
+  width: auto;
+  max-width: 60%;
+  min-height: 36px;
+  font-size: 0.85rem;
+}
+
+/* ----- 計算に使う数値の行(能力・性格補正・ランク補正) ----- */
+
+.calc-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.calc-label {
+  flex: none;
+  width: 5.2em;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.calc-value {
+  min-width: 2.6em;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.calc-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.calc-row > .stat-stepper {
+  margin-left: auto;
+}
+
+.calc-row > .segmented + .calc-sub,
+.calc-row > .stat-stepper + .calc-sub {
+  margin-left: 0;
+}
+
+/* 選択肢が多い行(天気・フィールド)は、見出しを上に、選択肢を下いっぱいに置く */
+.calc-row-wide {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.calc-row-wide > .calc-label {
+  width: auto;
+}
+
+.stepper-output {
+  display: grid;
+  place-items: center;
+}
+
+.conditions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.conditions-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}

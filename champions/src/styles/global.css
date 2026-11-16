@@ -431,3 +431,41 @@ select {
 h3 {
   margin: 0;
 }
+
+/* ----- 横に並んだ選択肢から1つを選ぶ部品 ----- */
+
+.segmented {
+  display: flex;
+  min-width: 0;
+  padding: 3px;
+  gap: 2px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+}
+
+.segmented-option {
+  flex: 1;
+  min-width: 0;
+  min-height: 34px;
+  padding: 0 4px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.segmented-option[aria-checked='true'] {
+  background: var(--panel);
+  font-weight: 700;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+/* ----- ポケモンを選ぶ部品(絞り込みの欄 + 選択欄) ----- */
+
+.picker {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 6px;
+}

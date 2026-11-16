@@ -5,8 +5,6 @@
 
 import { useEffect, useState } from 'react';
 import {
-  TERRAIN_LABELS,
-  WEATHER_LABELS,
   makeCombatant,
   type Combatant,
   type DamageConditions,
@@ -16,6 +14,7 @@ import {
 import { calcKoMultiHit, formatKo } from '../../calc/damage/ko.ts';
 import { calcDamage, type DamageResult } from '../../calc/damage/pipeline.ts';
 import { UNSUPPORTED_ABILITY_IDS } from '../../calc/damage/rules/index.ts';
+import Segmented from '../../components/Segmented.tsx';
 import SelectField from '../../components/SelectField.tsx';
 import TypeChips from '../../components/TypeChips.tsx';
 import type { MasterData, MoveData, RegulationData } from '../../data/index.ts';
@@ -46,6 +45,10 @@ function hitCountOptions(move: MoveData): number[] {
   const [min, max] = move.multihit;
   return Array.from({ length: max - min + 1 }, (_, index) => min + index);
 }
+
+/** 選択肢に出す、短い名前 */
+const WEATHER_SHORT: Record<WeatherId, string> = { sun: 'はれ', rain: 'あめ', sand: 'すな', snow: 'ゆき' };
+const TERRAIN_SHORT: Record<TerrainId, string> = { electric: 'エレキ', grassy: 'グラス', psychic: 'サイコ', misty: 'ミスト' };
 
 const percent = (value: number) => `${(Math.floor(value * 10) / 10).toFixed(1)}%`;
 
@@ -92,7 +95,10 @@ export default function DamagePage({ data, regulation, state, onChange }: Props)
     (state.moveId && attackerSpecies.learnset.includes(state.moveId) ? data.moves.get(state.moveId) : undefined) ??
     ownMoves.find((candidate) => candidate.category !== 'status') ??
     ownMoves[0] ??
-    otherMoves.find((candidate) => candidate.category !== 'status');
+    // 技を覚えさせていない個体では、タイプが一致する技のうち、威力がいちばん高いものを最初に出しておく
+    [...otherMoves]
+      .filter((candidate) => candidate.category !== 'status' && candidate.power > 0)
+      .sort((a, b) => Number(attackerSpecies.types.includes(b.type)) - Number(attackerSpecies.types.includes(a.type)) || b.power - a.power)[0];
 
   // ----- 計算 -----
   const canSpread = move !== undefined && conditions.isDoubles && hitsSeveralTargets(move);
@@ -140,103 +146,115 @@ export default function DamagePage({ data, regulation, state, onChange }: Props)
     </label>
   );
 
+  // いまの技で、計算に使う能力。攻撃側は こうげき か とくこう(ボディプレス は ぼうぎょ)、防御側は ぼうぎょ か とくぼう
+  const usedMove = first?.detail.move ?? move;
+  const attackKey = (usedMove?.overrideOffensiveStat as 'def' | undefined) ?? (usedMove?.category === 'special' ? 'spa' : 'atk');
+  const defenseKey = usedMove?.overrideDefensiveStat === 'def' || usedMove?.category !== 'special' ? 'def' : 'spd';
+
   return (
     <div className="damage-page">
       <div className="damage-columns">
         <CombatantPanel
-          title="攻撃側"
+          role="attacker"
           data={data}
           regulation={regulation}
           side={attacker}
           battler={attackerCombatant.battler}
           savedIndividuals={savedIndividuals}
-          mainRankKeys={['atk', 'spa']}
+          statKey={attackKey}
           onChange={(next) => onChange({ ...state, attacker: next })}
-        />
-
-        <div className="damage-middle">
-          <section className="card">
-            <div className="card-heading">
-              <h2>技と条件</h2>
-              <button
-                type="button"
-                className="button-quiet"
-                onClick={() => onChange({ ...state, attacker: defender, defender: attacker, moveId: null })}
-              >
-                ⇅ 攻守を入れ替える
-              </button>
-            </div>
-
-            <SelectField
-              label="技"
-              value={move?.id ?? ''}
-              groups={[
-                { label: 'この個体の技', options: ownMoves.map((candidate) => ({ value: candidate.id, label: candidate.name })) },
-                { label: 'そのほかの覚える技', options: otherMoves.map((candidate) => ({ value: candidate.id, label: candidate.name })) },
-              ].filter((group) => group.options.length > 0)}
-              onChange={(value) => onChange({ ...state, moveId: value })}
-            />
-            {move && (
-              <p className="move-detail">
-                <TypeChips typeIds={[first?.detail.move.type ?? move.type]} data={data} />
-                <span>{categoryLabel(move)}</span>
-                <span>
-                  威力 <strong>{first && first.detail.power > 0 ? first.detail.power : powerLabel(move)}</strong>
-                </span>
-              </p>
-            )}
-            {hitOptions.length > 1 && (
+          afterPokemon={
+            <div className="move-slot">
               <SelectField
-                label="当たる回数"
-                value={String(hitCount)}
-                options={hitOptions.map((count) => ({ value: String(count), label: `${count}回` }))}
-                onChange={(value) => onChange({ ...state, multiHitCount: Number(value) })}
+                label="技"
+                value={move?.id ?? ''}
+                groups={[
+                  { label: 'この個体の技', options: ownMoves.map((candidate) => ({ value: candidate.id, label: candidate.name })) },
+                  { label: ownMoves.length > 0 ? 'そのほかの覚える技' : '覚える技', options: otherMoves.map((candidate) => ({ value: candidate.id, label: candidate.name })) },
+                ].filter((group) => group.options.length > 0)}
+                onChange={(value) => onChange({ ...state, moveId: value })}
               />
-            )}
-
-            <div className="check-grid">
-              {check('急所', conditions.isCritical, (value) => setConditions({ isCritical: value }))}
-              {check('ダブルバトル', conditions.isDoubles, (value) => setConditions({ isDoubles: value }))}
-              {check('範囲技として当てる(0.75倍)', canSpread && state.spreadEnabled, (value) => onChange({ ...state, spreadEnabled: value }), !canSpread)}
-              {check('てだすけ', conditions.helpingHand, (value) => setConditions({ helpingHand: value }))}
-              {check('リフレクター', conditions.reflect, (value) => setConditions({ reflect: value }))}
-              {check('ひかりのかべ', conditions.lightScreen, (value) => setConditions({ lightScreen: value }))}
-              {check('オーロラベール', conditions.auroraVeil, (value) => setConditions({ auroraVeil: value }))}
+              {move && (
+                <p className="move-detail">
+                  <TypeChips typeIds={[first?.detail.move.type ?? move.type]} data={data} />
+                  <span>{categoryLabel(usedMove ?? move)}</span>
+                  <span>
+                    威力 <strong>{first && first.detail.power > 0 ? first.detail.power : powerLabel(move)}</strong>
+                  </span>
+                </p>
+              )}
+              {usedMove?.overrideOffensivePokemon === 'target' && <p className="field-hint">この技は、相手の こうげき で計算します。</p>}
+              {hitOptions.length > 1 && (
+                <SelectField
+                  label="当たる回数"
+                  value={String(hitCount)}
+                  options={hitOptions.map((count) => ({ value: String(count), label: `${count}回` }))}
+                  onChange={(value) => onChange({ ...state, multiHitCount: Number(value) })}
+                />
+              )}
             </div>
-
-            <div className="field-grid">
-              <SelectField
-                label="天気"
-                value={conditions.weather ?? ''}
-                options={[
-                  { value: '', label: 'なし' },
-                  ...(Object.keys(WEATHER_LABELS) as WeatherId[]).map((id) => ({ value: id, label: WEATHER_LABELS[id] })),
-                ]}
-                onChange={(value) => setConditions({ weather: value === '' ? null : (value as WeatherId) })}
-              />
-              <SelectField
-                label="フィールド"
-                value={conditions.terrain ?? ''}
-                options={[
-                  { value: '', label: 'なし' },
-                  ...(Object.keys(TERRAIN_LABELS) as TerrainId[]).map((id) => ({ value: id, label: TERRAIN_LABELS[id] })),
-                ]}
-                onChange={(value) => setConditions({ terrain: value === '' ? null : (value as TerrainId) })}
-              />
-            </div>
-          </section>
-        </div>
+          }
+        >
+          {check('急所', conditions.isCritical, (value) => setConditions({ isCritical: value }))}
+          {check('てだすけ', conditions.helpingHand, (value) => setConditions({ helpingHand: value }))}
+        </CombatantPanel>
 
         <CombatantPanel
-          title="防御側"
+          role="defender"
           data={data}
           regulation={regulation}
           side={defender}
           battler={defenderCombatant.battler}
           savedIndividuals={savedIndividuals}
-          mainRankKeys={['def', 'spd']}
+          statKey={defenseKey}
           onChange={(next) => onChange({ ...state, defender: next })}
-        />
+        >
+          {check('リフレクター', conditions.reflect, (value) => setConditions({ reflect: value }))}
+          {check('ひかりのかべ', conditions.lightScreen, (value) => setConditions({ lightScreen: value }))}
+          {check('オーロラベール', conditions.auroraVeil, (value) => setConditions({ auroraVeil: value }))}
+        </CombatantPanel>
+
+        <section className="card combatant" data-role="field">
+          <div className="card-heading">
+            <h2>その他</h2>
+            <button type="button" className="button-quiet" onClick={() => onChange({ ...state, attacker: defender, defender: attacker, moveId: null })}>
+              ⇅ 攻守を入れ替える
+            </button>
+          </div>
+          <div className="calc-rows">
+            <div className="calc-row calc-row-wide">
+              <span className="calc-label">対戦形式</span>
+              <Segmented
+                label="対戦形式"
+                value={conditions.isDoubles ? 'doubles' : 'singles'}
+                options={[
+                  { value: 'singles', label: 'シングル' },
+                  { value: 'doubles', label: 'ダブル' },
+                ]}
+                onChange={(value) => setConditions({ isDoubles: value === 'doubles' })}
+              />
+            </div>
+            <div className="calc-row calc-row-wide">
+              <span className="calc-label">天気</span>
+              <Segmented
+                label="天気"
+                value={conditions.weather ?? 'none'}
+                options={[{ value: 'none', label: 'なし' }, ...(Object.keys(WEATHER_SHORT) as WeatherId[]).map((id) => ({ value: id, label: WEATHER_SHORT[id] }))]}
+                onChange={(value) => setConditions({ weather: value === 'none' ? null : (value as WeatherId) })}
+              />
+            </div>
+            <div className="calc-row calc-row-wide">
+              <span className="calc-label">フィールド</span>
+              <Segmented
+                label="フィールド"
+                value={conditions.terrain ?? 'none'}
+                options={[{ value: 'none', label: 'なし' }, ...(Object.keys(TERRAIN_SHORT) as TerrainId[]).map((id) => ({ value: id, label: TERRAIN_SHORT[id] }))]}
+                onChange={(value) => setConditions({ terrain: value === 'none' ? null : (value as TerrainId) })}
+              />
+            </div>
+          </div>
+          {canSpread && check('範囲技として当てる(0.75倍)', state.spreadEnabled, (value) => onChange({ ...state, spreadEnabled: value }))}
+        </section>
       </div>
 
       {/* 結果。スマホでは画面の下に固定して、入力を変えながら常に見えるようにする */}

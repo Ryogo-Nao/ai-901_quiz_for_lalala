@@ -49,10 +49,13 @@ export function makeSide(individual: Individual, sourceId: string | null): SideS
 
 /** 画面を最初に開いたときの状態 */
 export function createInitialDamageState(data: MasterData): DamageState {
-  const [first, second = first] = [...data.pokemon.values()];
+  // 最初に出しておくポケモン。データにあれば ガブリアス と カバルドン、無ければ先頭の2体
+  const all = [...data.pokemon.values()];
+  const attacker = data.pokemon.get('garchomp') ?? all[0];
+  const defender = data.pokemon.get('hippowdon') ?? all[1] ?? all[0];
   return {
-    attacker: makeSide(createIndividual(first.id, first.abilities[0]), null),
-    defender: makeSide(createIndividual(second.id, second.abilities[0]), null),
+    attacker: makeSide(createIndividual(attacker.id, attacker.abilities[0]), null),
+    defender: makeSide(createIndividual(defender.id, defender.abilities[0]), null),
     moveId: null,
     conditions: { ...DEFAULT_CONDITIONS },
     spreadEnabled: true,

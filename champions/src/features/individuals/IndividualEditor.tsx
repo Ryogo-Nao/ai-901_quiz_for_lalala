@@ -6,6 +6,7 @@
 
 import { useId, useState } from 'react';
 import { buildBattler } from '../../calc/battler.ts';
+import PokemonPicker from '../../components/PokemonPicker.tsx';
 import SelectField from '../../components/SelectField.tsx';
 import TypeChips from '../../components/TypeChips.tsx';
 import type { MasterData, RegulationData } from '../../data/index.ts';
@@ -26,7 +27,7 @@ import { validateIndividual } from '../../domain/validateIndividual.ts';
 import { gimmickRegistry, usableGimmickIds } from '../../gimmicks/registry.ts';
 import { gimmickEditors } from '../gimmick-ui/gimmickEditors.ts';
 import './IndividualEditor.css';
-import { categoryLabel, itemGroups, natureGroups, pokemonOptions, powerLabel } from './labels.ts';
+import { categoryLabel, itemGroups, natureGroups, powerLabel } from './labels.ts';
 import StatPointsEditor, { type StatColumn } from './StatPointsEditor.tsx';
 
 interface Props {
@@ -152,10 +153,10 @@ export default function IndividualEditor({ data, regulation, initial, isNew, onS
         <section className="card">
           <h2>{isNew ? '個体の作成' : '個体の編集'}</h2>
 
-          <SelectField
+          <PokemonPicker
             label="ポケモン"
+            data={data}
             value={individual.speciesId}
-            options={pokemonOptions(data)}
             onChange={(value) => setIndividual(changeSpecies(individual, value, data))}
             hint="変えると、技は空欄に、特性は新しいポケモンのものに変わります。"
           />
