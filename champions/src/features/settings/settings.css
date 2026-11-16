@@ -7,7 +7,6 @@
 .settings-text {
   min-height: 7em;
   font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-  font-size: 0.8rem;
   line-height: 1.4;
   resize: vertical;
 }

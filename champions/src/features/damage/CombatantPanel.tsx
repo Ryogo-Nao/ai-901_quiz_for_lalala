@@ -8,7 +8,7 @@
 //   攻撃側 … 技、攻撃に使う能力、威力が上がる条件(children で受け取る)
 //   防御側 … HP、受けるのに使う能力、ダメージが減る条件(children で受け取る)
 
-import { useId, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import { STATUS_LABELS, type Ranks, type StatusId } from '../../calc/damage/context.ts';
 import type { Battler } from '../../calc/battler.ts';
 import { maxStatPointsFor, remainingStatPoints, setStatPoint } from '../../calc/statPoints.ts';
@@ -73,8 +73,18 @@ export default function CombatantPanel({ role, data, regulation, side, battler, 
     const gimmickOn = hasGimmick(next) ? side.gimmickOn || !hasGimmick(individual) : false;
     // ポケモンそのものを変えたら、もう「呼び出した個体」ではないので、呼び出し元の表示を外す
     const sourceId = next.speciesId === individual.speciesId ? side.sourceId : null;
-    onChange({ ...side, individual: next, sourceId, gimmickOn });
+    // ポケモンを変えたら、手で変えたタイプは元に戻す
+    const typeOverride = next.speciesId === individual.speciesId ? side.typeOverride : null;
+    onChange({ ...side, individual: next, sourceId, gimmickOn, typeOverride });
   };
+
+  // ----- タイプの変更 -----
+  const [isEditingTypes, setIsEditingTypes] = useState(false);
+  const typeOptions = [...data.types.values()].map((type) => ({ value: type.id, label: type.name }));
+  const [type1, type2 = ''] = battler.form.types;
+  /** タイプを手で指定する。2つ目は「なし」にもできる。同じタイプを2つ選んだら1つにまとめる */
+  const setTypes = (first: string, second: string) =>
+    onChange({ ...side, typeOverride: second === '' || second === first ? [first] : [first, second] });
 
   const setPoints = (key: StatKey, value: number) => setIndividual({ ...individual, statPoints: setStatPoint(individual.statPoints, key, value) });
   const setRank = (key: keyof Ranks, value: number) => onChange({ ...side, ranks: { ...side.ranks, [key]: value } });
@@ -136,8 +146,42 @@ export default function CombatantPanel({ role, data, regulation, side, battler, 
       <div className="summary">
         <div className="summary-head">
           <span className="summary-name">{battler.form.name}</span>
-          <TypeChips typeIds={battler.form.types} data={data} />
+          {/* タイプの表示をタップすると、タイプを変える欄が開く */}
+          <button
+            type="button"
+            className="type-button"
+            aria-expanded={isEditingTypes}
+            aria-label={`${title}のタイプを変える`}
+            onClick={() => setIsEditingTypes(!isEditingTypes)}
+          >
+            <TypeChips typeIds={battler.form.types} data={data} />
+            <span className="type-button-hint">{side.typeOverride ? '変更中' : '変更'}</span>
+          </button>
         </div>
+        {isEditingTypes && (
+          <div className="type-editor">
+            <div className="field-grid">
+              <SelectField label="タイプ1" value={type1} options={typeOptions} onChange={(value) => setTypes(value, type2)} />
+              <SelectField
+                label="タイプ2"
+                value={type2}
+                options={[{ value: '', label: 'なし' }, ...typeOptions]}
+                onChange={(value) => setTypes(type1, value)}
+              />
+            </div>
+            <p className="field-hint">
+              特性や技でタイプが変わった場面を計算できます。受けるときの相性と、タイプ一致の両方に使います。
+            </p>
+            <div className="row-actions">
+              <button type="button" className="button-quiet" disabled={!side.typeOverride} onClick={() => onChange({ ...side, typeOverride: null })}>
+                元のタイプに戻す
+              </button>
+              <button type="button" className="button-quiet" onClick={() => setIsEditingTypes(false)}>
+                閉じる
+              </button>
+            </div>
+          </div>
+        )}
         <p className="summary-sub" aria-label="種族値">
           種族値 {STAT_KEYS.map((key) => battler.form.baseStats[key]).join(' - ')}
         </p>

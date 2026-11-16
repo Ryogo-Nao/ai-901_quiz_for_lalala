@@ -119,9 +119,18 @@ h2 {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
   color: inherit;
+}
+
+/* 入力欄の文字は 16px 以上にする。
+   iPhone は、文字が 16px より小さい入力欄をタップすると、画面を自動で拡大してしまうため。 */
+input,
+select,
+textarea {
+  font-size: max(16px, 1rem);
 }
 
 /* キーボードで操作したとき、いまどこを選んでいるかを分かりやすくする */

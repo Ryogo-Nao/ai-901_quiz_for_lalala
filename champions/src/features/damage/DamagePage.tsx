@@ -79,7 +79,15 @@ export default function DamagePage({ data, regulation, state, onChange }: Props)
       ranks: side.ranks,
       status: side.status,
     });
-    return { ...combatant, currentHp: Math.max(1, Math.floor((combatant.battler.stats.hp * side.hpPercent) / 100)) };
+    // タイプを手で変えているときは、そのタイプで計算する(受けるときの相性も、タイプ一致も)
+    const form = side.typeOverride
+      ? { ...combatant.battler.form, types: side.typeOverride, stabTypes: side.typeOverride }
+      : combatant.battler.form;
+    return {
+      ...combatant,
+      battler: { ...combatant.battler, form },
+      currentHp: Math.max(1, Math.floor((combatant.battler.stats.hp * side.hpPercent) / 100)),
+    };
   };
   const attackerCombatant = toCombatant(attacker);
   const defenderBeforeHazards = toCombatant(defender);

@@ -20,6 +20,11 @@ export interface SideState {
   status: StatusId | null;
   /** いまのHP(最大HPに対する%) */
   hpPercent: number;
+  /**
+   * 手で変えたタイプ。変えていなければ null(ポケモンの元のタイプを使う)。
+   * 特性(へんげんじざい など)や技(みずびたし など)でタイプが変わった場面を計算するために使う
+   */
+  typeOverride: string[] | null;
 }
 
 /** 画面全体の一時データ */
@@ -47,6 +52,7 @@ export function makeSide(individual: Individual, sourceId: string | null): SideS
     ranks: { ...NO_RANKS },
     status: null,
     hpPercent: 100,
+    typeOverride: null,
   };
 }
 

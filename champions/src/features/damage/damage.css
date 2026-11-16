@@ -193,7 +193,6 @@
   width: auto;
   max-width: 60%;
   min-height: 36px;
-  font-size: 0.85rem;
 }
 
 /* ----- 計算に使う数値の行(能力・性格補正・ランク補正) ----- */
@@ -272,6 +271,8 @@
 /* ----- 登場時のダメージ(ステルスロック、まきびし) ----- */
 
 .hazard-spikes {
+  grid-column: 1 / -1; /* 行の幅いっぱいを使う(「まきびし」が折り返さないように) */
+  white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -284,4 +285,33 @@
   border-radius: 8px;
   background: var(--accent-soft);
   font-size: 0.9rem;
+}
+
+/* ----- タイプの変更 ----- */
+
+/* タイプの表示そのものをボタンにする(タップで変更欄が開く) */
+.type-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 2px 6px;
+  border: 1px dashed var(--line);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.type-button-hint {
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+.type-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--accent-soft);
 }
