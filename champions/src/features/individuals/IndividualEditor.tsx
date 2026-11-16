@@ -116,11 +116,11 @@ export default function IndividualEditor({ data, regulation, initial, isNew, onS
 
   return (
     <div className="editor-page">
-      <div className="editor-bar">
+      <div className="page-bar">
         <button type="button" className="button-quiet" onClick={back}>
           ← 一覧
         </button>
-        <span className="editor-bar-status" aria-live="polite" data-kind={statusKind}>
+        <span className="page-bar-status" aria-live="polite" data-kind={statusKind}>
           {statusText}
         </span>
         <button

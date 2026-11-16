@@ -4,11 +4,12 @@ import { useState } from 'react';
 import './App.css';
 import { masterData } from './data/index.ts';
 import IndividualsPage from './features/individuals/IndividualsPage.tsx';
+import TeamsPage from './features/teams/TeamsPage.tsx';
 
 /** 画面の一覧。id は内部で使う名前、label は表示する名前 */
 const SCREENS = [
   { id: 'individuals', label: '個体', plannedStep: null },
-  { id: 'teams', label: 'チーム', plannedStep: 'ステップ3' },
+  { id: 'teams', label: 'チーム', plannedStep: null },
   { id: 'damage', label: 'ダメージ計算', plannedStep: 'ステップ4' },
   { id: 'settings', label: '設定', plannedStep: 'ステップ5' },
 ] as const;
@@ -34,6 +35,8 @@ export default function App() {
       <main className="app-main">
         {screen.id === 'individuals' ? (
           <IndividualsPage data={masterData} regulation={regulation} />
+        ) : screen.id === 'teams' ? (
+          <TeamsPage data={masterData} />
         ) : (
           <section className="card placeholder">
             <h2>{screen.label}</h2>

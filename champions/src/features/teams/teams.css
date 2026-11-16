@@ -1,0 +1,57 @@
+/* チームの画面。 */
+
+.team-card {
+  gap: 6px;
+}
+
+.team-name {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.member-list,
+.candidate-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.member-row,
+.candidate-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.member-row:first-child,
+.candidate-row:first-child {
+  border-top: none;
+}
+
+/* 並び順の番号 */
+.member-number {
+  flex: none;
+  width: 1.8em;
+  height: 1.8em;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.member-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.candidate-row .summary {
+  flex: 1;
+}

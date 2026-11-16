@@ -18,12 +18,18 @@
   --warn-soft: #fff4dc;
   --danger: #b3261e;
   --danger-ink: #ffffff;
+  --bar: #26306b; /* 編集画面の上の帯 */
+  --bar-ink: #ffffff;
+  --bar-warn: #ffd27a;
+  --shadow: rgba(20, 24, 50, 0.22);
 
   /* 大きさ */
   --radius: 12px;
   --gap: 12px;
   --tap: 40px; /* 指で押す部品の最小の高さ */
   --nav-height: 56px;
+  --main-pad-block: 12px; /* 本文の上下の余白 */
+  --main-pad-inline: 16px; /* 本文の左右の余白 */
 
   color-scheme: light;
   font-family:
@@ -53,6 +59,10 @@
     --warn-soft: #33290f;
     --danger: #ff9a92;
     --danger-ink: #2a0e0c;
+    --bar: #34407f;
+    --bar-ink: #ffffff;
+    --bar-warn: #ffd27a;
+    --shadow: rgba(0, 0, 0, 0.5);
     color-scheme: dark;
   }
 }
@@ -73,6 +83,10 @@
   --warn-soft: #33290f;
   --danger: #ff9a92;
   --danger-ink: #2a0e0c;
+  --bar: #34407f;
+  --bar-ink: #ffffff;
+  --bar-warn: #ffd27a;
+  --shadow: rgba(0, 0, 0, 0.5);
   color-scheme: dark;
 }
 
@@ -282,3 +296,129 @@ select {
 .type-chip[data-type='dragon'] { --type-color: #0a6dc4; }
 .type-chip[data-type='dark'] { --type-color: #5a5366; }
 .type-chip[data-type='fairy'] { --type-color: #ec8fe6; }
+
+/* ----- 編集画面の上の帯(一覧へ戻る・状態・保存) -----
+   スクロールしても画面の上に残る。下を流れるカードと見分けがつくように、
+   画面の端から端まで届く、色の付いた帯にして、下に影を付ける。 */
+
+.page-bar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* 親(.app-main)の左右と上の余白を打ち消して、端まで広げる */
+  margin: calc(-1 * var(--main-pad-block)) calc(-1 * var(--main-pad-inline)) 0;
+  padding: 8px var(--main-pad-inline);
+  background: var(--bar);
+  color: var(--bar-ink);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.page-bar .button-quiet {
+  border-color: currentColor;
+  color: inherit;
+}
+
+.page-bar-title {
+  flex: 1;
+  min-width: 0;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page-bar-status {
+  flex: 1;
+  min-width: 0;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.page-bar-title + .page-bar-status {
+  flex: none;
+}
+
+.page-bar-status[data-kind='dirty'],
+.page-bar-status[data-kind='error'] {
+  color: var(--bar-warn);
+}
+
+/* ----- 一覧の行 ----- */
+
+.plain-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.individual-list {
+  list-style: none;
+  padding: 0;
+}
+
+.list-page > .plain-list {
+  display: grid;
+  gap: var(--gap);
+}
+
+.row-actions,
+.individual-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.row-actions-spacer {
+  flex: 1;
+}
+
+.button-icon {
+  min-width: var(--tap);
+  min-height: var(--tap);
+  padding: 0;
+  font-size: 1rem;
+}
+
+/* ----- 個体の要約 ----- */
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.summary-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+}
+
+.summary-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
+}
+
+.summary-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.summary-stats {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+h3 {
+  margin: 0;
+}

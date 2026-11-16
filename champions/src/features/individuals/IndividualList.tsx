@@ -1,23 +1,24 @@
 // 保存した個体の一覧。
 
 import { useState } from 'react';
-import { buildBattler } from '../../calc/battler.ts';
-import TypeChips from '../../components/TypeChips.tsx';
+import IndividualSummary from '../../components/IndividualSummary.tsx';
 import type { MasterData } from '../../data/index.ts';
 import type { Individual } from '../../domain/individual.ts';
 import { MAX_INDIVIDUALS } from '../../domain/limits.ts';
-import { STAT_KEYS } from '../../domain/stats.ts';
+import { teamsContaining, type Team } from '../../domain/team.ts';
 
 interface Props {
   data: MasterData;
   individuals: Individual[];
+  /** 保存されているチーム(削除の確認で「どのチームに入っているか」を出すために使う) */
+  teams: Team[];
   onCreate: () => void;
   onEdit: (individual: Individual) => void;
   onDuplicate: (individual: Individual) => void;
   onDelete: (individual: Individual) => void;
 }
 
-export default function IndividualList({ data, individuals, onCreate, onEdit, onDuplicate, onDelete }: Props) {
+export default function IndividualList({ data, individuals, teams, onCreate, onEdit, onDuplicate, onDelete }: Props) {
   const [query, setQuery] = useState('');
   // 削除の確認を出している個体の id。確認していなければ null
   const [confirmingDeleteId, setConfirmingDeleteId] = useState<string | null>(null);
@@ -74,37 +75,22 @@ export default function IndividualList({ data, individuals, onCreate, onEdit, on
       <ul className="individual-list">
         {visible.map((individual) => {
           const species = data.pokemon.get(individual.speciesId);
-          // データに無いポケモン(データを減らしたあとの古い個体など)でも、一覧は壊さずに表示する
-          const battler = species ? buildBattler(individual, null, data) : null;
-          const moveNames = individual.moveIds
-            .filter((id) => id !== null)
-            .map((id) => data.moves.get(id)?.name ?? id);
-          const itemName = individual.itemId ? (data.items.get(individual.itemId)?.name ?? individual.itemId) : 'なし';
+          const memberOf = teamsContaining(teams, individual.id);
           return (
             <li key={individual.id} className="card individual-card">
-              <div className="individual-head">
-                <span className="individual-name">{individual.nickname || speciesName(individual)}</span>
-                {individual.nickname && <span className="individual-species">{speciesName(individual)}</span>}
-                {species && <TypeChips typeIds={species.types} data={data} />}
-              </div>
-              {battler ? (
-                <>
-                  <p className="individual-line">
-                    {data.natures.get(individual.natureId)?.name} / {data.abilities.get(individual.abilityId)?.name} /{' '}
-                    {itemName}
-                  </p>
-                  <p className="individual-stats" aria-label="実数値">
-                    {STAT_KEYS.map((key) => battler.stats[key]).join(' - ')}
-                  </p>
-                  <p className="individual-line">{moveNames.length > 0 ? moveNames.join(' / ') : '技なし'}</p>
-                </>
-              ) : (
-                <p className="notice notice-warn">このポケモンのデータがありません({individual.speciesId})。</p>
+              <IndividualSummary individual={individual} data={data} />
+              {memberOf.length > 0 && (
+                <p className="summary-sub">チーム: {memberOf.map((team) => team.name || '(名前なし)').join('、')}</p>
               )}
 
               {confirmingDeleteId === individual.id ? (
                 <div className="notice notice-warn" role="alertdialog" aria-label="削除の確認">
                   <p>この個体を削除しますか? 元に戻せません。</p>
+                  {memberOf.length > 0 && (
+                    <p>
+                      次のチームからも外れます: {memberOf.map((team) => team.name || '(名前なし)').join('、')}
+                    </p>
+                  )}
                   <div className="notice-actions">
                     <button type="button" className="button-quiet" onClick={() => setConfirmingDeleteId(null)}>
                       やめる

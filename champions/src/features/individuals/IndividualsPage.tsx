@@ -9,7 +9,9 @@
 import { useEffect, useState } from 'react';
 import type { MasterData, RegulationData } from '../../data/index.ts';
 import { createIndividual, type Individual } from '../../domain/individual.ts';
+import type { Team } from '../../domain/team.ts';
 import { deleteIndividual, listIndividuals, saveDuplicate, saveIndividual } from '../../storage/individuals.ts';
+import { listTeams } from '../../storage/teams.ts';
 import IndividualEditor from './IndividualEditor.tsx';
 import IndividualList from './IndividualList.tsx';
 
@@ -24,6 +26,7 @@ type Editing = { individual: Individual; isNew: boolean } | null;
 export default function IndividualsPage({ data, regulation }: Props) {
   // 保存されている個体の一覧。まだ読み込めていないあいだは null
   const [individuals, setIndividuals] = useState<Individual[] | null>(null);
+  const [teams, setTeams] = useState<Team[]>([]);
   const [editing, setEditing] = useState<Editing>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -31,6 +34,7 @@ export default function IndividualsPage({ data, regulation }: Props) {
   async function reload() {
     try {
       setIndividuals(await listIndividuals());
+      setTeams(await listTeams());
       setErrorMessage(null);
     } catch (error) {
       setErrorMessage(describe(error, '保存データを読み込めませんでした'));
@@ -41,9 +45,12 @@ export default function IndividualsPage({ data, regulation }: Props) {
   // 最後の [] は「最初に表示されたときに1回だけ」という意味。ここで保存データを読み込む
   useEffect(() => {
     let cancelled = false;
-    listIndividuals()
-      .then((list) => {
-        if (!cancelled) setIndividuals(list);
+    // Promise.all は「複数の読み込みを同時に始めて、全部終わるのを待つ」
+    Promise.all([listIndividuals(), listTeams()])
+      .then(([individualList, teamList]) => {
+        if (cancelled) return;
+        setIndividuals(individualList);
+        setTeams(teamList);
       })
       .catch((error: unknown) => {
         if (!cancelled) setErrorMessage(describe(error, '保存データを読み込めませんでした'));
@@ -94,6 +101,7 @@ export default function IndividualsPage({ data, regulation }: Props) {
         <IndividualList
           data={data}
           individuals={individuals}
+          teams={teams}
           onCreate={() => {
             const first = [...data.pokemon.values()][0];
             setEditing({ individual: createIndividual(first.id, first.abilities[0]), isNew: true });

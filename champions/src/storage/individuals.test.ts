@@ -7,7 +7,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { createIndividual } from '../domain/individual.ts';
 import { MAX_INDIVIDUALS } from '../domain/limits.ts';
 import { closeDbForTest, getDb } from './db.ts';
-import { LimitReachedError, deleteIndividual, listIndividuals, saveDuplicate, saveIndividual } from './individuals.ts';
+import { LimitReachedError } from './errors.ts';
+import { deleteIndividual, listIndividuals, saveDuplicate, saveIndividual } from './individuals.ts';
 import { CURRENT_SCHEMA_VERSION } from './migrations.ts';
 
 // テスト1件ごとに、空のデータベースから始める

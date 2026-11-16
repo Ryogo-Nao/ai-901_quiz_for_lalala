@@ -11,6 +11,7 @@
 
 import { type DBSchema, type IDBPDatabase, openDB } from 'idb';
 import type { Individual } from '../domain/individual.ts';
+import type { Team } from '../domain/team.ts';
 import { CURRENT_SCHEMA_VERSION, migrate } from './migrations.ts';
 
 const DB_NAME = 'champions-tool';
@@ -20,8 +21,8 @@ const DB_VERSION = 1;
 interface AppDb extends DBSchema {
   /** 個体。見出し(キー)は個体の id */
   individuals: { key: string; value: Individual };
-  /** チーム(ステップ3で使う) */
-  teams: { key: string; value: { id: string } };
+  /** チーム。見出し(キー)はチームの id */
+  teams: { key: string; value: Team };
   /** そのほかの設定。「名前 → 値」で入れる */
   meta: { key: string; value: unknown };
 }
@@ -70,7 +71,7 @@ async function migrateStoredData(db: AppDatabase): Promise<void> {
     await tx.objectStore('individuals').clear();
     await tx.objectStore('teams').clear();
     for (const individual of migrated.individuals) await tx.objectStore('individuals').put(individual as Individual);
-    for (const team of migrated.teams) await tx.objectStore('teams').put(team as { id: string });
+    for (const team of migrated.teams) await tx.objectStore('teams').put(team as Team);
     await tx.objectStore('meta').put(migrated.schemaVersion, 'schemaVersion');
   }
   await tx.done;
