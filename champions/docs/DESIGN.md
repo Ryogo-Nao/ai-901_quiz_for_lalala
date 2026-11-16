@@ -1,6 +1,6 @@
 # ポケモンチャンピオンズ対戦補助アプリ 設計書
 
-- 状態: **ステップ3(チーム編成)まで実装済み**
+- 状態: **ステップ3(チーム編成)まで実装済み。ステップ4(ダメージ計算)は計算式の本体まで**
 - 作成日: 2026-11-16
 - これは個人の学習用に作る**非公式のファンツール**です。株式会社ポケモン・任天堂などとは関係ありません
 
@@ -696,14 +696,16 @@ ai-901_quiz_for_lalala/
         stats.ts                能力値
         statPoints.ts           能力ポイントの上限
         battler.ts              個体 → 戦闘中の姿(6.3 の流れ)
-        rounding.ts             (予定) 切り捨て、五捨五超入、補正の連鎖
-        typeChart.ts            (予定) タイプ相性
-        damage/                 (予定) ダメージ計算
+        rounding.ts             五捨五超入、補正の連鎖、ランク補正
+        typeChart.ts            タイプ相性
+        damage/                 ダメージ計算
           pipeline.ts             段階を順番に適用する本体
-          stages.ts               段階の順番表
-          modifier.ts             Modifier の形
+          modifier.ts             Modifier の形と、段階の順番表
+          context.ts              計算に渡す入力の形
+          coreRules.ts            基本のルール(タイプ一致・急所・やけど・範囲技)
           ko.ts                   確定数
-          rules/                  特性・持ち物・天気などの補正ルール
+          unsupportedMoves.ts     まだ正しく計算できない技の一覧
+          rules/                  (予定) 特性・持ち物・天気などの補正ルール
       gimmicks/               ★バトルギミック
         types.ts                共通の形(インターフェース)
         mega.ts                 メガシンカ

@@ -4,7 +4,9 @@
 // ここで決めた形(インターフェース)だけを相手にする。
 // 新しいギミックは「この形を満たすファイルを1つ足す」ことで追加する。
 
-import type { MasterData, PokemonData } from '../data/index.ts';
+import type { DamageContext } from '../calc/damage/context.ts';
+import type { Modifier } from '../calc/damage/modifier.ts';
+import type { MasterData, MoveData, PokemonData } from '../data/index.ts';
 import type { GimmickId, GimmickSettings, Individual } from '../domain/individual.ts';
 import type { StatTable } from '../domain/stats.ts';
 
@@ -65,8 +67,14 @@ export interface Gimmick<Config> {
   /** 実数値を変える(例: ダイマックスの HP 2倍) */
   changeStats?(stats: StatTable, config: Config, context: GimmickContext): StatTable;
 
-  // 「技の威力やタイプを変える」「ダメージ補正を加える」の2つは、
-  // ダメージ計算を作るステップで、ここに足す。
+  /** 技の威力やタイプを変える(例: ダイマックス技、テラバースト) */
+  changeMove?(move: MoveData, config: Config, context: DamageContext): MoveData;
+
+  /**
+   * ダメージ補正を加える(例: テラスタルのタイプ一致)。
+   * context.side は、このギミックを発動しているのが攻撃側か防御側か。
+   */
+  getModifiers?(config: Config, context: DamageContext & { side: 'attacker' | 'defender' }): Modifier[];
 }
 
 /** ギミック K の設定の形(GimmickSettings に書いたもの) */
