@@ -10,12 +10,15 @@ const CATEGORY_LABELS: Record<MoveData['category'], string> = {
   status: '変化',
 };
 
-/** 技の選択肢の文字。例: 「じしん(じめん・物理・威力100)」 */
-export function moveLabel(move: MoveData, data: MasterData): string {
-  const details = [data.types.get(move.type)?.name ?? move.type, CATEGORY_LABELS[move.category]];
-  if (move.variablePower) details.push('威力は状況で変わる');
-  else if (move.power > 0) details.push(`威力${move.power}`);
-  return `${move.name}(${details.join('・')})`;
+/** 技の分類の日本語名。例: 'physical' → 「物理」 */
+export function categoryLabel(move: MoveData): string {
+  return CATEGORY_LABELS[move.category];
+}
+
+/** 技の威力の表示。変化技は「—」、威力が状況で決まる技は「変動」 */
+export function powerLabel(move: MoveData): string {
+  if (move.variablePower) return '変動';
+  return move.power > 0 ? String(move.power) : '—';
 }
 
 /** 性格の選択肢の文字。例: 「ようき(すばやさ↑ とくこう↓)」 */

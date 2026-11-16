@@ -2,7 +2,7 @@
 // ここに書いた形のまま、あとのステップでブラウザに保存する。
 
 import { MOVE_SLOT_COUNT } from './limits.ts';
-import { filledStatTable, type StatTable } from './stats.ts';
+import { STAT_KEYS, filledStatTable, type StatTable } from './stats.ts';
 
 /**
  * 使うギミックとその設定。
@@ -64,4 +64,37 @@ export function createIndividual(speciesId: string, abilityId: string): Individu
     createdAt: now,
     updatedAt: now,
   };
+}
+
+/**
+ * 保存されていたデータを、いまの個体の形に整える。
+ *
+ * 古いバージョンのアプリで保存したデータには、あとから足した項目が入っていない。
+ * 足りない項目を初期値で補うことで、「項目を足しただけ」の変更なら古いデータをそのまま読める。
+ * 知らない項目が入っていても捨てない(新しいアプリで保存したデータを壊さないため)。
+ */
+export function normalizeIndividual(raw: Partial<Individual> & Pick<Individual, 'id' | 'speciesId'>): Individual {
+  const now = new Date().toISOString();
+  const moveIds = Array.from({ length: MOVE_SLOT_COUNT }, (_, index) => raw.moveIds?.[index] ?? null);
+  const statPoints = filledStatTable(0);
+  for (const key of STAT_KEYS) statPoints[key] = raw.statPoints?.[key] ?? 0;
+  return {
+    ...raw,
+    nickname: raw.nickname ?? '',
+    natureId: raw.natureId ?? 'hardy',
+    abilityId: raw.abilityId ?? '',
+    itemId: raw.itemId ?? null,
+    moveIds,
+    statPoints,
+    gimmicks: raw.gimmicks ?? {},
+    createdAt: raw.createdAt ?? now,
+    updatedAt: raw.updatedAt ?? now,
+  };
+}
+
+/** 個体の複製を作る。中身は同じで、番号(id)と日時だけが新しい */
+export function duplicateIndividual(source: Individual): Individual {
+  const now = new Date().toISOString();
+  // structuredClone は、中の入れ物(技の配列など)まで含めて丸ごと写す
+  return { ...structuredClone(source), id: crypto.randomUUID(), createdAt: now, updatedAt: now };
 }

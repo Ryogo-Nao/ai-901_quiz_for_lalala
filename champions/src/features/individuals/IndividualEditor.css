@@ -227,3 +227,115 @@
   background: var(--warn-soft);
   color: var(--warn);
 }
+
+/* ----- 編集画面の上の帯(一覧へ戻る・保存) ----- */
+
+.editor-page,
+.list-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* スクロールしても画面の上に残る */
+.editor-bar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.editor-bar-status {
+  flex: 1;
+  min-width: 0;
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.editor-bar-status[data-kind='saved'] {
+  color: var(--ok);
+}
+
+.editor-bar-status[data-kind='error'] {
+  color: var(--warn);
+}
+
+/* ----- 技 ----- */
+
+.move-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.move-detail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  font-size: 0.9rem;
+}
+
+/* ----- 個体一覧 ----- */
+
+.count {
+  margin-left: 6px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.individual-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--gap);
+}
+
+@media (min-width: 800px) {
+  .individual-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.individual-card {
+  gap: 6px;
+}
+
+.individual-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+}
+
+.individual-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.individual-species,
+.individual-line {
+  font-size: 0.85rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.individual-stats {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.individual-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import './App.css';
 import { masterData } from './data/index.ts';
-import IndividualEditor from './features/individuals/IndividualEditor.tsx';
+import IndividualsPage from './features/individuals/IndividualsPage.tsx';
 
 /** 画面の一覧。id は内部で使う名前、label は表示する名前 */
 const SCREENS = [
@@ -33,7 +33,7 @@ export default function App() {
 
       <main className="app-main">
         {screen.id === 'individuals' ? (
-          <IndividualEditor data={masterData} regulation={regulation} />
+          <IndividualsPage data={masterData} regulation={regulation} />
         ) : (
           <section className="card placeholder">
             <h2>{screen.label}</h2>

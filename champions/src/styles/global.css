@@ -16,6 +16,8 @@
   --ok: #1c7c4c;
   --warn: #a15c00;
   --warn-soft: #fff4dc;
+  --danger: #b3261e;
+  --danger-ink: #ffffff;
 
   /* 大きさ */
   --radius: 12px;
@@ -49,6 +51,8 @@
     --ok: #62d39a;
     --warn: #f0b860;
     --warn-soft: #33290f;
+    --danger: #ff9a92;
+    --danger-ink: #2a0e0c;
     color-scheme: dark;
   }
 }
@@ -67,6 +71,8 @@
   --ok: #62d39a;
   --warn: #f0b860;
   --warn-soft: #33290f;
+  --danger: #ff9a92;
+  --danger-ink: #2a0e0c;
   color-scheme: dark;
 }
 
@@ -175,6 +181,59 @@ select {
 .button-quiet:disabled {
   opacity: 0.45;
   cursor: default;
+}
+
+.button-primary,
+.button-danger {
+  min-height: var(--tap);
+  padding: 4px 16px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.button-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.button-danger {
+  background: var(--danger);
+  color: var(--danger-ink);
+}
+
+.button-primary:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ----- お知らせ・確認 ----- */
+
+.notice {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notice-warn {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.notice-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.empty {
+  color: var(--muted);
 }
 
 /* ----- タイプの表示 ----- */

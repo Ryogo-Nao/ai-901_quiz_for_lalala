@@ -1,6 +1,6 @@
 // 個体編集画面。
 //
-// この画面が持っているデータは「いま編集中の個体」1つだけ(useState)。
+// この画面が持っているデータは、ほぼ「いま編集中の個体」1つだけ(useState)。
 // 実数値・選べる候補・入力チェックの結果は、その個体から毎回計算して表示する。
 // だから、どの項目を変えても、画面のすべての表示がいつも最新になる。
 
@@ -20,31 +20,69 @@ import {
   selectableItems,
   selectableMoves,
 } from '../../domain/editIndividual.ts';
-import { createIndividual, type Individual } from '../../domain/individual.ts';
+import type { Individual } from '../../domain/individual.ts';
 import { MAX_NICKNAME_LENGTH } from '../../domain/limits.ts';
 import { validateIndividual } from '../../domain/validateIndividual.ts';
 import { gimmickRegistry, usableGimmickIds } from '../../gimmicks/registry.ts';
 import { gimmickEditors } from '../gimmick-ui/gimmickEditors.ts';
 import './IndividualEditor.css';
-import { itemGroups, moveLabel, natureGroups, pokemonOptions } from './labels.ts';
+import { categoryLabel, itemGroups, natureGroups, pokemonOptions, powerLabel } from './labels.ts';
 import StatPointsEditor, { type StatColumn } from './StatPointsEditor.tsx';
 
 interface Props {
   data: MasterData;
   /** 選択中のレギュレーション(使えるギミックを決める) */
   regulation: RegulationData;
+  /** 編集を始めるときの個体(保存済みのもの、または新しく作ったもの) */
+  initial: Individual;
+  /** まだ保存されていない新しい個体か */
+  isNew: boolean;
+  /** 保存するとき、編集後の個体を渡して呼ぶ関数。失敗したら説明つきのエラーを出す */
+  onSave: (individual: Individual) => Promise<void>;
+  /** 一覧に戻るときに呼ぶ関数 */
+  onBack: () => void;
 }
 
-/** 一覧の先頭のポケモンで、まっさらな個体を作る */
-function createFirstIndividual(data: MasterData): Individual {
-  const first = [...data.pokemon.values()][0];
-  return createIndividual(first.id, first.abilities[0]);
-}
-
-export default function IndividualEditor({ data, regulation }: Props) {
-  // 編集中の個体。setIndividual に新しい個体を渡すと、画面が描き直される
-  const [individual, setIndividual] = useState(() => createFirstIndividual(data));
+export default function IndividualEditor({ data, regulation, initial, isNew, onSave, onBack }: Props) {
+  // 編集中の個体。setIndividual に新しい個体を渡すと、画面が描き直される。
+  // ここで変えても、保存ボタンを押すまで保存データは変わらない
+  const [individual, setIndividual] = useState(initial);
+  // 最後に保存した(または開いた)ときの個体。これと違えば「未保存の変更あり」
+  const [savedSnapshot, setSavedSnapshot] = useState(initial);
+  // 一度でも保存されたか(新しい個体は、何も変えていなくても「未保存」)
+  const [savedOnce, setSavedOnce] = useState(!isNew);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [confirmingBack, setConfirmingBack] = useState(false);
   const nicknameId = useId();
+
+  // 保存が必要か: 最後に保存した内容と違う、または一度も保存していない
+  const isDirty = !savedOnce || JSON.stringify(individual) !== JSON.stringify(savedSnapshot);
+
+  // 上の帯に出す状態の文
+  const statusKind = saveError ? 'error' : isDirty ? 'dirty' : 'saved';
+  const statusText = saveError ?? (isDirty ? '未保存' : '保存済み');
+
+  async function save() {
+    setIsSaving(true);
+    setSaveError(null);
+    try {
+      await onSave(individual);
+      setSavedSnapshot(individual);
+      setSavedOnce(true);
+    } catch (error) {
+      // 上限に達した、などの理由をそのまま見せる
+      setSaveError(error instanceof Error ? error.message : '保存できませんでした');
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  function back() {
+    // 保存していない変更があるときは、すぐ戻らずに確かめる
+    if (isDirty) setConfirmingBack(true);
+    else onBack();
+  }
 
   // ----- ここから下は、すべて「いまの個体」から計算している -----
   const species = requireSpecies(data, individual.speciesId);
@@ -77,15 +115,42 @@ export default function IndividualEditor({ data, regulation }: Props) {
   const abilityName = (id: string) => data.abilities.get(id)?.name ?? id;
 
   return (
+    <div className="editor-page">
+      <div className="editor-bar">
+        <button type="button" className="button-quiet" onClick={back}>
+          ← 一覧
+        </button>
+        <span className="editor-bar-status" aria-live="polite" data-kind={statusKind}>
+          {statusText}
+        </span>
+        <button
+          type="button"
+          className="button-primary"
+          disabled={isSaving || problems.length > 0 || !isDirty}
+          onClick={save}
+        >
+          {isSaving ? '保存中…' : '保存'}
+        </button>
+      </div>
+
+      {confirmingBack && (
+        <div className="notice notice-warn" role="alertdialog" aria-label="未保存の変更があります">
+          <p>保存していない変更があります。保存せずに一覧へ戻りますか?</p>
+          <div className="notice-actions">
+            <button type="button" className="button-quiet" onClick={() => setConfirmingBack(false)}>
+              編集を続ける
+            </button>
+            <button type="button" className="button-danger" onClick={onBack}>
+              保存せずに戻る
+            </button>
+          </div>
+        </div>
+      )}
+
     <div className="editor">
       <div className="editor-column">
         <section className="card">
-          <div className="card-heading">
-            <h2>個体の作成</h2>
-            <button type="button" className="button-quiet" onClick={() => setIndividual(createFirstIndividual(data))}>
-              最初からやり直す
-            </button>
-          </div>
+          <h2>{isNew ? '個体の作成' : '個体の編集'}</h2>
 
           <SelectField
             label="ポケモン"
@@ -143,21 +208,38 @@ export default function IndividualEditor({ data, regulation }: Props) {
 
         <section className="card">
           <h2>技</h2>
-          {individual.moveIds.map((moveId, slotIndex) => (
-            <SelectField
-              key={slotIndex}
-              label={`技${slotIndex + 1}`}
-              value={moveId ?? ''}
-              options={[
-                { value: '', label: 'なし' },
-                ...selectableMoves(individual, slotIndex, data).map((move) => ({
-                  value: move.id,
-                  label: moveLabel(move, data),
-                })),
-              ]}
-              onChange={(value) => setIndividual(changeMove(individual, slotIndex, value === '' ? null : value, data))}
-            />
-          ))}
+          {individual.moveIds.map((moveId, slotIndex) => {
+            const move = moveId === null ? undefined : data.moves.get(moveId);
+            return (
+              <div className="move-slot" key={slotIndex}>
+                {/* 選ぶときは技の名前だけを並べる */}
+                <SelectField
+                  label={`技${slotIndex + 1}`}
+                  value={moveId ?? ''}
+                  options={[
+                    { value: '', label: 'なし' },
+                    ...selectableMoves(individual, slotIndex, data).map((candidate) => ({
+                      value: candidate.id,
+                      label: candidate.name,
+                    })),
+                  ]}
+                  onChange={(value) =>
+                    setIndividual(changeMove(individual, slotIndex, value === '' ? null : value, data))
+                  }
+                />
+                {/* 選んだ技のタイプ・分類・威力を、欄の下に表示する */}
+                {move && (
+                  <p className="move-detail">
+                    <TypeChips typeIds={[move.type]} data={data} />
+                    <span>{categoryLabel(move)}</span>
+                    <span>
+                      威力 <strong>{powerLabel(move)}</strong>
+                    </span>
+                  </p>
+                )}
+              </div>
+            );
+          })}
           <p className="field-hint">
             {species.name}が覚える技({species.learnset.length}個)だけが選べます。同じ技は2つ選べません。
           </p>
@@ -199,9 +281,10 @@ export default function IndividualEditor({ data, regulation }: Props) {
               ))}
             </ul>
           )}
-          <p className="field-hint">保存はステップ2で作ります。いまはページを再読み込みすると入力が消えます。</p>
+          <p className="field-hint">問題があるあいだは保存できません。</p>
         </section>
       </div>
+    </div>
     </div>
   );
 }
