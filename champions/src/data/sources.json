@@ -1,0 +1,26 @@
+{
+  "_readme": "このフォルダの JSON の出典。npm run data:build が自動で書き出します。手で編集しないでください。",
+  "generatedOn": "2026-11-16",
+  "sources": [
+    {
+      "id": "showdown",
+      "name": "Pokémon Showdown",
+      "url": "https://github.com/smogon/pokemon-showdown",
+      "commit": "41ba4797f8bffa503111fb42dc1d66d8cdb8405c",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2011-2026 Guangcong Luo and other contributors",
+      "usedFor": "種族値・タイプ・特性・覚える技・技の性能・持ち物(チャンピオンズ用の変更を含む)"
+    },
+    {
+      "id": "pokeapi",
+      "name": "PokéAPI",
+      "url": "https://github.com/PokeAPI/pokeapi",
+      "commit": "e4f981e5cb03c1fe33d436b1ee8e1197fbb0af84",
+      "license": "BSD-3-Clause",
+      "copyright": "Copyright (c) 2013-2023 Paul Hallett and PokéAPI contributors",
+      "usedFor": "日本語名(ポケモン・技・特性・持ち物・タイプ・性格)"
+    }
+  ],
+  "counts": { "pokemon": 10, "megaForms": 8, "moves": 257, "abilities": 24, "items": 93 },
+  "warnings": []
+}

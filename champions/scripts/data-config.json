@@ -1,0 +1,51 @@
+{
+  "_readme": [
+    "npm run data:build が読む設定ファイルです。",
+    "pokemon: アプリに入れるポケモンの ID の一覧。ここに足して npm run data:build を実行すると、",
+    "         そのポケモンが覚える技・特性・メガストーンも一緒に JSON へ追加されます。",
+    "         ID は英語名から記号と空白を除いて小文字にしたもの(例: Rotom-Wash → rotomwash)。",
+    "sources: データの取得元。commit は「どの時点のデータか」を固定するための番号です。",
+    "         新しいデータに更新したいときは commit を新しいものに書き換えます。",
+    "formAliases: フォルム違いで、取得元どうしの ID が合わないときの対応表(左: この一覧の ID、右: PokéAPI の ID)。"
+  ],
+  "pokemon": [
+    "garchomp",
+    "charizard",
+    "gardevoir",
+    "metagross",
+    "dragonite",
+    "tyranitar",
+    "incineroar",
+    "rotomwash",
+    "azumarill",
+    "pikachu"
+  ],
+  "sources": {
+    "showdown": {
+      "name": "Pokémon Showdown",
+      "repo": "smogon/pokemon-showdown",
+      "commit": "41ba4797f8bffa503111fb42dc1d66d8cdb8405c",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2011-2026 Guangcong Luo and other contributors",
+      "usedFor": "種族値・タイプ・特性・覚える技・技の性能・持ち物(チャンピオンズ用の変更を含む)"
+    },
+    "pokeapi": {
+      "name": "PokéAPI",
+      "repo": "PokeAPI/pokeapi",
+      "commit": "e4f981e5cb03c1fe33d436b1ee8e1197fbb0af84",
+      "license": "BSD-3-Clause",
+      "copyright": "Copyright (c) 2013-2023 Paul Hallett and PokéAPI contributors",
+      "usedFor": "日本語名(ポケモン・技・特性・持ち物・タイプ・性格)"
+    }
+  },
+  "formAliases": {
+    "meowsticf": "meowstic-female",
+    "meowsticmmega": "meowstic-male-mega",
+    "meowsticfmega": "meowstic-female-mega",
+    "basculegionf": "basculegion-female",
+    "indeedeef": "indeedee-female",
+    "taurospaldeacombat": "tauros-paldea-combat-breed",
+    "taurospaldeablaze": "tauros-paldea-blaze-breed",
+    "taurospaldeaaqua": "tauros-paldea-aqua-breed"
+  }
+}

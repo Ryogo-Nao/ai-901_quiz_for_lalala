@@ -1,0 +1,310 @@
+[
+  {
+    "id": "garchomp",
+    "name": "ガブリアス",
+    "nameEn": "Garchomp",
+    "types": ["dragon", "ground"],
+    "baseStats": { "hp": 108, "atk": 130, "def": 95, "spa": 80, "spd": 85, "spe": 102 },
+    "abilities": ["sandveil", "roughskin"],
+    "weightKg": 95,
+    "learnset": [
+      "aerialace", "bite", "bodyslam", "breakingswipe", "brickbreak", "brutalswing", "bulldoze",
+      "crunch", "dig", "doubleedge", "dracometeor", "dragoncheer", "dragonclaw", "dragonpulse",
+      "dragonrush", "dragontail", "earthpower", "earthquake", "endure", "facade", "fireblast",
+      "firefang", "flamethrower", "fling", "gigaimpact", "helpinghand", "hyperbeam", "ironhead",
+      "irontail", "liquidation", "mudshot", "outrage", "poisonjab", "powergem", "protect",
+      "raindance", "rest", "rockslide", "rocktomb", "round", "sandstorm", "sandtomb", "scaleshot",
+      "scaryface", "scorchingsands", "shadowclaw", "slash", "sleeptalk", "snore", "spikes",
+      "stealthrock", "stompingtantrum", "stoneedge", "substitute", "sunnyday", "surf", "swordsdance",
+      "thrash", "thunderfang"
+    ],
+    "megaForms": [
+      {
+        "id": "garchompmega",
+        "name": "メガガブリアス",
+        "nameEn": "Garchomp-Mega",
+        "requiredItem": "garchompite",
+        "types": ["dragon", "ground"],
+        "baseStats": { "hp": 108, "atk": 170, "def": 115, "spa": 120, "spd": 95, "spe": 92 },
+        "ability": "sandforce",
+        "weightKg": 95
+      },
+      {
+        "id": "garchompmegaz",
+        "name": "メガガブリアスZ",
+        "nameEn": "Garchomp-Mega-Z",
+        "requiredItem": "garchompitez",
+        "types": ["dragon"],
+        "baseStats": { "hp": 108, "atk": 130, "def": 85, "spa": 141, "spd": 85, "spe": 151 },
+        "ability": "levitate",
+        "weightKg": 99
+      }
+    ]
+  },
+  {
+    "id": "charizard",
+    "name": "リザードン",
+    "nameEn": "Charizard",
+    "types": ["fire", "flying"],
+    "baseStats": { "hp": 78, "atk": 84, "def": 78, "spa": 109, "spd": 85, "spe": 100 },
+    "abilities": ["blaze", "solarpower"],
+    "weightKg": 90.5,
+    "learnset": [
+      "acrobatics", "aerialace", "aircutter", "airslash", "ancientpower", "beatup", "bellydrum",
+      "bite", "blastburn", "bodyslam", "breakingswipe", "brickbreak", "brutalswing", "bulldoze",
+      "counter", "crunch", "dig", "doubleedge", "dragoncheer", "dragonclaw", "dragondance",
+      "dragonpulse", "dragonrush", "dragontail", "earthquake", "endure", "facade", "fireblast",
+      "firefang", "firepunch", "firespin", "flamecharge", "flamethrower", "flareblitz", "fling",
+      "fly", "focusblast", "focuspunch", "gigaimpact", "heatcrash", "heatwave", "helpinghand",
+      "hurricane", "hyperbeam", "inferno", "irontail", "megakick", "outrage", "overheat", "protect",
+      "rest", "roar", "rockslide", "rocktomb", "roost", "round", "sandstorm", "scaleshot",
+      "scaryface", "scorchingsands", "shadowclaw", "slash", "sleeptalk", "snore", "solarbeam",
+      "steelwing", "substitute", "sunnyday", "swordsdance", "temperflare", "thunderpunch",
+      "weatherball", "willowisp"
+    ],
+    "megaForms": [
+      {
+        "id": "charizardmegax",
+        "name": "メガリザードンＸ",
+        "nameEn": "Charizard-Mega-X",
+        "requiredItem": "charizarditex",
+        "types": ["fire", "dragon"],
+        "baseStats": { "hp": 78, "atk": 130, "def": 111, "spa": 130, "spd": 85, "spe": 100 },
+        "ability": "toughclaws",
+        "weightKg": 110.5
+      },
+      {
+        "id": "charizardmegay",
+        "name": "メガリザードンＹ",
+        "nameEn": "Charizard-Mega-Y",
+        "requiredItem": "charizarditey",
+        "types": ["fire", "flying"],
+        "baseStats": { "hp": 78, "atk": 104, "def": 78, "spa": 159, "spd": 115, "spe": 100 },
+        "ability": "drought",
+        "weightKg": 100.5
+      }
+    ]
+  },
+  {
+    "id": "gardevoir",
+    "name": "サーナイト",
+    "nameEn": "Gardevoir",
+    "types": ["psychic", "fairy"],
+    "baseStats": { "hp": 68, "atk": 65, "def": 65, "spa": 125, "spd": 115, "spe": 80 },
+    "abilities": ["synchronize", "trace", "telepathy"],
+    "weightKg": 48.4,
+    "learnset": [
+      "alluringvoice", "aurasphere", "bodyslam", "calmmind", "chargebeam", "charm", "confuseray",
+      "dazzlinggleam", "destinybond", "disable", "doubleteam", "drainingkiss", "encore", "endure",
+      "energyball", "expandingforce", "facade", "firepunch", "fling", "focusblast", "futuresight",
+      "gigaimpact", "grassknot", "gravity", "guardswap", "healingwish", "healpulse", "helpinghand",
+      "hyperbeam", "hypervoice", "hypnosis", "icepunch", "icywind", "imprison", "knockoff",
+      "lifedew", "lightscreen", "magicroom", "meanlook", "memento", "mistyexplosion", "mistyterrain",
+      "moonblast", "mysticalfire", "nightshade", "painsplit", "powerswap", "protect", "psychic",
+      "psychicnoise", "psychicterrain", "psychup", "psyshock", "raindance", "reflect", "rest",
+      "round", "safeguard", "shadowball", "shadowsneak", "skillswap", "sleeptalk", "snore",
+      "storedpower", "substitute", "sunnyday", "swagger", "taunt", "thief", "thunderbolt",
+      "thunderpunch", "thunderwave", "trick", "trickroom", "tripleaxel", "vacuumwave", "willowisp",
+      "wish", "wonderroom", "zenheadbutt"
+    ],
+    "megaForms": [
+      {
+        "id": "gardevoirmega",
+        "name": "メガサーナイト",
+        "nameEn": "Gardevoir-Mega",
+        "requiredItem": "gardevoirite",
+        "types": ["psychic", "fairy"],
+        "baseStats": { "hp": 68, "atk": 85, "def": 65, "spa": 165, "spd": 135, "spe": 100 },
+        "ability": "pixilate",
+        "weightKg": 48.4
+      }
+    ]
+  },
+  {
+    "id": "metagross",
+    "name": "メタグロス",
+    "nameEn": "Metagross",
+    "types": ["steel", "psychic"],
+    "baseStats": { "hp": 80, "atk": 135, "def": 130, "spa": 95, "spd": 90, "spe": 70 },
+    "abilities": ["clearbody", "lightmetal"],
+    "weightKg": 550,
+    "learnset": [
+      "aerialace", "agility", "bodypress", "bodyslam", "brickbreak", "brutalswing", "bulldoze",
+      "bulletpunch", "cosmicpower", "doubleedge", "earthquake", "endure", "expandingforce",
+      "explosion", "facade", "flashcannon", "focuspunch", "futuresight", "gigaimpact", "grassknot",
+      "gravity", "gyroball", "hammerarm", "hardpress", "hyperbeam", "icepunch", "icywind",
+      "irondefense", "ironhead", "lightscreen", "magnetrise", "meteorbeam", "meteormash", "mudslap",
+      "protect", "psychic", "psychicfangs", "psychicnoise", "psychocut", "psychup", "psyshock",
+      "raindance", "reflect", "rest", "rockslide", "rocktomb", "round", "sandstorm", "scaryface",
+      "selfdestruct", "shadowball", "shadowclaw", "shadowpunch", "sleeptalk", "sludgebomb", "snore",
+      "stealthrock", "steelbeam", "steelroller", "stompingtantrum", "stoneedge", "substitute",
+      "sunnyday", "swagger", "thunderpunch", "trailblaze", "trick", "zenheadbutt"
+    ],
+    "megaForms": [
+      {
+        "id": "metagrossmega",
+        "name": "メガメタグロス",
+        "nameEn": "Metagross-Mega",
+        "requiredItem": "metagrossite",
+        "types": ["steel", "psychic"],
+        "baseStats": { "hp": 80, "atk": 145, "def": 150, "spa": 105, "spd": 110, "spe": 110 },
+        "ability": "toughclaws",
+        "weightKg": 942.9
+      }
+    ]
+  },
+  {
+    "id": "dragonite",
+    "name": "カイリュー",
+    "nameEn": "Dragonite",
+    "types": ["dragon", "flying"],
+    "baseStats": { "hp": 91, "atk": 134, "def": 95, "spa": 100, "spd": 100, "spe": 80 },
+    "abilities": ["innerfocus", "multiscale"],
+    "weightKg": 210,
+    "learnset": [
+      "aerialace", "agility", "aircutter", "airslash", "aquajet", "aquatail", "blizzard",
+      "bodypress", "bodyslam", "breakingswipe", "brickbreak", "brutalswing", "bulldoze",
+      "chillingwater", "dive", "dracometeor", "dragoncheer", "dragonclaw", "dragondance",
+      "dragonpulse", "dragonrush", "dragontail", "earthquake", "endure", "extremespeed", "facade",
+      "fireblast", "firepunch", "firespin", "flamethrower", "fling", "fly", "focusblast",
+      "focuspunch", "gigaimpact", "haze", "heatwave", "helpinghand", "hurricane", "hydropump",
+      "hyperbeam", "icebeam", "icepunch", "icespinner", "icywind", "ironhead", "irontail",
+      "lightscreen", "lowkick", "megakick", "outrage", "protect", "raindance", "rest", "roar",
+      "rockslide", "rocktomb", "roost", "round", "safeguard", "sandstorm", "scaleshot", "scaryface",
+      "sleeptalk", "snore", "snowscape", "steelwing", "stompingtantrum", "stoneedge", "substitute",
+      "sunnyday", "superpower", "surf", "tailwind", "thunder", "thunderbolt", "thunderpunch",
+      "thunderwave", "waterfall", "waterpulse", "weatherball", "whirlwind", "wrap"
+    ],
+    "megaForms": [
+      {
+        "id": "dragonitemega",
+        "name": "メガカイリュー",
+        "nameEn": "Dragonite-Mega",
+        "requiredItem": "dragoninite",
+        "types": ["dragon", "flying"],
+        "baseStats": { "hp": 91, "atk": 124, "def": 115, "spa": 145, "spd": 125, "spe": 100 },
+        "ability": "multiscale",
+        "weightKg": 290
+      }
+    ]
+  },
+  {
+    "id": "tyranitar",
+    "name": "バンギラス",
+    "nameEn": "Tyranitar",
+    "types": ["rock", "dark"],
+    "baseStats": { "hp": 100, "atk": 134, "def": 110, "spa": 95, "spd": 100, "spe": 61 },
+    "abilities": ["sandstream", "unnerve"],
+    "weightKg": 202,
+    "learnset": [
+      "aerialace", "ancientpower", "assurance", "avalanche", "bite", "blizzard", "bodypress",
+      "bodyslam", "breakingswipe", "brickbreak", "brutalswing", "bulldoze", "crunch", "curse",
+      "darkpulse", "dig", "doubleedge", "dragonclaw", "dragondance", "dragonpulse", "dragontail",
+      "earthpower", "earthquake", "endure", "facade", "fireblast", "firefang", "firepunch",
+      "flamethrower", "fling", "focusblast", "focusenergy", "focuspunch", "foulplay", "gigaimpact",
+      "hardpress", "heavyslam", "helpinghand", "highhorsepower", "hydropump", "hyperbeam", "icebeam",
+      "icefang", "icepunch", "icywind", "irondefense", "ironhead", "irontail", "knockoff", "lashout",
+      "lowkick", "megakick", "muddywater", "mudshot", "mudslap", "outrage", "payback", "powergem",
+      "protect", "raindance", "rest", "roar", "rockblast", "rockslide", "rocktomb", "round",
+      "sandstorm", "sandtomb", "scaryface", "screech", "shadowclaw", "sleeptalk", "smackdown",
+      "snarl", "snore", "spite", "stealthrock", "stompingtantrum", "stoneedge", "substitute",
+      "sunnyday", "superpower", "surf", "swagger", "taunt", "thrash", "thunder", "thunderbolt",
+      "thunderfang", "thunderpunch", "thunderwave", "uproar"
+    ],
+    "megaForms": [
+      {
+        "id": "tyranitarmega",
+        "name": "メガバンギラス",
+        "nameEn": "Tyranitar-Mega",
+        "requiredItem": "tyranitarite",
+        "types": ["rock", "dark"],
+        "baseStats": { "hp": 100, "atk": 164, "def": 150, "spa": 95, "spd": 120, "spe": 71 },
+        "ability": "sandstream",
+        "weightKg": 255
+      }
+    ]
+  },
+  {
+    "id": "incineroar",
+    "name": "ガオガエン",
+    "nameEn": "Incineroar",
+    "types": ["fire", "dark"],
+    "baseStats": { "hp": 95, "atk": 115, "def": 90, "spa": 80, "spd": 90, "spe": 60 },
+    "abilities": ["blaze", "intimidate"],
+    "weightKg": 83,
+    "learnset": [
+      "acrobatics", "aerialace", "assurance", "attract", "batonpass", "bite", "blastburn",
+      "blazekick", "bodyslam", "brickbreak", "brutalswing", "bulkup", "bulldoze", "burningjealousy",
+      "closecombat", "crosschop", "crunch", "darkestlariat", "darkpulse", "doubleedge", "drainpunch",
+      "earthquake", "endeavor", "endure", "facade", "fakeout", "fireblast", "firefang", "firepunch",
+      "firespin", "flamecharge", "flamethrower", "flareblitz", "fling", "focusblast", "focuspunch",
+      "gigaimpact", "heatcrash", "heatwave", "helpinghand", "hyperbeam", "ironhead", "lashout",
+      "leechlife", "lowkick", "lowsweep", "megakick", "nastyplot", "outrage", "overheat",
+      "partingshot", "powertrip", "protect", "rest", "reversal", "roar", "round", "scaryface",
+      "scorchingsands", "shadowclaw", "sleeptalk", "snarl", "snore", "stompingtantrum", "substitute",
+      "sunnyday", "superpower", "swagger", "swordsdance", "taunt", "temperflare", "thief", "thrash",
+      "throatchop", "thunderpunch", "trailblaze", "willowisp"
+    ],
+    "megaForms": []
+  },
+  {
+    "id": "rotomwash",
+    "name": "ウォッシュロトム",
+    "nameEn": "Rotom-Wash",
+    "types": ["electric", "water"],
+    "baseStats": { "hp": 50, "atk": 65, "def": 107, "spa": 105, "spd": 107, "spe": 86 },
+    "abilities": ["levitate"],
+    "weightKg": 0.3,
+    "learnset": [
+      "charge", "chargebeam", "confuseray", "darkpulse", "discharge", "doubleteam", "eerieimpulse",
+      "electricterrain", "electroball", "electroweb", "endure", "facade", "foulplay", "helpinghand",
+      "hex", "hydropump", "hypervoice", "lightscreen", "nastyplot", "nightshade", "painsplit",
+      "poltergeist", "protect", "raindance", "reflect", "rest", "risingvoltage", "round",
+      "shadowball", "sleeptalk", "snore", "spite", "storedpower", "substitute", "sunnyday", "thief",
+      "thunder", "thunderbolt", "thunderwave", "trick", "uproar", "voltswitch", "willowisp"
+    ],
+    "megaForms": []
+  },
+  {
+    "id": "azumarill",
+    "name": "マリルリ",
+    "nameEn": "Azumarill",
+    "types": ["water", "fairy"],
+    "baseStats": { "hp": 100, "atk": 50, "def": 80, "spa": 60, "spd": 80, "spe": 50 },
+    "abilities": ["thickfat", "hugepower", "sapsipper"],
+    "weightKg": 28.5,
+    "learnset": [
+      "alluringvoice", "amnesia", "aquajet", "aquaring", "aquatail", "bellydrum", "blizzard",
+      "bodyslam", "bounce", "brickbreak", "brutalswing", "bulldoze", "charm", "chillingwater",
+      "copycat", "dig", "dive", "doubleedge", "drainingkiss", "encore", "endure", "facade",
+      "faketears", "fling", "focusblast", "focuspunch", "futuresight", "gigaimpact", "grassknot",
+      "helpinghand", "hydropump", "hyperbeam", "hypervoice", "icebeam", "icepunch", "icespinner",
+      "icywind", "irontail", "knockoff", "lightscreen", "liquidation", "mistyexplosion",
+      "mistyterrain", "muddywater", "mudshot", "mudslap", "perishsong", "playrough", "protect",
+      "raindance", "rest", "round", "sing", "sleeptalk", "snore", "snowscape", "soak", "substitute",
+      "superpower", "surf", "tickle", "trailblaze", "uproar", "waterfall", "waterpulse", "whirlpool"
+    ],
+    "megaForms": []
+  },
+  {
+    "id": "pikachu",
+    "name": "ピカチュウ",
+    "nameEn": "Pikachu",
+    "types": ["electric"],
+    "baseStats": { "hp": 35, "atk": 55, "def": 40, "spa": 50, "spd": 50, "spe": 90 },
+    "abilities": ["static", "lightningrod"],
+    "weightKg": 6,
+    "learnset": [
+      "agility", "alluringvoice", "bodyslam", "brickbreak", "charge", "chargebeam", "charm", "dig",
+      "discharge", "doubleteam", "drainingkiss", "eerieimpulse", "electricterrain", "electroball",
+      "electroweb", "encore", "endeavor", "endure", "facade", "fakeout", "faketears", "feint",
+      "flail", "fling", "focuspunch", "grassknot", "helpinghand", "irontail", "knockoff",
+      "lightscreen", "megakick", "nastyplot", "nuzzle", "playrough", "protect", "quickattack",
+      "raindance", "reflect", "rest", "reversal", "risingvoltage", "round", "sleeptalk", "snore",
+      "substitute", "surf", "sweetkiss", "thief", "thunder", "thunderbolt", "thunderpunch",
+      "thunderwave", "tickle", "trailblaze", "upperhand", "voltswitch", "volttackle", "wildcharge",
+      "wish", "zapcannon"
+    ],
+    "megaForms": []
+  }
+]

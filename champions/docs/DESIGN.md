@@ -1,6 +1,6 @@
 # ポケモンチャンピオンズ対戦補助アプリ 設計書
 
-- 状態: **設計案(レビュー待ち)** — まだコードは書いていません
+- 状態: **ステップ1(能力値計算)まで実装済み**。ステップ1で変わった点は反映済みです
 - 作成日: 2026-11-16
 - これは個人の学習用に作る**非公式のファンツール**です。株式会社ポケモン・任天堂などとは関係ありません
 
@@ -137,40 +137,54 @@
 ### 5.1 マスターデータ(JSON)
 
 **方針: 保存データは「ID」で参照する。** 表示名(日本語)を保存データに書かないので、
-あとで表示名を直しても保存済みの個体は壊れません。ID は英小文字とハイフン(例: `garchomp`)にします。
+あとで表示名を直しても保存済みの個体は壊れません。
+ID は「英語名から記号と空白を除いて小文字にしたもの」です
+(例: `garchomp`、Dragon Claw → `dragonclaw`、Garchomp-Mega → `garchompmega`)。
+データの取得元(Pokémon Showdown)と同じ決まりにしてあります。
 
-`pokemon.json` の1件(形式の例。メガシンカ後の数値はステップ1で出典から取得して入れます):
+`pokemon.json` の1件(実際のデータ。覚える技は長いので途中を省略):
 
 ```json
 {
   "id": "garchomp",
   "name": "ガブリアス",
+  "nameEn": "Garchomp",
   "types": ["dragon", "ground"],
   "baseStats": { "hp": 108, "atk": 130, "def": 95, "spa": 80, "spd": 85, "spe": 102 },
-  "abilities": ["sand-veil", "rough-skin"],
+  "abilities": ["sandveil", "roughskin"],
+  "weightKg": 95,
+  "learnset": ["aerialace", "bite", "bodyslam", "…(全部で59個)"],
   "megaForms": [
     {
-      "id": "garchomp-mega",
+      "id": "garchompmega",
       "name": "メガガブリアス",
+      "nameEn": "Garchomp-Mega",
       "requiredItem": "garchompite",
-      "types": ["…"],
-      "baseStats": { "…": "…" },
-      "ability": "…"
+      "types": ["dragon", "ground"],
+      "baseStats": { "hp": 108, "atk": 170, "def": 115, "spa": 120, "spd": 95, "spe": 92 },
+      "ability": "sandforce",
+      "weightKg": 95
     }
   ]
 }
 ```
 
+**ポケモンごとに違うものは、ポケモンのデータの中に持つ。**
+持てる特性(`abilities`)、覚える技(`learnset`)、メガシンカ後の姿と必要なメガストーン(`megaForms`)です。
+画面はこれを使って「そのポケモンに合う候補だけ」を出すので、合わない組み合わせは入力できません(5.5)。
+
 | ファイル | 中身 | 1件の形 |
 |---|---|---|
 | `pokemon.json` | ポケモン | 上の例 |
-| `moves.json` | 技 | `{ id, name, type, category, power, target }` |
-| `abilities.json` | 特性 | `{ id, name }` |
-| `items.json` | 持ち物 | `{ id, name }` |
-| `natures.json` | 性格 | `{ id, name, up, down }` (補正なしは `up`/`down` が `null`) |
+| `moves.json` | 技 | `{ id, name, nameEn, type, category, power, accuracy, priority, target, flags }` |
+| `abilities.json` | 特性 | `{ id, name, nameEn }` |
+| `items.json` | 持ち物 | `{ id, name, nameEn, isMegaStone? }` |
+| `natures.json` | 性格 | `{ id, name, nameEn, up, down }` (補正なしは `up`/`down` が `null`) |
 | `types.json` | タイプ名と相性表 | 18タイプ × 18タイプ |
-| `regulations.json` | レギュレーション | `{ id, name, gimmicks }` (6.5 で説明) |
-| `sources.json` | 出典の記録 | どのデータを、どこから、いつ取得したか |
+| `regulations.json` | レギュレーション | `{ id, name, gimmicks }` (6.5 で説明)。これだけは手で書く |
+| `sources.json` | 出典の記録 | どのデータを、どこから、どの時点のものを取得したか |
+
+`regulations.json` 以外は `npm run data:build` が自動で作ります(9章)。
 
 能力の名前は全体で次の6つに統一します: `hp` `atk` `def` `spa` `spd` `spe`
 
@@ -222,11 +236,11 @@ interface GimmickSettings {
   "speciesId": "garchomp",
   "nickname": "ガブ",
   "natureId": "jolly",
-  "abilityId": "rough-skin",
+  "abilityId": "roughskin",
   "itemId": "garchompite",
-  "moveIds": ["earthquake", "dragon-claw", "rock-slide", "protect"],
+  "moveIds": ["earthquake", "dragonclaw", "rockslide", "protect"],
   "statPoints": { "hp": 2, "atk": 32, "def": 0, "spa": 0, "spd": 0, "spe": 32 },
-  "gimmicks": { "mega": { "formId": "garchomp-mega" } }
+  "gimmicks": { "mega": { "formId": "garchompmega" } }
 }
 ```
 
@@ -284,6 +298,23 @@ interface BattlerInput {
 
 `schemaVersion` が保存形式のバージョン番号です(6.6 で説明)。
 
+### 5.5 正しい組み合わせだけを入力できるようにする
+
+ポケモンごとに、覚える技・持てる特性・対応するメガストーンが違います。次の2段構えで守ります。
+
+| 役割 | ファイル | やること |
+|---|---|---|
+| 入力を守る | `src/domain/editIndividual.ts` | 選べる候補を「そのポケモンに合うもの」だけにする。項目を変えたとき、合わなくなる項目も一緒に直す |
+| データを調べる | `src/domain/validateIndividual.ts` | 個体が決まりに合っているかを調べ、問題の一覧を返す |
+
+- 技の候補は、そのポケモンの `learnset` から、ほかの欄で選んだ技を除いたもの
+- 特性の候補は、そのポケモンの `abilities`
+- 持ち物の候補は、誰でも持てる持ち物 + そのポケモン用のメガストーン
+- メガシンカの設定は、持ち物(メガストーン)と必ず一致する。片方を変えると、もう片方も変わる
+- ポケモンを変えると、技は空欄に、特性は新しいポケモンの1つ目に、合わないメガストーンは外れる
+
+「調べる」ほうは、画面を通らないデータ(JSON の読み込み、データ更新後の古い保存データ)のために用意しています。
+
 ---
 
 ## 6. 拡張の仕組み(バトルギミックの追加に備える)
@@ -316,7 +347,8 @@ interface BattlerInput {
 
 /** ギミックが変化させる対象 */
 interface BattleForm {
-  baseStats: BaseStats;   // 種族値
+  name: string;           // 姿の名前(例: "メガガブリアス")
+  baseStats: StatTable;   // 種族値
   types: string[];        // 攻撃を「受ける」ときのタイプ
   stabTypes: string[];    // タイプ一致の判定に使うタイプ
   abilityId: string;      // 特性
@@ -325,30 +357,42 @@ interface BattleForm {
 /** すべてのギミックが守る共通の形 */
 interface Gimmick<Config> {
   id: GimmickId;          // 'mega' など。保存データやレギュレーション設定でこの名前を使う
-  label: string;          // 画面に出す名前
-  canUse(individual, data): boolean;   // この個体で使えるか
+  label: string;          // 画面に出す名前(例: "メガシンカ")
+  shortLabel: string;     // 狭い場所に出す短い名前(例: "メガ")
+  canUse(species): boolean;   // このポケモンで使えるか
+
+  // 個体のほかの項目と設定のつじつまを合わせる(メガシンカは持ち物で決まるので、これを使う)
+  syncSettings?(individual, species): Config | undefined;
 
   // ここから下が「変化」。必要なものだけ書く(? は「無くてもよい」の印)
   changeForm?(form: BattleForm, config: Config, ctx): BattleForm;
-  changeStats?(stats: Stats, config: Config, ctx): Stats;
-  changeMove?(move: MoveData, config: Config, ctx): MoveData;
-  getModifiers?(config: Config, ctx): Modifier[];
+  changeStats?(stats: StatTable, config: Config, ctx): StatTable;
+  changeMove?(move: MoveData, config: Config, ctx): MoveData;     // ステップ4で追加
+  getModifiers?(config: Config, ctx): Modifier[];                 // ステップ4で追加
 }
 ```
 
-メガシンカはこの形の**実装の1つ**です。`changeForm` だけを書けば済みます。
+メガシンカはこの形の**実装の1つ**です。変化は `changeForm` だけを書けば済みます。
 
 ```ts
-// src/gimmicks/mega.ts (スケッチ)
-export const mega: Gimmick<{ formId: string }> = {
+// src/gimmicks/mega.ts (実際のコードから、説明のコメントを省いたもの)
+export const mega: Gimmick<MegaConfig> = {
   id: 'mega',
   label: 'メガシンカ',
-  canUse: (individual, data) => data.species(individual.speciesId).megaForms.length > 0,
+  shortLabel: 'メガ',
+  canUse: (species) => species.megaForms.length > 0,
 
-  changeForm: (form, config, ctx) => {
-    const megaForm = ctx.species.megaForms.find((f) => f.id === config.formId);
+  // そのポケモン用のメガストーンを持っていれば設定あり、持っていなければ設定なし
+  syncSettings: (individual, species) => {
+    const form = megaFormForItem(species, individual.itemId);
+    return form ? { formId: form.id } : undefined;
+  },
+
+  changeForm: (form, config, context) => {
+    const megaForm = context.species.megaForms.find((candidate) => candidate.id === config.formId);
     if (!megaForm) return form;          // データが無ければ何も変えない
     return {
+      name: megaForm.name,
       baseStats: megaForm.baseStats,     // 種族値を差し替え
       types: megaForm.types,             // タイプを差し替え
       stabTypes: megaForm.types,
@@ -502,17 +546,21 @@ export function migrate(data: any) {
 | 2 | `src/gimmicks/registry.ts` | 1行追加 | 登録簿に `tera` を並べる |
 | 3 | `src/domain/individual.ts` | 1行追加 | `GimmickSettings` に `tera?: { teraType: string }` |
 | 4 | `src/data/regulations.json` | データ変更 | 使えるレギュレーションの `gimmicks` に `"tera"` を足す |
-| 5 | `src/features/gimmick-ui/TeraEditor.tsx` | 新規 | テラスタイプを選ぶ入力欄。UI の登録簿に1行追加 |
+| 5 | `src/features/gimmick-ui/TeraEditor.tsx` | 新規 | テラスタイプを選ぶ入力欄。`gimmickEditors.ts`(画面の登録簿)に1行追加 |
 | 6 | `src/gimmicks/tera.test.ts` | 新規 | テスト |
 
 **変更しなくてよいもの**: 能力値計算、ダメージ計算の流れの本体、保存とマイグレーション
-(省略できる項目を足すだけなので番号も上げない)、個体一覧、チーム画面。
+(省略できる項目を足すだけなので番号も上げない)、個体編集画面、入力チェック、個体一覧、チーム画面。
+
+手順 3 のあとに 2 を忘れると、TypeScript が「登録簿に tera がありません」というエラーで教えてくれます
+(登録簿の型を「設定に書いたすべてのギミックの実装がある」と決めてあるため)。
 
 ```ts
 // src/gimmicks/tera.ts (将来のイメージ。今は作りません)
 export const tera: Gimmick<{ teraType: string }> = {
   id: 'tera',
   label: 'テラスタル',
+  shortLabel: 'テラ',
   canUse: () => true,   // どのポケモンでも使える
 
   // タイプを変える: 受けるときのタイプはテラスタイプ1つになる。
@@ -527,7 +575,7 @@ export const tera: Gimmick<{ teraType: string }> = {
 
   // 技を変える: テラバーストのタイプ変更など
   changeMove: (move, config) =>
-    move.id === 'tera-blast' ? { ...move, type: config.teraType } : move,
+    move.id === 'terablast' ? { ...move, type: config.teraType } : move,
 };
 ```
 
@@ -613,48 +661,65 @@ HP以外  = floor((種族値 + 20 + 能力ポイント) × 性格補正)
 
 ## 8. ファイル構成
 
+`(予定)` と書いたものは、あとのステップで作ります。
+
 ```
 ai-901_quiz_for_lalala/
   index.html                  既存の AI-901 クイズ(触らない)
   champions/                  今回のアプリ
+    README.md                 動かし方とコマンドの説明
+    THIRD_PARTY_NOTICES.md    使っているデータのライセンス表記
     index.html                アプリの入口の HTML
     package.json              使うライブラリの一覧と、よく使うコマンド
-    vite.config.ts            Vite の設定
-    tsconfig.json             TypeScript の設定
+    vite.config.ts            Vite と Vitest の設定
+    tsconfig*.json            TypeScript の設定
     docs/
       DESIGN.md               この文書
-    scripts/                  データを取得・検査する補助プログラム
-    public/                   そのまま配信するファイル(アプリのアイコンなど)
+      STEP1.md                ステップ1の解説と確認方法
+    scripts/                  マスターデータを作る補助プログラム
+      build-data.mjs            公開データから src/data/*.json を作る
+      data-config.json          入れるポケモンの一覧と、データの取得元
+      name-overrides.json       日本語名を手で指定するためのファイル
+      lib/parse-ts-data.mjs     取得したファイルから値を取り出す道具
+    public/                   そのまま配信するファイル(アイコンなど)
     src/
       main.tsx                プログラムの出発点
-      App.tsx                 画面の切り替え
-      data/                   ★マスターデータ(JSON)と、それを読み込むコード
-      domain/                 データの形の定義(個体、チーム)と上限の数字
+      App.tsx / App.css       全体の枠と画面の切り替え
+      data/                   ★マスターデータ(JSON)と、それを読み込む index.ts
+      domain/                 データの形と、個体に関する決まり
+        stats.ts                能力の名前(hp, atk, …)と、能力の表の形
+        limits.ts               上限の数字(66, 32, 500, 10, 6)
+        individual.ts           個体の形、ギミック設定の形
+        editIndividual.ts       選べる候補と、項目を変えるときの決まり
+        validateIndividual.ts   個体が決まりに合っているかの検査
       calc/                   ★計算。画面に依存しない純粋関数
         stats.ts                能力値
-        rounding.ts             切り捨て、五捨五超入、補正の連鎖
-        typeChart.ts            タイプ相性
+        statPoints.ts           能力ポイントの上限
         battler.ts              個体 → 戦闘中の姿(6.3 の流れ)
-        damage/
-          pipeline.ts           段階を順番に適用する本体
-          stages.ts             段階の順番表
-          modifier.ts           Modifier の形
-          ko.ts                 確定数
-          rules/                特性・持ち物・天気などの補正ルール
+        rounding.ts             (予定) 切り捨て、五捨五超入、補正の連鎖
+        typeChart.ts            (予定) タイプ相性
+        damage/                 (予定) ダメージ計算
+          pipeline.ts             段階を順番に適用する本体
+          stages.ts               段階の順番表
+          modifier.ts             Modifier の形
+          ko.ts                   確定数
+          rules/                  特性・持ち物・天気などの補正ルール
       gimmicks/               ★バトルギミック
         types.ts                共通の形(インターフェース)
         mega.ts                 メガシンカ
         registry.ts             登録簿
-      storage/                保存
+      storage/                (予定) 保存
         db.ts                   IndexedDB を開く
         individuals.ts          個体の読み書き
         teams.ts                チームの読み書き
         migrations.ts           マイグレーション
         exportImport.ts         JSON の書き出し/読み込み
       features/               画面(機能ごとにフォルダを分ける)
-        individuals/  teams/  damage/  settings/  gimmick-ui/
-      components/             複数の画面で使う部品(ボタン、選択欄など)
-      styles/                 CSS
+        individuals/            個体編集画面
+        gimmick-ui/             ギミックの設定欄と、その登録簿
+        teams/  damage/  settings/   (予定)
+      components/             複数の画面で使う部品(選択欄、タイプ表示)
+      styles/                 アプリ全体の CSS
 ```
 
 テストは、対象のファイルの隣に `stats.test.ts` のような名前で置きます。
@@ -665,16 +730,28 @@ ai-901_quiz_for_lalala/
 
 ### 9.1 入手先
 
-| 入手先 | 取れるもの | ライセンス | 注意 |
+| 入手先 | 使っているもの | ライセンス | 注意 |
 |---|---|---|---|
-| [PokéAPI](https://github.com/PokeAPI/pokeapi) の CSV | 種族値、タイプ、技、特性、持ち物、**日本語名** | BSD 3条項(プログラム部分) | 本編のデータ。チャンピオンズでの変更は入っていない |
-| [@smogon/calc](https://github.com/smogon/damage-calc) | 計算式の手本。0.12.0 にはチャンピオンズの対象一覧と変更点 | MIT | 名前は英語のみ |
-| ゲーム内の表示 | すべて | - | 最も確実。チャンピオンズ固有の値の最終確認に使う |
+| [Pokémon Showdown](https://github.com/smogon/pokemon-showdown) | 種族値、タイプ、特性、覚える技、技の性能、持ち物。`data/mods/champions/` に**チャンピオンズ用の変更**(使えるポケモン・技・持ち物、威力の変更、覚える技)がある | MIT | 有志が管理する非公式のデータ。名前は英語のみ |
+| [PokéAPI](https://github.com/PokeAPI/pokeapi) の CSV | 日本語名(ポケモン、技、特性、持ち物、タイプ、性格) | BSD 3条項(プログラム部分) | 本編のデータ。数値には使っていない |
+| [@smogon/calc](https://github.com/smogon/damage-calc) | ダメージ計算式の手本(ステップ4で使う)。0.12.0 にはチャンピオンズ専用の計算がある | MIT | |
+| ゲーム内の表示 | 最終確認 | - | 最も確実 |
 
-**進め方**: 数値は上の公開データから**補助プログラムで取得**し、手で写しません(写し間違いを防ぐ)。
-取得元と取得日を `sources.json` に記録します。出典で確認できなかった値は**空欄のまま**にし、
-推測で埋めません。チャンピオンズで本編から変わった技や特性があるため、
-追加したデータは最後にゲーム内の表示と見比べてください。
+**進め方**: 数値や名前は、公開データから**補助プログラムで取得**します(`npm run data:build`)。手で写しません。
+
+- 「どの時点のデータか」を固定する番号(commit)を `scripts/data-config.json` に書いてあり、
+  何度実行しても同じ結果になる。取得元と番号は `src/data/sources.json` に記録される
+- 取得したファイルは**プログラムとして実行しない**。文法どおりに分解して、値だけを取り出す
+- 取得元に無い値は、推測で埋めない。日本語名が無ければ英語名のまま入れて、警告の一覧に出す
+- 取得元は公式のデータではない。追加したポケモンは、ゲーム内の表示と見比べて確認する
+- ゲームの更新(新しいレギュレーションなど)を取り込むときは、commit を新しい番号に書き換えて作り直す
+
+**チャンピオンズ固有の決まり**(取得元のプログラムを読んで確認し、同じにしてあるもの)
+
+- 覚える技は、進化前のポケモンの技を引き継がない(そのポケモン自身の一覧だけを使う)
+- ロトムのフォルムのように「元の姿の技 + そのフォルムだけの技」を覚えるものは、両方を合わせる
+- 専用の技一覧を持たないフォルムは、元の姿と同じ技を覚える
+- 使えるメガシンカは「そのメガストーンがチャンピオンズで使える」ものだけ
 
 ### 9.2 ライセンス面の注意
 
@@ -688,24 +765,27 @@ ai-901_quiz_for_lalala/
 - 使ったデータの出典とライセンス表記をリポジトリに残す(MIT や BSD は著作権表示の保持が条件)
 - 攻略サイトの文章や表を、機械で大量に取得して使わない(各サイトの利用規約に反することが多い)
 
-### 9.3 あとからデータを足す方法(予定)
+### 9.3 あとからポケモンを足す方法
 
-1. 追加したいポケモンや技の ID を、対象一覧のファイルに書き足す
-2. 補助プログラムを実行する → JSON に追記される
-3. 検査プログラムを実行する → 項目の抜けや、存在しない ID の参照を見つける
-4. ゲーム内の表示と見比べる
-
-手で JSON に直接書き足すこともできます。その場合も 3 の検査で間違いを見つけられます。
+1. `scripts/data-config.json` の `pokemon` に、足したいポケモンの ID を書く
+   (英語名から記号と空白を除いて小文字にしたもの。例: Rotom-Wash → `rotomwash`)
+2. `npm run data:build` を実行する
+   → そのポケモンの種族値・特性・覚える技・メガシンカ、使う技と特性のデータが JSON に入る
+3. 最後に表示される「確認が必要なこと」を読む(日本語名が取得元に無かった、など)。
+   日本語名は `scripts/name-overrides.json` に書けば、そちらが優先される
+4. `npm test` を実行する → データの形や、存在しない ID の参照を自動で検査する
+5. ゲーム内の表示と見比べる
 
 ---
 
 ## 10. テストの方針とテスト例
 
 - 計算の層(`calc/` `gimmicks/` `storage/migrations.ts`)は Vitest で自動テストする
+- マスターデータ(JSON)の形と、ID の参照先が存在するかも、テストで検査する(`src/data/masterData.test.ts`)
 - テスト例は「ポケモン・入力値・期待する結果」の形で、各ステップで増やしていく
 - ダメージ計算は、手計算の例に加えて `@smogon/calc` の結果とも突き合わせる
 
-**能力値のテスト例**(ガブリアス。種族値 108 / 130 / 95 / 80 / 85 / 102 は PokéAPI の CSV で確認済み)
+**能力値のテスト例**(ガブリアス。種族値 108 / 130 / 95 / 80 / 85 / 102 は Pokémon Showdown と PokéAPI の両方で同じ値)
 
 例1: ようき(すばやさ↑ とくこう↓)、能力ポイント HP 2・こうげき 32・すばやさ 32(合計66)
 
@@ -724,6 +804,17 @@ ai-901_quiz_for_lalala/
 例3(上限の確認): 1つの能力に33を入れようとする → 入力できない。
 合計が66のとき、どの能力も増やせない(残り 0 と表示)
 
+例4(メガシンカ): 例1の個体にガブリアスナイトを持たせる。メガガブリアスの種族値は 108 / 170 / 115 / 120 / 95 / 92
+
+| 能力 | 計算 | 期待する実数値 |
+|---|---|---|
+| HP | 108 + 75 + 2 | **185** |
+| こうげき | floor((170 + 20 + 32) × 1.0) | **222** |
+| ぼうぎょ | floor((115 + 20 + 0) × 1.0) | **135** |
+| とくこう | floor((120 + 20 + 0) × 0.9) = floor(126.0) | **126** |
+| とくぼう | floor((95 + 20 + 0) × 1.0) | **115** |
+| すばやさ | floor((92 + 20 + 32) × 1.1) = floor(158.4) | **158** |
+
 ダメージのテスト例は、ダメージ計算のステップで示します。
 
 ---
@@ -734,7 +825,7 @@ ai-901_quiz_for_lalala/
 
 | ステップ | 作るもの | 確認の方法 |
 |---|---|---|
-| 1. 能力値計算 | プロジェクトの土台、サンプルデータ約10体、能力値の計算関数とテスト、個体編集画面(保存なし)、ギミックの共通の形とメガシンカ | テストが通る。画面で入力すると実数値と残りポイントが変わる。上の例と一致する |
+| 1. 能力値計算 **(完了)** | プロジェクトの土台、サンプルデータ約10体、能力値の計算関数とテスト、個体編集画面(保存なし)、ギミックの共通の形とメガシンカ | テストが通る。画面で入力すると実数値と残りポイントが変わる。上の例と一致する |
 | 2. 個体の保存 | IndexedDB への保存、個体一覧、複製・削除、上限500の通知、`schemaVersion` | 保存してページを再読み込みしても残っている |
 | 3. チーム編成 | チームの作成・名前変更・並べ替え・複製・削除、上限10の通知 | 6体を選んで保存できる。7体目や11チーム目が作れず、理由が表示される |
 | 4. ダメージ計算 | 式の本体とテスト → 補正ルール(天気・壁・持ち物・特性など) → 画面 | テスト例と一致する。計算画面で変えても保存データが変わらない |
@@ -747,6 +838,5 @@ ai-901_quiz_for_lalala/
 
 | 項目 | いつ決めるか |
 |---|---|
-| サンプル10体にどのポケモンを入れるか | ステップ1の最初 |
 | 対応する特性・持ち物の一覧(「主なもの」の範囲) | ステップ4の最初 |
 | 公開する場所(GitHub Pages など) | ステップ6 |

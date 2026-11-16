@@ -1,0 +1,204 @@
+/* アプリ全体で使う見た目の決まり。
+   色や大きさは、下の「変数」にまとめてある。変えたいときは変数の値を変える。 */
+
+:root {
+  /* 色(明るい画面) */
+  --bg: #f4f5f8;
+  --panel: #ffffff;
+  --ink: #1c2030;
+  --muted: #5d6478;
+  --line: #dfe2ea;
+  --accent: #3b4cca;
+  --accent-ink: #ffffff;
+  --accent-soft: #e9ecfb;
+  --up: #c0392b; /* 性格で上がる能力 */
+  --down: #2166c4; /* 性格で下がる能力 */
+  --ok: #1c7c4c;
+  --warn: #a15c00;
+  --warn-soft: #fff4dc;
+
+  /* 大きさ */
+  --radius: 12px;
+  --gap: 12px;
+  --tap: 40px; /* 指で押す部品の最小の高さ */
+  --nav-height: 56px;
+
+  color-scheme: light dark;
+  font-family:
+    system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic UI', 'Meiryo', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* 端末が「暗い画面」の設定のとき */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12141c;
+    --panel: #1c1f2b;
+    --ink: #e8eaf2;
+    --muted: #a3aabd;
+    --line: #303546;
+    --accent: #8f9cff;
+    --accent-ink: #10121a;
+    --accent-soft: #252a45;
+    --up: #ff8a7a;
+    --down: #7fb2ff;
+    --ok: #62d39a;
+    --warn: #f0b860;
+    --warn-soft: #33290f;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+p,
+dl,
+dd,
+ul {
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* キーボードで操作したとき、いまどこを選んでいるかを分かりやすくする */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ----- カード(白い箱) ----- */
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* ----- 入力欄 ----- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.field-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.field-control {
+  width: 100%;
+  min-height: var(--tap);
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ----- ボタン ----- */
+
+.button-quiet {
+  min-height: 32px;
+  padding: 2px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.8rem;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.button-quiet:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ----- タイプの表示 ----- */
+
+.type-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 1px 10px 1px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* 名前の左に、タイプごとの色の丸を付ける */
+.type-chip::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--type-color, var(--muted));
+}
+
+.type-chip[data-type='normal'] { --type-color: #9099a1; }
+.type-chip[data-type='fighting'] { --type-color: #ce4069; }
+.type-chip[data-type='flying'] { --type-color: #8fa8dd; }
+.type-chip[data-type='poison'] { --type-color: #ab6ac8; }
+.type-chip[data-type='ground'] { --type-color: #d97746; }
+.type-chip[data-type='rock'] { --type-color: #c7b78b; }
+.type-chip[data-type='bug'] { --type-color: #90c12c; }
+.type-chip[data-type='ghost'] { --type-color: #5269ac; }
+.type-chip[data-type='steel'] { --type-color: #5a8ea1; }
+.type-chip[data-type='fire'] { --type-color: #ff9c54; }
+.type-chip[data-type='water'] { --type-color: #4d90d5; }
+.type-chip[data-type='grass'] { --type-color: #63bb5b; }
+.type-chip[data-type='electric'] { --type-color: #f3d23b; }
+.type-chip[data-type='psychic'] { --type-color: #f97176; }
+.type-chip[data-type='ice'] { --type-color: #74cec0; }
+.type-chip[data-type='dragon'] { --type-color: #0a6dc4; }
+.type-chip[data-type='dark'] { --type-color: #5a5366; }
+.type-chip[data-type='fairy'] { --type-color: #ec8fe6; }
