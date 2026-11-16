@@ -1,0 +1,26 @@
+/* 設定の画面。 */
+
+.settings-actions {
+  justify-content: flex-start;
+}
+
+.settings-text {
+  min-height: 7em;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.settings-danger {
+  font-weight: 700;
+  color: var(--danger);
+}
+
+.settings-sources {
+  margin: 0;
+  padding-left: 1.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

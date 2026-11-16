@@ -12,3 +12,12 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 );
+
+// 公開版でだけ、サービスワーカーを登録する(通信なしでも開けるようにする仕組み。public と vite.config.ts を参照)。
+// 開発中に登録すると、古いファイルが使われ続けて混乱するので、登録しない。
+// 対応していない環境や、登録に失敗したときは、ふつうの Web ページとしてそのまま動く。
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}

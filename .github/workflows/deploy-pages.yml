@@ -1,0 +1,58 @@
+# GitHub Pages に公開するための手順書(ワークフロー)。
+#
+# 自動では動きません。GitHub の「Actions」タブから、手動で実行したときだけ動きます。
+# 使い方は champions/docs/STEP6.md の「公開のしかた」を見てください。
+#
+# やること
+#   1. champions/ のアプリをビルドする
+#   2. いまあるクイズ(index.html)はそのまま、アプリを /champions/ に置いた公開用フォルダを作る
+#   3. GitHub Pages に公開する
+
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch: # 手動で実行したときだけ動く
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: champions/package-lock.json
+      - name: アプリをテストしてビルドする
+        working-directory: champions
+        run: |
+          npm ci
+          npm test
+          npm run build
+      - name: 公開用のフォルダを作る
+        run: |
+          mkdir -p _site/champions
+          cp index.html _site/            # 既存の AI-901 クイズ
+          cp -r champions/dist/. _site/champions/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,19 +1,21 @@
 // アプリ全体の枠。上の見出し、画面の切り替え(タブ)、いま選んでいる画面を表示する。
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { masterData } from './data/index.ts';
 import DamagePage from './features/damage/DamagePage.tsx';
 import { createInitialDamageState } from './features/damage/state.ts';
 import IndividualsPage from './features/individuals/IndividualsPage.tsx';
+import SettingsPage from './features/settings/SettingsPage.tsx';
 import TeamsPage from './features/teams/TeamsPage.tsx';
+import { loadRegulationId, saveRegulationId } from './storage/settings.ts';
 
 /** 画面の一覧。id は内部で使う名前、label は表示する名前 */
 const SCREENS = [
-  { id: 'individuals', label: '個体', plannedStep: null },
-  { id: 'teams', label: 'チーム', plannedStep: null },
-  { id: 'damage', label: 'ダメージ計算', plannedStep: null },
-  { id: 'settings', label: '設定', plannedStep: 'ステップ5' },
+  { id: 'individuals', label: '個体' },
+  { id: 'teams', label: 'チーム' },
+  { id: 'damage', label: 'ダメージ計算' },
+  { id: 'settings', label: '設定' },
 ] as const;
 
 type ScreenId = (typeof SCREENS)[number]['id'];
@@ -28,8 +30,24 @@ export default function App() {
   // (ページを再読み込みすると消える。保存した個体には影響しない)
   const [damageState, setDamageState] = useState(() => createInitialDamageState(masterData));
 
-  // いまは、レギュレーションを選ぶ画面がまだ無いので、1つ目を使う
-  const regulation = masterData.regulations[0];
+  // 選んでいるレギュレーション。設定の画面で切り替える。選んだものは保存しておき、次に開いたときに読み込む
+  const [regulationId, setRegulationId] = useState(masterData.regulations[0].id);
+  useEffect(() => {
+    let cancelled = false;
+    loadRegulationId()
+      .then((saved) => {
+        if (!cancelled && saved && masterData.regulations.some((candidate) => candidate.id === saved)) setRegulationId(saved);
+      })
+      .catch(() => {}); // 読み込めなくても、1つ目のレギュレーションで使える
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const regulation = masterData.regulations.find((candidate) => candidate.id === regulationId) ?? masterData.regulations[0];
+  const changeRegulation = (id: string) => {
+    setRegulationId(id);
+    saveRegulationId(id).catch(() => {});
+  };
 
   return (
     <div className="app">
@@ -46,10 +64,7 @@ export default function App() {
         ) : screen.id === 'damage' ? (
           <DamagePage data={masterData} regulation={regulation} state={damageState} onChange={setDamageState} />
         ) : (
-          <section className="card placeholder">
-            <h2>{screen.label}</h2>
-            <p>この画面は{screen.plannedStep}で作ります。</p>
-          </section>
+          <SettingsPage data={masterData} regulation={regulation} onRegulationChange={changeRegulation} />
         )}
 
         <footer className="app-footer">

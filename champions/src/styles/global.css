@@ -239,6 +239,15 @@ select {
   color: var(--warn);
 }
 
+.notice-ok {
+  background: var(--accent-soft);
+  color: var(--ok);
+}
+
+.notice-plain {
+  border: 1px solid var(--line);
+}
+
 .notice-actions {
   display: flex;
   justify-content: flex-end;
