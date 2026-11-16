@@ -1,7 +1,7 @@
 // 確定数のテスト。
 
 import { describe, expect, it } from 'vitest';
-import { calcKo, formatKo } from './ko.ts';
+import { calcKo, calcKoMultiHit, formatKo } from './ko.ts';
 
 /** 16通りすべてが同じダメージ */
 const flat = (damage: number) => Array.from({ length: 16 }, () => damage);
@@ -57,5 +57,18 @@ describe('formatKo', () => {
   });
   it('とても高い確率でも 100.0% とは出さない(確定ではないため)', () => {
     expect(formatKo({ hits: 2, chance: 0.9999, isGuaranteed: false })).toBe('乱数2発(99.9%)');
+  });
+});
+
+describe('calcKoMultiHit: 連続技', () => {
+  it('30 ダメージが2回当たる技で HP 100 → 1回では 60、2回使えば 120 で確定2発', () => {
+    expect(calcKoMultiHit([flat(30), flat(30)], 100)).toEqual({ hits: 2, chance: 1, isGuaranteed: true });
+  });
+  it('回ごとに威力が違う技(20, 40, 60)の合計 120 で HP 120 → 確定1発', () => {
+    expect(calcKoMultiHit([flat(20), flat(40), flat(60)], 120)).toEqual({ hits: 1, chance: 1, isGuaranteed: true });
+  });
+  it('1回当たる技では calcKo と同じ結果', () => {
+    const rolls = [138, 140, 140, 144, 144, 146, 150, 150, 152, 152, 156, 156, 158, 158, 162, 164];
+    expect(calcKoMultiHit([rolls], 155)).toEqual(calcKo(rolls, 155));
   });
 });

@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import './App.css';
 import { masterData } from './data/index.ts';
+import DamagePage from './features/damage/DamagePage.tsx';
+import { createInitialDamageState } from './features/damage/state.ts';
 import IndividualsPage from './features/individuals/IndividualsPage.tsx';
 import TeamsPage from './features/teams/TeamsPage.tsx';
 
@@ -10,7 +12,7 @@ import TeamsPage from './features/teams/TeamsPage.tsx';
 const SCREENS = [
   { id: 'individuals', label: '個体', plannedStep: null },
   { id: 'teams', label: 'チーム', plannedStep: null },
-  { id: 'damage', label: 'ダメージ計算', plannedStep: 'ステップ4' },
+  { id: 'damage', label: 'ダメージ計算', plannedStep: null },
   { id: 'settings', label: '設定', plannedStep: 'ステップ5' },
 ] as const;
 
@@ -21,6 +23,10 @@ export default function App() {
   // ここでは「いまどの画面を表示しているか」を覚えている。
   const [screenId, setScreenId] = useState<ScreenId>('individuals');
   const screen = SCREENS.find((candidate) => candidate.id === screenId)!;
+
+  // ダメージ計算の画面の一時データ。ほかの画面へ切り替えても消えないよう、ここで持つ
+  // (ページを再読み込みすると消える。保存した個体には影響しない)
+  const [damageState, setDamageState] = useState(() => createInitialDamageState(masterData));
 
   // いまは、レギュレーションを選ぶ画面がまだ無いので、1つ目を使う
   const regulation = masterData.regulations[0];
@@ -37,6 +43,8 @@ export default function App() {
           <IndividualsPage data={masterData} regulation={regulation} />
         ) : screen.id === 'teams' ? (
           <TeamsPage data={masterData} />
+        ) : screen.id === 'damage' ? (
+          <DamagePage data={masterData} regulation={regulation} state={damageState} onChange={setDamageState} />
         ) : (
           <section className="card placeholder">
             <h2>{screen.label}</h2>

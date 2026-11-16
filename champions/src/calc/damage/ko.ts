@@ -23,29 +23,42 @@ export const MAX_KO_HITS = 10;
  * @returns 結果。ダメージが 0、または MAX_KO_HITS 発でも倒せないときは null
  */
 export function calcKo(rolls: readonly number[], hp: number): KoResult | null {
-  const max = Math.max(...rolls);
-  const min = Math.min(...rolls);
+  return calcKoMultiHit([rolls], hp);
+}
+
+/**
+ * 連続技の確定数を求める。「技を1回使う」ごとに、複数回のダメージが入る。
+ * @param hitRolls 技1回ぶんの、各ヒットのダメージ16通り(2回当たる技なら、16通りの配列が2つ)
+ * @param hp 相手の残りHP
+ * @returns 結果。hits は「技を使う回数」
+ */
+export function calcKoMultiHit(hitRolls: readonly (readonly number[])[], hp: number): KoResult | null {
+  const sum = (pick: (rolls: readonly number[]) => number) => hitRolls.reduce((total, rolls) => total + pick(rolls), 0);
+  const max = sum((rolls) => Math.max(...rolls));
+  const min = sum((rolls) => Math.min(...rolls));
   if (max <= 0 || hp <= 0) return null;
 
   // 「合計ダメージ → その合計になる確率」の表。最初は「0ダメージが確率1」
   // 合計が hp 以上になったものは、まとめて hp として扱う(倒せたことに変わりはないため)
   let distribution = new Map<number, number>([[0, 1]]);
 
-  for (let hits = 1; hits <= MAX_KO_HITS; hits++) {
-    // 1発ぶん進める: いまの合計それぞれに、16通りのダメージを足す
-    const next = new Map<number, number>();
-    for (const [total, probability] of distribution) {
-      for (const roll of rolls) {
-        const newTotal = Math.min(hp, total + roll);
-        next.set(newTotal, (next.get(newTotal) ?? 0) + probability / rolls.length);
+  for (let uses = 1; uses <= MAX_KO_HITS; uses++) {
+    // 技1回ぶん進める: ヒットごとに、いまの合計それぞれへ16通りのダメージを足す
+    for (const rolls of hitRolls) {
+      const next = new Map<number, number>();
+      for (const [total, probability] of distribution) {
+        for (const roll of rolls) {
+          const newTotal = Math.min(hp, total + roll);
+          next.set(newTotal, (next.get(newTotal) ?? 0) + probability / rolls.length);
+        }
       }
+      distribution = next;
     }
-    distribution = next;
 
-    if (max * hits >= hp) {
+    if (max * uses >= hp) {
       // 最大ダメージが続けば倒せる回数に届いた = 倒せる可能性がある最小の回数
-      const isGuaranteed = min * hits >= hp;
-      return { hits, chance: isGuaranteed ? 1 : (distribution.get(hp) ?? 0), isGuaranteed };
+      const isGuaranteed = min * uses >= hp;
+      return { hits: uses, chance: isGuaranteed ? 1 : (distribution.get(hp) ?? 0), isGuaranteed };
     }
   }
   return null;
